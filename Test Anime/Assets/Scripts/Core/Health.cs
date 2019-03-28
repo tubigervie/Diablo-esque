@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     public class Health : MonoBehaviour
     {
         [SerializeField] float healthPoints = 100f;
         bool isDead;
+
+        public bool IsDead()
+        {
+            return isDead;
+        }
 
         public void TakeDamage(float damage)
         {
@@ -15,9 +20,15 @@ namespace RPG.Combat
             healthPoints = Mathf.Max(healthPoints, 0);
             if(healthPoints == 0 && !isDead)
             {
-                isDead = true;
-                GetComponent<Animator>().SetTrigger("die");
+                Die();
             }
+        }
+
+        private void Die()
+        {
+            isDead = true;
+            GetComponent<Animator>().SetTrigger("die");
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }

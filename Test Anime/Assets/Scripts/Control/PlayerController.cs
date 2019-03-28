@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -10,16 +11,20 @@ namespace RPG.Control
     {
         Mover mover;
         Fighter fighter;
+        Health health;
         // Start is called before the first frame update
         void Start()
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (health.IsDead())
+                return;
             if (InteractWithCombat())
                 return;
             if (InteractWithMovement())
@@ -34,9 +39,11 @@ namespace RPG.Control
                 CombatTarget target = hit.collider.gameObject.GetComponent<CombatTarget>();
                 if (target == null)
                     continue;
+                if (!GetComponent<Fighter>().CanAttack(target.gameObject))
+                    continue;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    fighter.Attack(target);
+                    fighter.Attack(target.gameObject);
                 }
                 return true;
             }

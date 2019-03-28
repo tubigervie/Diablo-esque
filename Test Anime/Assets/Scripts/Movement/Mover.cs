@@ -14,17 +14,20 @@ namespace RPG.Movement
         Ray lastRay;
         Animator anim;
         ActionScheduler actionScheduler;
+        Health health;
 
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
+            health = GetComponent<Health>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            agent.enabled = !health.IsDead();
             UpdateAnimator();
         }
 
