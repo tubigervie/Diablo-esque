@@ -41,7 +41,7 @@ namespace RPG.Control
                     continue;
                 if (!GetComponent<Fighter>().CanAttack(target.gameObject))
                     continue;
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
                     fighter.Attack(target.gameObject);
                 }
@@ -61,9 +61,9 @@ namespace RPG.Control
             bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
             if (hasHit)
             {
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0) && Vector3.Distance(transform.position, hit.point) > .5f)
                 {
-                    mover.StartMoveAction(hit.point);
+                    mover.StartMoveAction(hit.point, 1f);
                 }
                 return true;
             }
