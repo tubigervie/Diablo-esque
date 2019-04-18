@@ -12,7 +12,7 @@ namespace RPG.Saving
         [SerializeField] string uniqueIdentifier = "";
         public string GetUniqueIdentifier()
         {
-            return "";
+            return uniqueIdentifier;
         }
 
         public object CaptureState()
