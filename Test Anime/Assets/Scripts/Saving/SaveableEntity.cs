@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using RPG.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
 
 namespace RPG.Saving
 {
@@ -17,13 +17,25 @@ namespace RPG.Saving
 
         public object CaptureState()
         {
-            Debug.Log("Capturing state for: " + GetUniqueIdentifier());
-            return null;
+            Dictionary<string, object> state = new Dictionary<string, object>();
+            foreach(ISaveable saveable in GetComponents<ISaveable>())
+            {
+                state[saveable.GetType().ToString()] = saveable.CaptureState();
+            }
+            return state;
         }
 
         public void RestoreState(object state)
         {
-            Debug.Log("Restoring state for: " + GetUniqueIdentifier());
+            Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
+            foreach (ISaveable saveable in GetComponents<ISaveable>())
+            {
+                string typeString = saveable.GetType().ToString();
+                if(stateDict.ContainsKey(typeString))
+                {
+                    saveable.RestoreState(stateDict[typeString]);
+                }
+            }
         }
 
         private void Update()

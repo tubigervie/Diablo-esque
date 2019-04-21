@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedH: 1
+  smoothTime: 0.3
   camera: {fileID: 1869809027616703179}
 --- !u!1 &1869809027935503164
 GameObject:
@@ -692,7 +693,7 @@ PrefabInstance:
     - target: {fileID: 1005868931783810146, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
       propertyPath: uniqueIdentifier
-      value: 2ab3d613-799b-44f7-ab1b-8c6180d3c20c
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e325077345883d41841e65f6e8d9ba2, type: 3}

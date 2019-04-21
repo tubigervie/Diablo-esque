@@ -8,12 +8,37 @@ namespace RPG.Saving
     {
         const string defaultSaveFile = "save";
 
+        private void Start()
+        {
+            Load();
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-                GetComponent<SavingSystem>().Save(defaultSaveFile);
+                Save();
             else if (Input.GetKeyDown(KeyCode.L))
-                GetComponent<SavingSystem>().Load(defaultSaveFile);
+            {
+                StartCoroutine("LoadTransition");
+            }
+        }
+
+        IEnumerator LoadTransition()
+        {
+            SceneManagement.Fader fader = FindObjectOfType<SceneManagement.Fader>();
+            yield return fader.FadeOut(1);
+            Load();
+            yield return fader.FadeIn(1);
+        }
+
+        public void Load()
+        {
+            GetComponent<SavingSystem>().Load(defaultSaveFile);
+        }
+
+        public void Save()
+        {
+            GetComponent<SavingSystem>().Save(defaultSaveFile);
         }
     }
 }
