@@ -7,12 +7,13 @@ namespace RPG.Core
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        [SerializeField] float healthPoints = 100f;
+        [SerializeField] float currentHealthPoints;
+        [SerializeField] float maxHealthPoints = 100f;
         bool isDead;
 
         public object CaptureState()
         {
-            return healthPoints;
+            return currentHealthPoints;
         }
 
         public bool IsDead()
@@ -22,12 +23,12 @@ namespace RPG.Core
 
         public void RestoreState(object state)
         {
-            healthPoints = (float)state;
-            if (healthPoints == 0 && !isDead)
+            currentHealthPoints = (float)state;
+            if (currentHealthPoints == 0 && !isDead)
             {
                 Die();
             }
-            else if(healthPoints > 0)
+            else if(currentHealthPoints > 0)
             {
                 isDead = false;
                 GetComponent<Animator>().ResetTrigger("die");
@@ -37,12 +38,22 @@ namespace RPG.Core
 
         public void TakeDamage(float damage)
         {
-            healthPoints -= damage;
-            healthPoints = Mathf.Max(healthPoints, 0);
-            if(healthPoints == 0 && !isDead)
+            currentHealthPoints -= damage;
+            currentHealthPoints = Mathf.Max(currentHealthPoints, 0);
+            if(currentHealthPoints == 0 && !isDead)
             {
                 Die();
             }
+        }
+
+        public float GetCurrentHealth()
+        {
+            return currentHealthPoints;
+        }
+
+        public float GetTotalHealth()
+        {
+            return maxHealthPoints;
         }
 
         private void Die()

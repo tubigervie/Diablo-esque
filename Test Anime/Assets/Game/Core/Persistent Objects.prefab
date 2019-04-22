@@ -149,6 +149,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8651889099640710086, guid: f4b4bb8d72f6f894192dd115389c744c,
+        type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4b4bb8d72f6f894192dd115389c744c, type: 3}
 --- !u!224 &5249875611187072492 stripped
@@ -168,6 +173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SavingSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 49180673346408213, guid: c4fd8e22646d8da43a42461e99608862,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4095650779380699026, guid: c4fd8e22646d8da43a42461e99608862,
         type: 3}
@@ -223,6 +233,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368584640777207535, guid: c4fd8e22646d8da43a42461e99608862,
+        type: 3}
+      propertyPath: m_BlockingObjects
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563877777374515990, guid: c4fd8e22646d8da43a42461e99608862,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4fd8e22646d8da43a42461e99608862, type: 3}

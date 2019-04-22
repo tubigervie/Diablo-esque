@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.SceneManagement;
 
 namespace RPG.Saving
 {
@@ -34,11 +35,28 @@ namespace RPG.Saving
             {
                 state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
             }
+            state["currentSceneBuildIndex"] = SceneManager.GetActiveScene().name;
         }
 
         public void Load(string saveFile)
         {     
             RestoreState(LoadFile(saveFile));
+        }
+
+        public IEnumerator LoadLastScene(string saveFile)
+        {
+            Dictionary<string, object> state = LoadFile(saveFile);
+
+            if (state.ContainsKey("currentSceneBuildIndex"))
+            {
+                string buildIndexToRestore = (string)state["currentSceneBuildIndex"];
+                if (buildIndexToRestore != SceneManager.GetActiveScene().name)
+                {
+                    yield return SceneManager.LoadSceneAsync(buildIndexToRestore);
+                }
+            }
+
+            RestoreState(state);
         }
 
         private Dictionary<string, object> LoadFile(string saveFile)
@@ -71,7 +89,12 @@ namespace RPG.Saving
         {
             return Path.Combine(Application.persistentDataPath, saveFile + ".sav");
         }
-    }
+
+        public void DeleteAutoSave(string saveFile)
+        {
+            File.Delete(GetPathFromSaveFile(saveFile));
+        }
+    }   
 
 }
 

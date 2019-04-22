@@ -1,44 +1,83 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Saving;
+using RPG.Control;
 
-namespace RPG.Saving
+namespace RPG.SceneManagement
 {
     public class SavingWrapper : MonoBehaviour
     {
+        SavingSystem savingSystem;
         const string defaultSaveFile = "save";
+        const string autoSaveFile = "autosave";
+        [SerializeField] GameObject saveUI;
+        bool saveUIOn = false;
 
-        private void Start()
+        [SerializeField] GameObject player;
+
+
+
+        private IEnumerator Start()
         {
-            Load();
+            
+            GetComponent<SavingSystem>().DeleteAutoSave(autoSaveFile);
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            player = GameObject.FindGameObjectWithTag("Player");
+            yield return new WaitForSeconds(1);
+            yield return fader.FadeIn(2);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-                Save();
-            else if (Input.GetKeyDown(KeyCode.L))
             {
-                StartCoroutine("LoadTransition");
+                ToggleSaveUI();
             }
+        }
+
+        private void ToggleSaveUI()
+        {
+            if(player == null)
+                player = GameObject.FindGameObjectWithTag("Player");
+            saveUIOn = !saveUIOn;
+            saveUI.SetActive(saveUIOn);
+            player.GetComponent<PlayerController>().enabled = !saveUIOn;
         }
 
         IEnumerator LoadTransition()
         {
-            SceneManagement.Fader fader = FindObjectOfType<SceneManagement.Fader>();
-            yield return fader.FadeOut(1);
-            Load();
-            yield return fader.FadeIn(1);
+            ToggleSaveUI();
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            yield return new WaitForSeconds(1);
+            yield return fader.FadeIn(2);
         }
 
         public void Load()
         {
-            GetComponent<SavingSystem>().Load(defaultSaveFile);
+            StartCoroutine("LoadTransition");
         }
 
         public void Save()
         {
+            ToggleSaveUI();
             GetComponent<SavingSystem>().Save(defaultSaveFile);
+        }
+
+        public void AutoSave()
+        {
+            if (saveUIOn)
+                ToggleSaveUI();
+            GetComponent<SavingSystem>().Save(autoSaveFile);
+        }
+
+        public void loadAuto()
+        {
+            GetComponent<SavingSystem>().Load(autoSaveFile);
         }
     }
 }

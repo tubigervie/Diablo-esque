@@ -31,6 +31,12 @@ namespace RPG.SceneManagement
 
         private IEnumerator Transition()
         {
+            if(string.IsNullOrEmpty(sceneName))
+            {
+                Debug.Log("Could not load scene");
+                yield break;
+            }
+
             DontDestroyOnLoad(gameObject);
 
 
@@ -39,15 +45,16 @@ namespace RPG.SceneManagement
 
             yield return fader.FadeOut(fadeOutTime);
 
-            savingWrapper.Save();
+            savingWrapper.AutoSave();
 
             yield return SceneManager.LoadSceneAsync(sceneName);
 
             Portal otherPortal = GetOtherPortal();
 
-            savingWrapper.Load();
-
+            savingWrapper.loadAuto();
             UpdatePlayer(otherPortal);
+
+            savingWrapper.AutoSave();
 
             yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(fadeInTime);
