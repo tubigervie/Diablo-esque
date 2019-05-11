@@ -8,22 +8,33 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        //Health health;
         ActionScheduler actionScheduler;
         Health combatTarget;
         Mover mover;
         Animator anim;
+
+        [SerializeField] GameObject weaponPrefab = null;
+        [SerializeField] Transform handTransform = null;
+
         [SerializeField] float weaponDamage = 5f;
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
+        [SerializeField] Weapon weapon;
+
         float timeSinceLastAttack = Mathf.Infinity;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
             anim = GetComponent<Animator>();
-            //health = GetComponent<Health>();
             actionScheduler = GetComponent<ActionScheduler>();
+            SpawnWeapon();
+        }
+
+        private void SpawnWeapon()
+        {
+            if (weapon == null) return;
+            weapon.Spawn(handTransform, anim);
         }
 
         private void Update()
