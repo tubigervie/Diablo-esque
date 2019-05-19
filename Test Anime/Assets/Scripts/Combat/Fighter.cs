@@ -13,28 +13,25 @@ namespace RPG.Combat
         Mover mover;
         Animator anim;
 
-        [SerializeField] GameObject weaponPrefab = null;
-        [SerializeField] Transform handTransform = null;
-
-        [SerializeField] float weaponDamage = 5f;
-        [SerializeField] float weaponRange = 2f;
-        [SerializeField] float timeBetweenAttacks = 1f;
-        [SerializeField] Weapon weapon;
+        [SerializeField] Transform rightHandTransform = null;
+        [SerializeField] Transform leftHandTransform = null;
+        [SerializeField] Weapon defaultWeapon;
 
         float timeSinceLastAttack = Mathf.Infinity;
+        Weapon currentWeapon = null;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
             anim = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
-            SpawnWeapon();
+            EquipWeapon(defaultWeapon);
         }
 
-        private void SpawnWeapon()
+        public void EquipWeapon(Weapon weapon)
         {
-            if (weapon == null) return;
-            weapon.Spawn(handTransform, anim);
+            currentWeapon = weapon;
+            weapon.Spawn(rightHandTransform, leftHandTransform, anim);
         }
 
         private void Update()
@@ -79,7 +76,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, combatTarget.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, combatTarget.transform.position) < currentWeapon.GetWeaponRange();
         }
 
         void Hit()
@@ -87,13 +84,23 @@ namespace RPG.Combat
             if (combatTarget == null)
                 return;
             Health healthComponent = combatTarget.GetComponent<Health>();
-            healthComponent.TakeDamage(weaponDamage);
+            if(currentWeapon.HasProjectile())
+            {
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent);
+            }
+            else
+                healthComponent.TakeDamage(currentWeapon.GetWeaponDamage());
+        }
+
+        void Shoot()
+        {
+            Hit();
         }
 
         void AttackBehavior()
         {
             transform.LookAt(combatTarget.transform);
-            if(timeSinceLastAttack > timeBetweenAttacks)
+            if(timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween())
             {
                 TriggerAttack(); //This will trigger the Hit() event
                 timeSinceLastAttack = 0;

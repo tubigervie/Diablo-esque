@@ -569,6 +569,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3540896704226756367}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3540896704227164789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 411002, guid: 602194f8ef12a1f4ab13f84c2a01a272,
+    type: 3}
+  m_PrefabInstance: {fileID: 3540896704226756367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3540896704227050813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 492082, guid: 602194f8ef12a1f4ab13f84c2a01a272,
@@ -690,16 +696,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 5007092953221788180, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -755,6 +751,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4538827784363355467, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
       propertyPath: m_IsTrigger
@@ -792,6 +798,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a276931967c9221439832ce54fd7f07c,
         type: 2}
+    - target: {fileID: 1612619967160946372, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 3540896704227108875}
+    - target: {fileID: 1612619967160946372, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: leftHandTransform
+      value: 
+      objectReference: {fileID: 3540896704227164789}
     - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
       propertyPath: healthPoints
