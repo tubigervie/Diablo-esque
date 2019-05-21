@@ -24,12 +24,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44e33fc99913bb4787ef407eeceac6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseDistance: 5
+  detectDistance: 5
+  chaseDistance: 12
   suspicionTime: 5
   patrolPath: {fileID: 0}
   waypointTolerance: 0.5
   patrolSpeedFraction: 0.5
   wayPointTime: 5
+  currentAggro: 0
 --- !u!1001 &2328368421618499801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,6 +202,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7290415465781506765}
     m_Modifications:
+    - target: {fileID: 400272, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.015941845
+      objectReference: {fileID: 0}
+    - target: {fileID: 400272, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6844141
+      objectReference: {fileID: 0}
+    - target: {fileID: 425566, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00000047544484
+      objectReference: {fileID: 0}
+    - target: {fileID: 425566, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0007359719
+      objectReference: {fileID: 0}
+    - target: {fileID: 436364, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.013043527
+      objectReference: {fileID: 0}
+    - target: {fileID: 436364, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9072159
+      objectReference: {fileID: 0}
+    - target: {fileID: 456404, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0000006500023
+      objectReference: {fileID: 0}
+    - target: {fileID: 456404, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0007360559
+      objectReference: {fileID: 0}
     - target: {fileID: 113598, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
       propertyPath: m_Name
       value: Barbarian 01
@@ -552,14 +586,6 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 5385881859841971782}
-    - target: {fileID: 436364, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.013043527
-      objectReference: {fileID: 0}
-    - target: {fileID: 436364, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9072159
-      objectReference: {fileID: 0}
     - target: {fileID: 405458, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -571,30 +597,6 @@ PrefabInstance:
     - target: {fileID: 405458, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 400272, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.015941845
-      objectReference: {fileID: 0}
-    - target: {fileID: 400272, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.6844141
-      objectReference: {fileID: 0}
-    - target: {fileID: 456404, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.0000006500023
-      objectReference: {fileID: 0}
-    - target: {fileID: 456404, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.0007360559
-      objectReference: {fileID: 0}
-    - target: {fileID: 425566, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.00000047544484
-      objectReference: {fileID: 0}
-    - target: {fileID: 425566, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0007359719
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9528802, guid: dbb53009ea578924a980b8e77508f7a0, type: 3}

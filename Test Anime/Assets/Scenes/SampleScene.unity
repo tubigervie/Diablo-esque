@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.35286453, g: 0.57364714, b: 0.8686612, a: 1}
+  m_IndirectSpecularColor: {r: 0.35299277, g: 0.5737034, b: 0.86865616, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -454,16 +454,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -473,6 +463,16 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -711,16 +711,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -730,6 +720,16 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -1295,16 +1295,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -1314,6 +1304,21 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 848048684}
+    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -1325,11 +1330,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: fd137131-fe66-4072-ad4d-373723af6b59
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 848048684}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!4 &610898532 stripped
@@ -1718,7 +1718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865951824}
   m_LocalRotation: {x: 0.00019466049, y: -0.9970338, z: 0.076924205, w: -0.0025230434}
-  m_LocalPosition: {x: -1.6378471, y: 5.0510774, z: -2.5176759}
+  m_LocalPosition: {x: -1.713033, y: 5.0510187, z: -2.5180519}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1556379277}
@@ -1869,16 +1869,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -1888,6 +1878,21 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 3594118166325817565}
+    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -1899,11 +1904,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: 7efbedde-5a60-43c4-a9d1-d9a4ac9fa8c3
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 3594118166325817565}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!1001 &920859396
@@ -2773,16 +2773,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -2792,6 +2782,21 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 1214399091}
+    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -2803,11 +2808,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: a97abbee-f939-4edf-8f75-860ce8dbe042
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 1214399091}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!1 &1214399089
@@ -4463,16 +4463,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -4482,6 +4472,21 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 353503760}
+    - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: m_Speed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2210459740711447956, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -4493,11 +4498,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: ae390f26-6918-493a-9912-98d070109ebb
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 353503760}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!1 &1919511981

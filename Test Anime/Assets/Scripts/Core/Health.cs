@@ -1,4 +1,5 @@
-﻿using RPG.Saving;
+﻿using RPG.Control;
+using RPG.Saving;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,9 @@ namespace RPG.Core
         public void TakeDamage(float damage)
         {
             currentHealthPoints -= damage;
+            AIController ai = GetComponent<AIController>();
+            if (ai != null)
+                ai.AddAggro(damage);
             currentHealthPoints = Mathf.Max(currentHealthPoints, 0);
             if(currentHealthPoints == 0 && !isDead)
             {

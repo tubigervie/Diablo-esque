@@ -42,8 +42,8 @@ public class Projectile : MonoBehaviour
             target.TakeDamage(damage);
             TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
             trail.gameObject.transform.parent = null;
-            Destroy(trail, 1f);
-            Destroy(this.gameObject, .1f);
+            Destroy(trail.gameObject, 1f);
+            Destroy(this.gameObject);
         }
     }
 }

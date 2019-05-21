@@ -86,7 +86,7 @@ PrefabInstance:
     - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: chaseDistance
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5385881859853783488, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}

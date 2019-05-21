@@ -10,7 +10,8 @@ namespace RPG.Control
 {
     public class AIController : MonoBehaviour
     {
-        [SerializeField] float chaseDistance = 5f;
+        [SerializeField] float detectDistance = 5f;
+        [SerializeField] float chaseDistance = 10f;
         [SerializeField] float suspicionTime = 5f;
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = .5f;
@@ -27,6 +28,7 @@ namespace RPG.Control
         float timeSinceLastSawPlayer = Mathf.Infinity;
         int currentWaypointIndex = 0;
         float timeSinceLastWaypoint = Mathf.Infinity;
+        [SerializeField] float currentAggro = 0;
 
         private void Start()
         {
@@ -42,7 +44,7 @@ namespace RPG.Control
         {
             if (health.IsDead())
                 return;
-            if (InAttackRange() && fighter.CanAttack(player))
+            if ((InAttackRange() || (Vector3.Distance(player.transform.position, transform.position) < chaseDistance && currentAggro > 0)) && fighter.CanAttack(player))
             {
                 timeSinceLastSawPlayer = 0;
                 AttackBehavior();
@@ -63,6 +65,9 @@ namespace RPG.Control
         {
             timeSinceLastSawPlayer += Time.deltaTime;
             timeSinceLastWaypoint += Time.deltaTime;
+            currentAggro -= Time.deltaTime;
+            if (currentAggro < 0)
+                currentAggro = 0;
         }
 
         private void PatrolBehavior()
@@ -109,13 +114,21 @@ namespace RPG.Control
 
         private bool InAttackRange()
         {
-            return Vector3.Distance(player.transform.position, transform.position) < chaseDistance;
+            return Vector3.Distance(player.transform.position, transform.position) < detectDistance;
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, detectDistance);
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
+        }
+
+        public void AddAggro(float damage)
+        {
+            currentAggro += Mathf.Clamp(damage, 0, 10);
+            if (currentAggro > 100)
+                currentAggro = 100;
         }
     }
 }
