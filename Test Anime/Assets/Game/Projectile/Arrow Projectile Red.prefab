@@ -7,16 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2865314515808014173, guid: 053fd9d2bc3694f42bf234d832329204,
-        type: 3}
-      propertyPath: isHoming
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3531734870183960133, guid: 053fd9d2bc3694f42bf234d832329204,
         type: 3}
       propertyPath: m_Name
       value: Arrow Projectile Red
       objectReference: {fileID: 0}
+    - target: {fileID: 2865314515808014173, guid: 053fd9d2bc3694f42bf234d832329204,
+        type: 3}
+      propertyPath: isHoming
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865314515808014173, guid: 053fd9d2bc3694f42bf234d832329204,
+        type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 2302457091093092515, guid: 91eb0123686090f47b16e36e38ce1931,
+        type: 3}
     - target: {fileID: 6181755184656854905, guid: 053fd9d2bc3694f42bf234d832329204,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -5,10 +5,11 @@ using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using System;
+using RPG.Saving;
 
 namespace RPG.Control
 {
-    public class AIController : MonoBehaviour
+    public class AIController : MonoBehaviour, ISaveable
     {
         [SerializeField] float detectDistance = 5f;
         [SerializeField] float chaseDistance = 10f;
@@ -37,6 +38,17 @@ namespace RPG.Control
             health = GetComponent<Health>();
             guardPosition = transform.position;
             mover = GetComponent<Mover>();
+        }
+
+
+        public object CaptureState()
+        {
+            return currentAggro;
+        }
+
+        public void RestoreState(object state)
+        {
+            currentAggro = (float)state;
         }
 
 

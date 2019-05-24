@@ -63,6 +63,7 @@ namespace RPG.Core
         private void Die()
         {
             isDead = true;
+            Debug.Log(gameObject.name);
             GetComponent<Animator>().SetTrigger("die");
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }

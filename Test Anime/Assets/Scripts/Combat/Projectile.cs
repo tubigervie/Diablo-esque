@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     Health target = null;
     [SerializeField] float speed = 1;
     [SerializeField] bool isHoming = true;
+    [SerializeField] GameObject hitEffect = null;
     float damage = 0;
 
     private void Start()
@@ -53,8 +54,17 @@ public class Projectile : MonoBehaviour
                 return;
             target.TakeDamage(damage);
             TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
-            trail.gameObject.transform.parent = null;
-            Destroy(trail.gameObject, 1f);
+            if(trail != null)
+            {
+                trail.gameObject.transform.parent = null;
+                Destroy(trail.gameObject, 1f);
+            }
+            GameObject fx;
+            if (hitEffect != null)
+            {
+                fx = Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+                Destroy(fx, 1f);
+            }       
             Destroy(this.gameObject);
         }
     }

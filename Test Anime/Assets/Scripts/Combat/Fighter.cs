@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Combat
 {
@@ -33,6 +34,7 @@ namespace RPG.Combat
             currentWeapon = weapon;
             weapon.Spawn(rightHandTransform, leftHandTransform, anim);
         }
+
 
         private void Update()
         {
