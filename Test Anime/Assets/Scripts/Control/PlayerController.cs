@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Core;
+using RPG.UI;
 
 namespace RPG.Control
 {
@@ -12,12 +13,15 @@ namespace RPG.Control
         Mover mover;
         Fighter fighter;
         Health health;
+        EnemyHealthUI targetHealth;
+        
         // Start is called before the first frame update
         void Start()
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
+            targetHealth = GetComponent<EnemyHealthUI>();
         }
 
         // Update is called once per frame
@@ -36,12 +40,18 @@ namespace RPG.Control
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach(RaycastHit hit in hits)
             {
+                bool clickInput = Input.GetMouseButtonDown(0);
                 CombatTarget target = hit.collider.gameObject.GetComponent<CombatTarget>();
                 if (target == null)
                     continue;
                 if (!GetComponent<Fighter>().CanAttack(target.gameObject))
                     continue;
-                if (Input.GetMouseButton(0))
+                if (clickInput && (!targetHealth.IsActive() || targetHealth.target != target.gameObject.GetComponent<Health>()))
+                {
+                    if(Vector3.Distance(transform.position, target.transform.position) < 20)
+                        targetHealth.OnEnabled(target.gameObject.GetComponent<Health>());
+                }
+                else if(clickInput)
                 {
                     fighter.Attack(target.gameObject);
                 }
