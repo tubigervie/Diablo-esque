@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Core;
 using UnityEngine.AI;
+using RPG.Resources;
 
 namespace RPG.Movement
 {

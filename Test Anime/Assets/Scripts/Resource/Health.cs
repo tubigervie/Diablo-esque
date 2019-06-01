@@ -1,16 +1,24 @@
 ﻿using RPG.Control;
+using RPG.Core;
 using RPG.Saving;
+using RPG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Core
+namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float currentHealthPoints;
         [SerializeField] float maxHealthPoints = 100f;
         bool isDead;
+
+        private void Start()
+        {
+            maxHealthPoints = GetComponent<BaseStats>().GetHealth();
+        }
+
 
         public object CaptureState()
         {
