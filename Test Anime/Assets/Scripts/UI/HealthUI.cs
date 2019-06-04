@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using RPG.Resources;
+using RPG.Resource;
 
 namespace RPG.UI
 {
@@ -11,6 +11,11 @@ namespace RPG.UI
     {
         [SerializeField] Image healthSlider;
         [SerializeField] Health healthComponent;
+
+        private void Awake()
+        {
+            healthComponent = GameObject.FindWithTag("Player").GetComponent<Health>();
+        }
 
         private void Start()
         {

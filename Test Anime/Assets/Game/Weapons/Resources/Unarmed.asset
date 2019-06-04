@@ -17,3 +17,5 @@ MonoBehaviour:
   weaponDamage: 3
   weaponRange: 2
   timeBetweenAttacks: 0.75
+  isRight: 1
+  projectile: {fileID: 0}

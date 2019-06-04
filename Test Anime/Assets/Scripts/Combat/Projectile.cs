@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Resources;
+using RPG.Resource;
 
 public class Projectile : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] bool isHoming = true;
     [SerializeField] GameObject hitEffect = null;
     float damage = 0;
+    GameObject instigator;
 
     private void Start()
     {
@@ -30,8 +31,9 @@ public class Projectile : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
-    public void SetTarget(Health target, float damage)
+    public void SetTarget(Health target, GameObject instigator, float damage)
     {
+        this.instigator = instigator;
         this.target = target;
         this.damage = damage;
     }
@@ -53,7 +55,7 @@ public class Projectile : MonoBehaviour
         {
             if (target.IsDead())
                 return;
-            target.TakeDamage(damage);
+            target.TakeDamage(instigator, damage);
             TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
             if(trail != null)
             {

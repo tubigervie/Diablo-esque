@@ -1,4 +1,5 @@
 ﻿using RPG.Saving;
+using RPG.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,8 +38,9 @@ namespace RPG.SceneManagement
                 yield break;
             }
 
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<EnemyHealthUI>().Disable();
             DontDestroyOnLoad(gameObject);
-
 
             Fader fader = FindObjectOfType<Fader>();
             SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();

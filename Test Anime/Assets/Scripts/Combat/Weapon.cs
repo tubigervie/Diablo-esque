@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Resources;
+using RPG.Resource;
 
 namespace RPG.Combat
 {
@@ -32,11 +32,15 @@ namespace RPG.Combat
                     weapon = Instantiate(equippedPrefab, leftHandTransform);
                 weapon.name = weaponName;
             }
-            var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
-            if(animatorOverride != null)
-                animator.runtimeAnimatorController = animatorOverride;
-            else if(overrideController != null)
-                animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
+            if(animator != null)
+            {
+                Debug.Log("should be in here");
+                var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+                if (animatorOverride != null)
+                    animator.runtimeAnimatorController = animatorOverride;
+                else if (overrideController != null)
+                    animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
+            }
         }
 
         private void DestroyOldWeapon(Transform rightHandTransform, Transform leftHandTransform)
@@ -54,14 +58,14 @@ namespace RPG.Combat
             return projectile != null;
         }
 
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator)
         {
             Projectile projInstance;
             if (isRight)
                 projInstance = Instantiate(projectile, rightHand.position, Quaternion.identity);
             else
                 projInstance = Instantiate(projectile, leftHand.position, Quaternion.identity);
-            projInstance.SetTarget(target, weaponDamage);
+            projInstance.SetTarget(target, instigator, weaponDamage);
         }
 
         public float GetWeaponDamage()

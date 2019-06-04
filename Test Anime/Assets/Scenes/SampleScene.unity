@@ -470,6 +470,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Speed
@@ -727,6 +733,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Speed
@@ -1311,6 +1323,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Speed
@@ -1885,6 +1903,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Speed
@@ -2502,6 +2526,12 @@ PrefabInstance:
       propertyPath: timeBetweenAttacks
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: 082357039ef57b649901cdd67d24c083,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 84e0eed1bec76cb4783aadb89d5cbb75,
+        type: 2}
     - target: {fileID: 5243265142736133908, guid: 082357039ef57b649901cdd67d24c083,
         type: 3}
       propertyPath: healthPoints
@@ -2795,6 +2825,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Speed
@@ -3982,6 +4018,12 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8488703276617703099, guid: e54f8c39ce7fee44c82721b68f670a5e,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: fb31b18fde86521499727c6afeb1951b,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e54f8c39ce7fee44c82721b68f670a5e, type: 3}
 --- !u!4 &1648448070 stripped
@@ -4565,6 +4607,12 @@ PrefabInstance:
       propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     - target: {fileID: 2210459740711447955, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Speed
@@ -5142,7 +5190,7 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 4c975c841189a7f41a97d8f69d722a7f,
+      objectReference: {fileID: 11400000, guid: 84e0eed1bec76cb4783aadb89d5cbb75,
         type: 2}
     - target: {fileID: 6244765102765036889, guid: c8d343d8fdf7b4d47ba518e97407867e,
         type: 3}

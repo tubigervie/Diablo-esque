@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Resources
+namespace RPG.Resource
 {
     public class Health : MonoBehaviour, ISaveable
     {
@@ -45,7 +45,7 @@ namespace RPG.Resources
             }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(GameObject instigator, float damage)
         {
             currentHealthPoints -= damage;
             AIController ai = GetComponent<AIController>();
@@ -55,6 +55,7 @@ namespace RPG.Resources
             if(currentHealthPoints == 0 && !isDead)
             {
                 Die();
+                AwardExperience(instigator);
             }
         }
 
@@ -66,6 +67,13 @@ namespace RPG.Resources
         public float GetTotalHealth()
         {
             return maxHealthPoints;
+        }
+
+        void AwardExperience(GameObject instigator)
+        {
+            Experience experience = instigator.GetComponent<Experience>();
+            if (experience == null) return;
+            experience.GainExperience(GetComponent<BaseStats>().GetExperienceReward());
         }
 
         private void Die()

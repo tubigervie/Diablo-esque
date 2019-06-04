@@ -8,6 +8,13 @@ namespace RPG.Stats
     {
         Player, Grunt, Mage, Archer
     }
+
+    public enum Stat
+    {
+        Health,
+        ExperienceReward
+    }
+
     public class BaseStats : MonoBehaviour
     {
         [Range(1,99)]
@@ -18,6 +25,11 @@ namespace RPG.Stats
         public float GetHealth()
         {
             return progression.GetHealth(characterClass, startingLevel);
+        }
+
+        public float GetExperienceReward()
+        {
+            return progression.GetExperience(characterClass, startingLevel);
         }
     }
 

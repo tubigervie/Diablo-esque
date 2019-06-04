@@ -4,11 +4,11 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
-using RPG.Resources;
+using RPG.Resource;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         ActionScheduler actionScheduler;
         Health combatTarget;
@@ -27,13 +27,16 @@ namespace RPG.Combat
             mover = GetComponent<Mover>();
             anim = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
-            EquipWeapon(defaultWeapon);
+            if(currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
         }
 
         public void EquipWeapon(Weapon weapon)
         {
             currentWeapon = weapon;
-            weapon.Spawn(rightHandTransform, leftHandTransform, anim);
+            weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
         }
 
 
@@ -89,10 +92,10 @@ namespace RPG.Combat
             Health healthComponent = combatTarget.GetComponent<Health>();
             if(currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject);
             }
             else
-                healthComponent.TakeDamage(currentWeapon.GetWeaponDamage());
+                healthComponent.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
         }
 
         void Shoot()
@@ -123,5 +126,19 @@ namespace RPG.Combat
             Health test = target.GetComponent<Health>();
             return test != null && !test.IsDead();
         }
+
+        public object CaptureState()
+        {
+            return currentWeapon.name;
+        }
+
+        public void RestoreState(object state)
+        {
+            string weaponName = (string) state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
+            currentWeapon = weapon;
+        }
+
     }
 }

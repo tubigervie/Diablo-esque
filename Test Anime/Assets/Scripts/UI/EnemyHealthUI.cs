@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using RPG.Resources;
+using RPG.Resource;
 
 namespace RPG.UI
 {
@@ -29,12 +29,13 @@ namespace RPG.UI
 
         public void Disable()
         {
+            target = null;
             healthUI.SetActive(false);
         }
 
         private void Update()
         {
-            if (healthUI.activeInHierarchy)
+            if (healthUI.activeInHierarchy && target != null)
             {
                 healthSlider.fillAmount = target.GetCurrentHealth() / target.GetTotalHealth();
                 if (target.IsDead() || Vector3.Distance(transform.position, target.transform.position) > 20)

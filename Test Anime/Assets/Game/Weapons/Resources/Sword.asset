@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 804a1a8a1a488724cbb9c89126dbaa69, type: 3}
-  m_Name: Giant Sword
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  animatorOverride: {fileID: 22100000, guid: 49048e4d7d49a7b48b56f36700d23e90, type: 2}
-  equippedPrefab: {fileID: 1580528733340496614, guid: 1628f2b57d8bb134389bfd02d11805b7,
+  animatorOverride: {fileID: 22100000, guid: 034ddca3c1b92c74289c2faf01abd34a, type: 2}
+  equippedPrefab: {fileID: 1580528733340496614, guid: 4056f5b5986f5c04294ad3fd0aa996b4,
     type: 3}
   weaponDamage: 10
   weaponRange: 2
   timeBetweenAttacks: 1
+  isRight: 1
+  projectile: {fileID: 0}
