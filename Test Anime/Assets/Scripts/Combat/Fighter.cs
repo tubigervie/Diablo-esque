@@ -63,8 +63,9 @@ namespace RPG.Combat
 
         public void Attack(GameObject target)
         {
+            combatTarget = target.GetComponent<Health>();
+            if (combatTarget.IsDead()) Cancel();
             actionScheduler.StartAction(this);
-            combatTarget = target.GetComponent<Health>(); 
         }
 
         public void Cancel()
@@ -88,8 +89,15 @@ namespace RPG.Combat
         void Hit()
         {
             if (combatTarget == null)
+            {
                 return;
+            }
             Health healthComponent = combatTarget.GetComponent<Health>();
+            if (healthComponent.IsDead())
+            {
+                Cancel();
+                return;
+            }
             if(currentWeapon.HasProjectile())
             {
                 currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject);
