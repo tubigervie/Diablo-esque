@@ -12,7 +12,8 @@ namespace RPG.Stats
     public enum Stat
     {
         Health,
-        ExperienceReward
+        ExperienceReward,
+        ExperienceToLevelUp
     }
 
     public class BaseStats : MonoBehaviour
@@ -22,15 +23,28 @@ namespace RPG.Stats
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression = null;
 
-        public float GetHealth()
+        public float GetStat(Stat stat)
         {
-            return progression.GetHealth(characterClass, startingLevel);
+            return progression.GetStat(stat, characterClass, GetLevel());
         }
 
-        public float GetExperienceReward()
+        public int GetLevel()
         {
-            return progression.GetExperience(characterClass, startingLevel);
+            Experience experience = GetComponent<Experience>();
+            if (experience == null) return startingLevel;
+            float currentXP = experience.GetCurrentExperience();
+
+            int penultimateLevel = progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
+            for (int levels = 1; levels <= penultimateLevel; levels++)
+            {
+                float XPToLevelUp = progression.GetStat(Stat.ExperienceToLevelUp, characterClass, levels);
+                Debug.Log("XP to level: " + XPToLevelUp + levels);
+                if (XPToLevelUp > currentXP)
+                    return levels;
+            }
+            return penultimateLevel + 1;
         }
+
     }
 
 }

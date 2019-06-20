@@ -14,12 +14,6 @@ namespace RPG.Resource
         [SerializeField] float maxHealthPoints = 100f;
         bool isDead;
 
-        private void Start()
-        {
-            maxHealthPoints = GetComponent<BaseStats>().GetHealth();
-        }
-
-
         public object CaptureState()
         {
             return currentHealthPoints;
@@ -32,6 +26,7 @@ namespace RPG.Resource
 
         public void RestoreState(object state)
         {
+            maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
             currentHealthPoints = (float)state;
             if (currentHealthPoints == 0 && !isDead)
             {
@@ -71,9 +66,17 @@ namespace RPG.Resource
 
         void AwardExperience(GameObject instigator)
         {
+            BaseStats enemyStats = GetComponent<BaseStats>();
+            BaseStats stats = instigator.GetComponent<BaseStats>();
             Experience experience = instigator.GetComponent<Experience>();
             if (experience == null) return;
-            experience.GainExperience(GetComponent<BaseStats>().GetExperienceReward());
+            int prevLevel = stats.GetLevel();
+            experience.GainExperience(enemyStats.GetStat(Stat.ExperienceReward));
+            int currLevel = stats.GetLevel();
+            if (prevLevel != currLevel)
+            {
+                instigator.GetComponent<Health>().maxHealthPoints = stats.GetStat(Stat.Health);
+            }
         }
 
         private void Die()
