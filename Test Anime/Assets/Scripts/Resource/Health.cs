@@ -11,8 +11,16 @@ namespace RPG.Resource
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float currentHealthPoints;
-        [SerializeField] float maxHealthPoints = 100f;
+        [SerializeField] float maxHealthPoints = -1f;
         bool isDead;
+
+        void Start()
+        {
+            if(maxHealthPoints < 0)
+            {
+                maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+            }
+        }
 
         public object CaptureState()
         {
@@ -26,7 +34,6 @@ namespace RPG.Resource
 
         public void RestoreState(object state)
         {
-            maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
             currentHealthPoints = (float)state;
             if (currentHealthPoints == 0 && !isDead)
             {
@@ -64,25 +71,22 @@ namespace RPG.Resource
             return maxHealthPoints;
         }
 
+        public void SetTotalHealth(float health)
+        {
+            maxHealthPoints = health;
+        }
+
         void AwardExperience(GameObject instigator)
         {
             BaseStats enemyStats = GetComponent<BaseStats>();
-            BaseStats stats = instigator.GetComponent<BaseStats>();
             Experience experience = instigator.GetComponent<Experience>();
             if (experience == null) return;
-            int prevLevel = stats.GetLevel();
             experience.GainExperience(enemyStats.GetStat(Stat.ExperienceReward));
-            int currLevel = stats.GetLevel();
-            if (prevLevel != currLevel)
-            {
-                instigator.GetComponent<Health>().maxHealthPoints = stats.GetStat(Stat.Health);
-            }
         }
 
         private void Die()
         {
             isDead = true;
-            Debug.Log(gameObject.name);
             GetComponent<Animator>().SetTrigger("die");
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }

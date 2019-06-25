@@ -16,18 +16,9 @@ namespace RPG.SceneManagement
 
         [SerializeField] GameObject player;
 
-
-
-        private IEnumerator Start()
+        private void Awake()
         {
-            
-            GetComponent<SavingSystem>().DeleteAutoSave(autoSaveFile);
-            Fader fader = FindObjectOfType<Fader>();
-            fader.FadeOutImmediate();
-            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
-            player = GameObject.FindGameObjectWithTag("Player");
-            yield return new WaitForSeconds(1);
-            yield return fader.FadeIn(2);
+            StartCoroutine(LoadLastScene());
         }
 
         private void Update()
@@ -53,6 +44,17 @@ namespace RPG.SceneManagement
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediate();
             yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            yield return new WaitForSeconds(1);
+            yield return fader.FadeIn(2);
+        }
+
+        IEnumerator LoadLastScene()
+        {
+            GetComponent<SavingSystem>().DeleteAutoSave(autoSaveFile);
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+            player = GameObject.FindGameObjectWithTag("Player");
             yield return new WaitForSeconds(1);
             yield return fader.FadeIn(2);
         }

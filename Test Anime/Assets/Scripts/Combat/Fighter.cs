@@ -114,7 +114,7 @@ namespace RPG.Combat
         void AttackBehavior()
         {
             transform.LookAt(combatTarget.transform);
-            if(timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween())
+            if(timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween() && Input.GetButtonDown("Fire2"))
             {
                 TriggerAttack(); //This will trigger the Hit() event
                 timeSinceLastAttack = 0;

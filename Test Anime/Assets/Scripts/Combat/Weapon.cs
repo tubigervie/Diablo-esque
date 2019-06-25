@@ -34,7 +34,6 @@ namespace RPG.Combat
             }
             if(animator != null)
             {
-                Debug.Log("should be in here");
                 var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
                 if (animatorOverride != null)
                     animator.runtimeAnimatorController = animatorOverride;

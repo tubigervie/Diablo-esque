@@ -32,7 +32,6 @@ namespace RPG.Stats
             float[] levels = lookupTable[cClass][cStat];
             if (levels.Length < level)
                 return 0;
-            Debug.Log("what I got: " + levels[level - 1]);
             return levels[level - 1];
         }
 
