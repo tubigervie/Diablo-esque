@@ -5,10 +5,11 @@ using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Resource;
+using RPG.Stats;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     {
         ActionScheduler actionScheduler;
         Health combatTarget;
@@ -92,6 +93,8 @@ namespace RPG.Combat
             {
                 return;
             }
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            Debug.Log("damage: " + damage);
             Health healthComponent = combatTarget.GetComponent<Health>();
             if (healthComponent.IsDead())
             {
@@ -100,10 +103,10 @@ namespace RPG.Combat
             }
             if(currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage);
             }
             else
-                healthComponent.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
+                healthComponent.TakeDamage(gameObject, damage);
         }
 
         void Shoot()
@@ -114,7 +117,7 @@ namespace RPG.Combat
         void AttackBehavior()
         {
             transform.LookAt(combatTarget.transform);
-            if(timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween() && Input.GetButtonDown("Fire2"))
+            if(timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween())
             {
                 TriggerAttack(); //This will trigger the Hit() event
                 timeSinceLastAttack = 0;
@@ -146,6 +149,22 @@ namespace RPG.Combat
             Weapon weapon = Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
             currentWeapon = weapon;
+        }
+
+        public IEnumerable<float> GetAdditiveModifier(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.GetWeaponDamage();
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifier(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.GetPercentageBonus();
+            }
         }
 
     }

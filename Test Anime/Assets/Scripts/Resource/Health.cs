@@ -22,9 +22,24 @@ namespace RPG.Resource
             }
         }
 
+        private void OnEnable()
+        {
+            GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<BaseStats>().onLevelUp -= RegenerateHealth;
+        }
+
         public object CaptureState()
         {
             return currentHealthPoints;
+        }
+
+        public void RegenerateHealth()
+        {
+            currentHealthPoints = maxHealthPoints;
         }
 
         public bool IsDead()
@@ -87,6 +102,7 @@ namespace RPG.Resource
         private void Die()
         {
             isDead = true;
+            GetComponent<CapsuleCollider>().enabled = false;
             GetComponent<Animator>().SetTrigger("die");
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }

@@ -51,9 +51,11 @@ namespace RPG.SceneManagement
         IEnumerator LoadLastScene()
         {
             GetComponent<SavingSystem>().DeleteAutoSave(autoSaveFile);
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediate();
-            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+
             player = GameObject.FindGameObjectWithTag("Player");
             yield return new WaitForSeconds(1);
             yield return fader.FadeIn(2);

@@ -17,12 +17,17 @@ namespace RPG.Control
         EnemyHealthUI targetHealth;
         
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             targetHealth = GetComponent<EnemyHealthUI>();
+        }
+
+        private void Start()
+        {
+            
         }
 
         // Update is called once per frame
@@ -41,7 +46,7 @@ namespace RPG.Control
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach(RaycastHit hit in hits)
             {
-                bool clickInput = Input.GetMouseButtonDown(1);
+                bool clickInput = Input.GetMouseButtonDown(0);
                 CombatTarget target = hit.collider.gameObject.GetComponent<CombatTarget>();
                 if (target == null)
                     continue;
@@ -72,7 +77,7 @@ namespace RPG.Control
             bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
             if (hasHit)
             {
-                if (Input.GetMouseButton(0) && Vector3.Distance(transform.position, hit.point) > .5f)
+                if (Input.GetMouseButton(1) && Vector3.Distance(transform.position, hit.point) > .5f)
                 {
                     mover.StartMoveAction(hit.point, 1f);
                 }

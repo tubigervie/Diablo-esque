@@ -32,13 +32,17 @@ namespace RPG.Control
         float timeSinceLastWaypoint = Mathf.Infinity;
         [SerializeField] float currentAggro = 0;
 
-        private void Start()
+        private void Awake()
         {
             fighter = GetComponent<Fighter>();
             player = GameObject.FindWithTag("Player");
             health = GetComponent<Health>();
-            guardPosition = transform.position;
             mover = GetComponent<Mover>();
+        }
+
+        private void Start()
+        {
+            guardPosition = transform.position;
         }
 
 

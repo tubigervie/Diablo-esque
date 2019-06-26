@@ -99,15 +99,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Giant
       objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: m_Speed
-      value: 3
+      propertyPath: healthPoints
+      value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: m_AutoTraverseOffMeshLink
-      value: 0
+      propertyPath: maxHealthPoints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1612619967160946372, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
@@ -147,21 +152,6 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 5256614625610818648}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: healthPoints
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: maxHealthPoints
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: currentHealthPoints
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 4321590226341363345, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
       propertyPath: m_Avatar
@@ -176,6 +166,21 @@ PrefabInstance:
         type: 3}
       propertyPath: maxSpeed
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538827784363355467, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}

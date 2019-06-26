@@ -12,6 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3a5073da8748d4f84ea21a8cfd0cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6922868486983411100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116614969033057362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9010e0eed1bbe45a98251993127eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alreadyLoaded: 0
+  experiencePoints: 0
 --- !u!114 &9041276345578047257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,19 +39,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 6
---- !u!114 &6922868486983411100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7116614969033057362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e9010e0eed1bbe45a98251993127eb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  experiencePoints: 0
 --- !u!1001 &3540896704226756367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45,10 +46,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2037545072759957720}
     m_Modifications:
-    - target: {fileID: 119222, guid: 602194f8ef12a1f4ab13f84c2a01a272, type: 3}
-      propertyPath: m_Name
-      value: Guardian 02
-      objectReference: {fileID: 0}
     - target: {fileID: 451050, guid: 602194f8ef12a1f4ab13f84c2a01a272, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -92,6 +89,10 @@ PrefabInstance:
     - target: {fileID: 451050, guid: 602194f8ef12a1f4ab13f84c2a01a272, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 119222, guid: 602194f8ef12a1f4ab13f84c2a01a272, type: 3}
+      propertyPath: m_Name
+      value: Guardian 02
       objectReference: {fileID: 0}
     - target: {fileID: 13735602, guid: 602194f8ef12a1f4ab13f84c2a01a272, type: 3}
       propertyPath: m_Bones.Array.data[0]
@@ -709,16 +710,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 5007092953221788180, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,15 +765,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355467, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: m_IsTrigger
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111248935525959342, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 6238650f-9932-461d-9a26-66e13ce8edef
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: healthPoints
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775609111109616585, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: characterClass
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 7775609111109616585, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: shouldUseModifiers
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1612619967160946372, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
@@ -821,25 +837,21 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 3540896704227164789}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 4538827784363355469, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: healthPoints
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+      propertyPath: waypointMarker
+      value: 
+      objectReference: {fileID: 862250459031251964, guid: 22d57bc3c68fcdb4a80400d8fc5d19f4,
         type: 3}
-      propertyPath: currentHealthPoints
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7775609111109616585, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: characterClass
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6111248935525959342, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 4538827784363355467, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: uniqueIdentifier
-      value: 6238650f-9932-461d-9a26-66e13ce8edef
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}

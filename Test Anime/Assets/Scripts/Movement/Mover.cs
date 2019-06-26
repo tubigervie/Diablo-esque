@@ -11,6 +11,7 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction, ISaveable
     {
+        [SerializeField] GameObject waypointMarker;
         [SerializeField] float maxSpeed = 6f;
 
         Transform target;
@@ -20,7 +21,7 @@ namespace RPG.Movement
         ActionScheduler actionScheduler;
         Health health;
 
-        void Start()
+        void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
@@ -28,11 +29,18 @@ namespace RPG.Movement
             health = GetComponent<Health>();
         }
 
+        void Start()
+        {
+
+        }
+
         // Update is called once per frame
         void Update()
         {
             agent.enabled = !health.IsDead();
             UpdateAnimator();
+            if (waypointMarker != null && waypointMarker.activeInHierarchy && Vector3.Distance(transform.position, agent.destination) < .1f && waypointMarker != null)
+                waypointMarker.SetActive(false);
         }
 
         void UpdateAnimator()
@@ -54,11 +62,20 @@ namespace RPG.Movement
         {
             actionScheduler.StartAction(this);
             MoveTo(destination, speedFraction);
+            if(waypointMarker != null)
+            {
+                waypointMarker.SetActive(true);
+                Vector3 target = destination;
+                target.y += .2f;
+                waypointMarker.transform.position = target;
+            }
         }
 
         public void Cancel()
         {
             agent.isStopped = true;
+            if(waypointMarker != null)
+                waypointMarker.SetActive(false);
         }
 
         public object CaptureState()
@@ -74,10 +91,10 @@ namespace RPG.Movement
             Tuple<SerializableVector3, SerializableVector3> stateInfo = (Tuple<SerializableVector3, SerializableVector3>) state;
             SerializableVector3 position = stateInfo.Item1;
             SerializableVector3 rotation = stateInfo.Item2;
-            GetComponent<NavMeshAgent>().enabled = false;
+            agent.enabled = false;
             transform.position = position.ToVector();
             transform.eulerAngles = rotation.ToVector();
-            GetComponent<NavMeshAgent>().enabled = true;
+            agent.enabled = true;
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }

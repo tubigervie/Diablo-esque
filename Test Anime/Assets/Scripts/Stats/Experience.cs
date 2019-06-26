@@ -8,10 +8,13 @@ namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, ISaveable
     {
+        public bool alreadyLoaded = false;
+
         [SerializeField] float experiencePoints = 0;
 
         public event Action onExperienceGained; //a predefined delegate with no return value
 
+        public event Action onExperienceLoaded;
 
         public object CaptureState()
         {
@@ -27,6 +30,8 @@ namespace RPG.Stats
         public void RestoreState(object state)
         {
             this.experiencePoints = (float) state;
+            if(alreadyLoaded)
+                onExperienceLoaded();
         }
 
         public float GetCurrentExperience()
