@@ -44,7 +44,8 @@ namespace RPG.Combat
         private void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
-
+            if (timeSinceLastAttack > 5)
+                anim.SetBool("inBattle", false);
             if (combatTarget == null)
                 return;
 
@@ -65,7 +66,11 @@ namespace RPG.Combat
         public void Attack(GameObject target)
         {
             combatTarget = target.GetComponent<Health>();
-            if (combatTarget.IsDead()) Cancel();
+            if (combatTarget.IsDead())
+            {
+                Cancel();
+                return;
+            }
             actionScheduler.StartAction(this);
         }
 
@@ -121,6 +126,8 @@ namespace RPG.Combat
             {
                 TriggerAttack(); //This will trigger the Hit() event
                 timeSinceLastAttack = 0;
+                if(!anim.GetBool("inBattle"))
+                    anim.SetBool("inBattle", true);
             }
         }
 

@@ -11,8 +11,14 @@ namespace RPG.Resource
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float currentHealthPoints;
-        [SerializeField] float maxHealthPoints = -1f;
+        float maxHealthPoints = -1f;
+        [SerializeField] DamageTextSpawner damageTextSpawner;
         bool isDead;
+
+        void Awake()
+        {
+            damageTextSpawner = FindObjectOfType<DamageTextSpawner>();
+        }
 
         void Start()
         {
@@ -64,6 +70,7 @@ namespace RPG.Resource
 
         public void TakeDamage(GameObject instigator, float damage)
         {
+            damageTextSpawner.Create(damage, transform.position);
             currentHealthPoints -= damage;
             AIController ai = GetComponent<AIController>();
             if (ai != null)
