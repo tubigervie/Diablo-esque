@@ -20,7 +20,10 @@ public class ExperienceUI : MonoBehaviour
     private void Update()
     {
         float XPtoLevelUp = baseStats.GetStat(Stat.ExperienceToLevelUp);
+        float prevXPtoLevel = 0;
+        if (baseStats.GetLevel() > 1)
+            prevXPtoLevel = baseStats.GetStatByLevel(Stat.ExperienceToLevelUp, baseStats.GetLevel() - 1);
         experiencePoints.text ="Lv " + baseStats.GetLevel() + ": " + experience.GetCurrentExperience() + "/" + XPtoLevelUp;
-        experienceSlider.fillAmount = experience.GetCurrentExperience() / XPtoLevelUp;
+        experienceSlider.fillAmount = (experience.GetCurrentExperience() - prevXPtoLevel) / (XPtoLevelUp - prevXPtoLevel);
     }
 }
