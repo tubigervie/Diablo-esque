@@ -83,6 +83,11 @@ namespace RPG.Resource
             }
         }
 
+        public void Heal(float amount)
+        {
+            currentHealthPoints = Mathf.Clamp(currentHealthPoints + amount, currentHealthPoints, maxHealthPoints);
+        }
+
         public float GetCurrentHealth()
         {
             return currentHealthPoints;

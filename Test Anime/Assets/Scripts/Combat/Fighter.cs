@@ -20,7 +20,7 @@ namespace RPG.Combat
         [SerializeField] Transform leftHandTransform = null;
         [SerializeField] Weapon defaultWeapon;
 
-        float timeSinceLastAttack = Mathf.Infinity;
+        public float timeSinceLastAttack = Mathf.Infinity;
         Weapon currentWeapon = null;
         bool attackLock = false;
 
@@ -180,6 +180,11 @@ namespace RPG.Combat
             {
                 yield return currentWeapon.GetPercentageBonus();
             }
+        }
+
+        public AnimatorOverrideController GetOverrideController()
+        {
+            return currentWeapon.GetOverride();
         }
 
     }

@@ -20,7 +20,7 @@ namespace RPG.Saving
         public object CaptureState()
         {
             Dictionary<string, object> state = new Dictionary<string, object>();
-            foreach(ISaveable saveable in GetComponents<ISaveable>())
+            foreach (ISaveable saveable in GetComponents<ISaveable>())
             {
                 state[saveable.GetType().ToString()] = saveable.CaptureState();
             }
@@ -33,7 +33,7 @@ namespace RPG.Saving
             foreach (ISaveable saveable in GetComponents<ISaveable>())
             {
                 string typeString = saveable.GetType().ToString();
-                if(stateDict.ContainsKey(typeString))
+                if (stateDict.ContainsKey(typeString))
                 {
                     saveable.RestoreState(stateDict[typeString]);
                 }
@@ -60,23 +60,24 @@ namespace RPG.Saving
 
             return false;
         }
-#if UNITY_EDITOR
-        private void Update()
-        {
-            if (Application.IsPlaying(this.gameObject))
-                return;
-            if (string.IsNullOrEmpty(gameObject.scene.path))
-                return;
-            SerializedObject serializedObject = new SerializedObject(this);
-            SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
-            if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
-            {
-                property.stringValue = System.Guid.NewGuid().ToString();
-                serializedObject.ApplyModifiedProperties();
-            }
-            globalLookup[property.stringValue] = this;
-        }
+        //#if UNITY_EDITOR
+        //        private void Update()
+        //        {
+        //            if (Application.IsPlaying(this.gameObject))
+        //                return;
+        //            if (string.IsNullOrEmpty(gameObject.scene.path))
+        //                return;
+        //            SerializedObject serializedObject = new SerializedObject(this);
+        //            SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
+        //            if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
+        //            {
+        //                property.stringValue = System.Guid.NewGuid().ToString();
+        //                serializedObject.ApplyModifiedProperties();
+        //            }
+        //            globalLookup[property.stringValue] = this;
+        //        }
+        //    }
+        //#endif
     }
-#endif
 }
 

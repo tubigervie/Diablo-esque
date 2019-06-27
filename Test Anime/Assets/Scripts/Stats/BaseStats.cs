@@ -15,7 +15,8 @@ namespace RPG.Stats
         Health,
         ExperienceReward,
         ExperienceToLevelUp,
-        Damage
+        Damage,
+        Energy
     }
 
     public class BaseStats : MonoBehaviour
@@ -114,6 +115,8 @@ namespace RPG.Stats
         {
             currentLevel = CalculateLevel();
             GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health));
+            if(characterClass == CharacterClass.Player)
+                GetComponent<Combat.SpecialAbilities>().SetTotalEnergy(GetStat(Stat.Energy));
         }
 
         private void UpdateLevel()
@@ -123,6 +126,8 @@ namespace RPG.Stats
             {
                 currentLevel = newLevel;
                 GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health));
+                if (characterClass == CharacterClass.Player)
+                    GetComponent<Combat.SpecialAbilities>().SetTotalEnergy(GetStat(Stat.Energy));
                 LevelUpEffect();
                 onLevelUp();
                 //play particle effects here

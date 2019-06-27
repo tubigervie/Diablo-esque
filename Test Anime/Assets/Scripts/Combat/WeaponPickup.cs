@@ -12,11 +12,13 @@ namespace RPG.Combat
         [SerializeField] Text weaponName;
         [SerializeField] Weapon weapon = null;
         [SerializeField] float respawnTime = 5;
+        Camera camera;
 
         private void Awake()
         {
             canvas = GetComponentInChildren<Canvas>();
             canvas.worldCamera = Camera.main;
+            camera = Camera.main;
         }
 
         private void Start()
@@ -26,7 +28,7 @@ namespace RPG.Combat
 
         private void Update()
         {
-            pivot.transform.LookAt(Camera.main.transform.position);
+            pivot.transform.LookAt(camera.transform.position);
         }
 
         private void OnTriggerEnter(Collider other)

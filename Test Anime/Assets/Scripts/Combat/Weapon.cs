@@ -87,6 +87,11 @@ namespace RPG.Combat
         {
             return timeBetweenAttacks;
         }
+
+        public AnimatorOverrideController GetOverride()
+        {
+            return animatorOverride;
+        }
     }
 }
 

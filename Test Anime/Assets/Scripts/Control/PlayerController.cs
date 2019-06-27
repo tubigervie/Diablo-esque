@@ -15,6 +15,7 @@ namespace RPG.Control
         Fighter fighter;
         Health health;
         EnemyHealthUI targetHealth;
+        SpecialAbilities abilities;
         
         // Start is called before the first frame update
         void Awake()
@@ -23,6 +24,7 @@ namespace RPG.Control
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             targetHealth = GetComponent<EnemyHealthUI>();
+            abilities = GetComponent<SpecialAbilities>();
         }
 
         private void Start()
@@ -43,6 +45,16 @@ namespace RPG.Control
 
         private bool InteractWithCombat()
         {
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                abilities.AttemptSpecialAbility(0);
+                return true;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                abilities.AttemptSpecialAbility(1);
+                return true;
+            }
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach(RaycastHit hit in hits)
             {
