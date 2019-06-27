@@ -28,6 +28,7 @@ namespace RPG.Stats
         [SerializeField] GameObject levelupParticle = null;
         [SerializeField] int currentLevel = 0;
         [SerializeField] bool shouldUseModifiers = false;
+        [SerializeField] AudioClip levelUpAudio;
 
         public event Action onLevelUp;
 
@@ -137,6 +138,7 @@ namespace RPG.Stats
         private void LevelUpEffect()
         {
             Instantiate(levelupParticle, transform);
+            GetComponent<AudioSource>().PlayOneShot(levelUpAudio);
         }
 
         public int CalculateLevel()

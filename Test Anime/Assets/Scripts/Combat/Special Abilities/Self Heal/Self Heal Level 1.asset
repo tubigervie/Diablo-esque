@@ -17,5 +17,5 @@ MonoBehaviour:
   particlePrefab: {fileID: 178966, guid: 898a8d3b94560fa46a71da153e710fd0, type: 3}
   abilityAnimation: {fileID: 7400000, guid: ba538ab3c8030a54394dd415aaeb7442, type: 2}
   audioClips:
-  - {fileID: 8300000, guid: 0b1b9c23fe2d24d499061bc80bafc841, type: 3}
+  - {fileID: 8300000, guid: 589a11aa017e375428c360e38fe9e7ae, type: 3}
   extraHealth: 50

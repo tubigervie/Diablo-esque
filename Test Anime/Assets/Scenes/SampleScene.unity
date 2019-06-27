@@ -5680,6 +5680,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3107610034649864276, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: levelUpAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b1b9c23fe2d24d499061bc80bafc841, type: 3}
     - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
       propertyPath: abilities.Array.size
       value: 2
