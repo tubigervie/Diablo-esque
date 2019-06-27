@@ -22,6 +22,7 @@ namespace RPG.Combat
 
         float timeSinceLastAttack = Mathf.Infinity;
         Weapon currentWeapon = null;
+        bool attackLock = false;
 
         private void Start()
         {
@@ -38,6 +39,9 @@ namespace RPG.Combat
         {
             currentWeapon = weapon;
             weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+            timeSinceLastAttack = Mathf.Infinity;
+            if(anim != null)
+                anim.SetBool("inBattle", false);
         }
 
 
@@ -52,7 +56,7 @@ namespace RPG.Combat
             if (combatTarget.IsDead())
                 return;
 
-            if(combatTarget != null && !GetIsInRange())
+            if(combatTarget != null && !GetIsInRange() && !attackLock)
             {
                 mover.MoveTo(combatTarget.transform.position, 1f);
             }
@@ -85,6 +89,7 @@ namespace RPG.Combat
         {
             anim.ResetTrigger("attack");
             anim.SetTrigger("stopAttack");
+            attackLock = false;
         }
 
         private bool GetIsInRange()
@@ -98,8 +103,8 @@ namespace RPG.Combat
             {
                 return;
             }
+            attackLock = true;
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
-            Debug.Log("damage: " + damage);
             Health healthComponent = combatTarget.GetComponent<Health>();
             if (healthComponent.IsDead())
             {
@@ -111,7 +116,10 @@ namespace RPG.Combat
                 currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage);
             }
             else
+            {
                 healthComponent.TakeDamage(gameObject, damage);
+            }
+            attackLock = false;
         }
 
         void Shoot()

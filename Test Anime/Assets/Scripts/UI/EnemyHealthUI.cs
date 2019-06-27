@@ -10,6 +10,7 @@ namespace RPG.UI
     public class EnemyHealthUI : MonoBehaviour
     {
         [SerializeField] Text enemyName;
+        [SerializeField] Text enemyLvl;
         [SerializeField] Image healthSlider;
         [SerializeField] GameObject healthUI;
         public Health target;
@@ -23,6 +24,7 @@ namespace RPG.UI
         {
             target = combatTarget;
             enemyName.text = combatTarget.gameObject.name;
+            enemyLvl.text = "Lv " + combatTarget.gameObject.GetComponent<RPG.Stats.BaseStats>().GetLevel();
             healthSlider.fillAmount = combatTarget.GetCurrentHealth() / combatTarget.GetTotalHealth();
             healthUI.SetActive(true);
         }

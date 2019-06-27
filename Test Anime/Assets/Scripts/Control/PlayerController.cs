@@ -77,7 +77,7 @@ namespace RPG.Control
             bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
             if (hasHit)
             {
-                if (Input.GetMouseButton(1) && Vector3.Distance(transform.position, hit.point) > .5f)
+                if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
                 {
                     mover.StartMoveAction(hit.point, 1f);
                 }

@@ -73,7 +73,8 @@ namespace RPG.Movement
 
         public void Cancel()
         {
-            agent.isStopped = true;
+            if(agent.isActiveAndEnabled)
+                agent.isStopped = true;
             if(waypointMarker != null)
                 waypointMarker.SetActive(false);
         }

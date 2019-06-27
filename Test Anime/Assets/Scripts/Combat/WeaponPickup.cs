@@ -1,14 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 namespace RPG.Combat
 {
     public class WeaponPickup : MonoBehaviour
     {
+        Canvas canvas;
+        [SerializeField] GameObject pivot;
+        [SerializeField] Text weaponName;
         [SerializeField] Weapon weapon = null;
         [SerializeField] float respawnTime = 5;
+
+        private void Awake()
+        {
+            canvas = GetComponentInChildren<Canvas>();
+            canvas.worldCamera = Camera.main;
+        }
+
+        private void Start()
+        {
+            weaponName.text = weapon.name;
+        }
+
+        private void Update()
+        {
+            pivot.transform.LookAt(Camera.main.transform.position);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
