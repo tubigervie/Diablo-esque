@@ -752,80 +752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: 1e773873-6377-437d-aac0-74ca6284c572
---- !u!1 &300345337
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 300345338}
-  - component: {fileID: 300345340}
-  - component: {fileID: 300345339}
-  m_Layer: 0
-  m_Name: Ability 2 Icon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &300345338
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300345337}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1391559969}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 324.4, y: -180}
-  m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &300345339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300345337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3c6e15d1ed6857b4ebbda524506c5370, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
---- !u!222 &300345340
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300345337}
-  m_CullTransparentMesh: 0
 --- !u!1001 &300709751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2340,18 +2266,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f65a7bee03bbc4542a4af2c67922b549, type: 3}
---- !u!114 &967862657 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 967862657, guid: c8d343d8fdf7b4d47ba518e97407867e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1869809026261590602}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &994591921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3795,12 +3709,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!224 &1391559969 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7480994587679376450, guid: c8d343d8fdf7b4d47ba518e97407867e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1869809026261590602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1397157816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8725322384543764434, guid: f2c3dd767a586c64e9b79e30d2a1449c,
@@ -4648,80 +4556,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 300709751}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1765514019
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1765514020}
-  - component: {fileID: 1765514022}
-  - component: {fileID: 1765514021}
-  m_Layer: 0
-  m_Name: Ability 2 Cooldown Icon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1765514020
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1765514019}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1391559969}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 324.40005, y: -180}
-  m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1765514021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1765514019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8301887, g: 0.12922749, b: 0.12922749, a: 0.92941177}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3c6e15d1ed6857b4ebbda524506c5370, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 0
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
---- !u!222 &1765514022
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1765514019}
-  m_CullTransparentMesh: 0
 --- !u!1001 &1766745188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5679,45 +5513,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3107610034649864276, guid: c8d343d8fdf7b4d47ba518e97407867e,
-        type: 3}
-      propertyPath: levelUpAudio
-      value: 
-      objectReference: {fileID: 8300000, guid: 0b1b9c23fe2d24d499061bc80bafc841, type: 3}
-    - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: abilities.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: abilityCooldowns.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: abilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2f7a6a6bd288211408caec7524c46431,
-        type: 2}
-    - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: abilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8e82c30a639a6f0438f38d408d09bf92,
-        type: 2}
-    - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: abilityCooldowns.Array.data[0]
-      value: 
-      objectReference: {fileID: 967862657}
-    - target: {fileID: 595803565, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: abilityCooldowns.Array.data[1]
-      value: 
-      objectReference: {fileID: 1765514021}
-    - target: {fileID: 327607179, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: m_Name
-      value: Ability 1 Icon
-      objectReference: {fileID: 0}
-    - target: {fileID: 967862655, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
-      propertyPath: m_Name
-      value: Ability 1 Cooldown Icon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
