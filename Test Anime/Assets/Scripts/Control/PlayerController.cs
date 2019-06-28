@@ -16,7 +16,8 @@ namespace RPG.Control
         Health health;
         EnemyHealthUI targetHealth;
         SpecialAbilities abilities;
-        
+        public bool canMove = true;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -85,6 +86,8 @@ namespace RPG.Control
 
         private bool InteractWithMovement()
         {
+            if (!canMove)
+                return true;
             RaycastHit hit;
             bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
             if (hasHit)
@@ -96,6 +99,11 @@ namespace RPG.Control
                 return true;
             }
             return false;
+        }
+
+        public void ToggleMovement()
+        {
+            canMove = !canMove;
         }
     }
 }

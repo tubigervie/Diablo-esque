@@ -20,3 +20,6 @@ MonoBehaviour:
   timeBetweenAttacks: 1.2
   isRight: 1
   projectile: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: f6e23000514ea18468a42ab87a3ca097, type: 3}
+  - {fileID: 8300000, guid: 7801475920ccd014abd271919ecb19b5, type: 3}

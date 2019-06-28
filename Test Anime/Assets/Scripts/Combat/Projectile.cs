@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float speed = 1;
     [SerializeField] bool isHoming = true;
     [SerializeField] GameObject hitEffect = null;
+    [SerializeField] AudioClip hitSound;
     float damage = 0;
     GameObject instigator;
 
@@ -55,6 +56,8 @@ public class Projectile : MonoBehaviour
         {
             if (target.IsDead())
                 return;
+            if (hitSound != null)
+                other.GetComponent<AudioSource>().PlayOneShot(hitSound);
             target.TakeDamage(instigator, damage);
             TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
             if(trail != null)

@@ -50,6 +50,7 @@ MonoBehaviour:
   isHoming: 1
   hitEffect: {fileID: 2302457091093092515, guid: 91eb0123686090f47b16e36e38ce1931,
     type: 3}
+  hitSound: {fileID: 8300000, guid: a3160ec056b227346bbf3a29d38da3ce, type: 3}
 --- !u!136 &6073018095731699712
 CapsuleCollider:
   m_ObjectHideFlags: 0

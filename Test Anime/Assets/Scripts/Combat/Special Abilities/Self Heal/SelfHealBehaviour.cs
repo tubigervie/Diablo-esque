@@ -18,6 +18,7 @@ namespace RPG.Combat
         public override void Use(GameObject target)
         {
             PlayAbilitySound();
+            GetComponent<Fighter>().Cancel();
             var playerHealth = player.GetComponent<Health>();
             playerHealth.Heal((config as SelfHealConfig).GetExtraHealth());
             PlayParticleEffect();

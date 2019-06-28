@@ -22,3 +22,5 @@ MonoBehaviour:
   isRight: 1
   projectile: {fileID: 7374707868061632171, guid: 82da6ec340f89c84dbaa2d0c46f9ec5a,
     type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: 459ca760d1a5de44eb68bcd69f408a6a, type: 3}

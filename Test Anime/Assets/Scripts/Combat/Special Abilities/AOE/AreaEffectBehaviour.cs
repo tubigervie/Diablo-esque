@@ -1,5 +1,6 @@
 ﻿using RPG.Control;
 using RPG.Resource;
+using RPG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace RPG.Combat
 
         public override void Use(GameObject target)
         {
+            GetComponent<Fighter>().Cancel();
             PlayAbilitySound();
             DealRadialDamage();
             PlayParticleEffect();
@@ -33,7 +35,7 @@ namespace RPG.Combat
                 bool hitPlayer = hit.collider.gameObject.GetComponent<PlayerController>();
                 if (damageable != null && !hitPlayer)
                 {
-                    float damageToDeal = (config as AreaEffectConfig).GetDamageToEachTarget();
+                    float damageToDeal = (config as AreaEffectConfig).GetDamageToEachTarget() + GetComponent<BaseStats>().GetBaseStat(Stat.Damage); //replace with just GetStat once weapons stats are in
                     damageable.TakeDamage(this.gameObject, damageToDeal);
                 }
             }

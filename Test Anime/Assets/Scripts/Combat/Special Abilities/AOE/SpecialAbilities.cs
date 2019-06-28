@@ -1,4 +1,5 @@
-﻿using RPG.Stats;
+﻿using RPG.Saving;
+using RPG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace RPG.Combat
 {
-    public class SpecialAbilities : MonoBehaviour
+    public class SpecialAbilities : MonoBehaviour, ISaveable
     {
         [SerializeField] AbilityConfig[] abilities;
         [SerializeField] Image energyBar;
@@ -18,6 +19,8 @@ namespace RPG.Combat
         float[] coolDownTimers;
         [SerializeField] float currentEnergyPoints;
         AudioSource audioSource;
+        string[] abilityNames;
+        bool disableMove = false;
 
         float energyAsPercent { get { return currentEnergyPoints / maxEnergyPoints; } }
 
@@ -79,11 +82,22 @@ namespace RPG.Combat
 
         void AttachInitialAbilities()
         {
+            abilityNames = new string[abilities.Length];
             for (int abilityIndex = 0; abilityIndex < abilities.Length; abilityIndex++)
             {
                 abilities[abilityIndex].AttachAbilityTo(gameObject);
-
+                abilityNames[abilityIndex] = abilities[abilityIndex].name;
             }
+        }
+
+        public void SetDisableMove(bool setter)
+        {
+            disableMove = setter;
+        }
+
+        public bool GetDisableMove()
+        {
+            return disableMove;
         }
 
         public void AttemptSpecialAbility(int abilityIndex, GameObject target = null)
@@ -96,6 +110,7 @@ namespace RPG.Combat
                     return;
                 ConsumeEnergy(energyCost);
                 abilities[abilityIndex].Use(target);
+                disableMove = abilities[abilityIndex].GetDisableMovement();
                 coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
                 currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];
            
@@ -104,6 +119,16 @@ namespace RPG.Combat
             {
                 audioSource.PlayOneShot(outOfEnergy);
             }
+        }
+
+        public void PlayOutOfEnergy()
+        {
+            audioSource.PlayOneShot(outOfEnergy);
+        }
+
+        public bool CanCastSpecialAbility(int index)
+        {
+            return abilities[index].GetEnergyCost() <= currentEnergyPoints && coolDownTimers[index] <= 0;
         }
 
         public int GetNumberOfAbilities()
@@ -130,6 +155,16 @@ namespace RPG.Combat
             {
                 energyBar.fillAmount = energyAsPercent;
             }
+        }
+
+        public object CaptureState()
+        {
+            return abilityNames;
+        }
+
+        public void RestoreState(object state)
+        {
+            throw new System.NotImplementedException();
         }
     }
 

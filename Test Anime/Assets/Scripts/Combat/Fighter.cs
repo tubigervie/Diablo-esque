@@ -23,6 +23,7 @@ namespace RPG.Combat
         public float timeSinceLastAttack = Mathf.Infinity;
         Weapon currentWeapon = null;
         bool attackLock = false;
+        bool clickInput = false;
 
         private void Start()
         {
@@ -56,19 +57,22 @@ namespace RPG.Combat
             if (combatTarget.IsDead())
                 return;
 
-            if(combatTarget != null && !GetIsInRange() && !attackLock)
+
+            if (combatTarget != null && !GetIsInRange() && !attackLock && clickInput)
             {
                 mover.MoveTo(combatTarget.transform.position, 1f);
             }
-            else
+            else if(clickInput)
             {
                 mover.Cancel();
                 AttackBehavior();
+                clickInput = false;
             }
         }
 
         public void Attack(GameObject target)
         {
+            clickInput = true;
             combatTarget = target.GetComponent<Health>();
             if (combatTarget.IsDead())
             {
@@ -81,6 +85,7 @@ namespace RPG.Combat
         public void Cancel()
         {
             StopAttack();
+            clickInput = false;
             combatTarget = null;
             mover.Cancel();
         }
@@ -113,10 +118,16 @@ namespace RPG.Combat
             }
             if(currentWeapon.HasProjectile())
             {
+                AudioClip damageSound = currentWeapon.GetRandomWeaponSound();
+                if (damageSound != null)
+                    GetComponent<AudioSource>().PlayOneShot(damageSound);
                 currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage);
             }
             else
             {
+                AudioClip damageSound = currentWeapon.GetRandomWeaponSound();
+                if (damageSound != null)
+                    combatTarget.GetComponent<AudioSource>().PlayOneShot(damageSound);
                 healthComponent.TakeDamage(gameObject, damage);
             }
             attackLock = false;
@@ -129,9 +140,9 @@ namespace RPG.Combat
 
         void AttackBehavior()
         {
-            transform.LookAt(combatTarget.transform);
-            if(timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween())
+            if (timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween())
             {
+                transform.LookAt(combatTarget.transform);
                 TriggerAttack(); //This will trigger the Hit() event
                 timeSinceLastAttack = 0;
                 if(!anim.GetBool("inBattle"))
@@ -170,7 +181,7 @@ namespace RPG.Combat
         {
             if (stat == Stat.Damage)
             {
-                yield return currentWeapon.GetWeaponDamage();
+                yield return currentWeapon.GetWeaponDamage(); //replace when weapon has stats
             }
         }
 

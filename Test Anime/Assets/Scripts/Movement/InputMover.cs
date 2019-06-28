@@ -4,8 +4,9 @@ using UnityEngine;
 using RPG.Core;
 using UnityEngine.AI;
 using RPG.Resource;
+using RPG.Movement;
 
-namespace RPG.Movement
+namespace RPG.Control
 {
     public class InputMover : MonoBehaviour, IAction
     {
@@ -15,6 +16,7 @@ namespace RPG.Movement
         ActionScheduler actionScheduler;
         Health health;
         Vector3 destination;
+        bool canMove = true;
 
         // Start is called before the first frame update
         void Start()
@@ -28,9 +30,14 @@ namespace RPG.Movement
         void Update()
         {
             agent.enabled = !health.IsDead();
-            if (!agent.enabled)
+            if (!agent.enabled || !canMove)
                 return;
             MoveInput();
+        }
+
+        public void ToggleMovement()
+        {
+            canMove = !canMove;
         }
 
         public void MoveInput()

@@ -18,6 +18,7 @@ namespace RPG.Combat
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] bool isRight = true;
         [SerializeField] Projectile projectile = null;
+        [SerializeField] AudioClip[] audioClips;
 
         const string weaponName = "Weapon";
 
@@ -51,6 +52,13 @@ namespace RPG.Combat
             if (oldWeapon == null) return;
             oldWeapon.name = "DESTROYING";
             Destroy(oldWeapon.gameObject);
+        }
+
+        public AudioClip GetRandomWeaponSound()
+        {
+            if (audioClips.Length == 0)
+                return null;
+            return audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
         }
 
         public bool HasProjectile()

@@ -12,6 +12,8 @@ namespace RPG.Combat
         [SerializeField] GameObject particlePrefab;
         [SerializeField] AnimationClip abilityAnimation;
         [SerializeField] AudioClip[] audioClips;
+        [SerializeField] float clipSpeed = 1;
+        [SerializeField] bool disableMovement = true;
 
         protected AbilityBehaviour behaviour;
 
@@ -41,7 +43,6 @@ namespace RPG.Combat
 
         public AnimationClip GetAbilityAnimation()
         {
-            abilityAnimation.events = new AnimationEvent[0]; // TODO consdier centralising with RemoveAnimationEvents()
             return abilityAnimation;
         }
 
@@ -53,6 +54,16 @@ namespace RPG.Combat
         public AudioClip GetRandomAbilitySound()
         {
             return audioClips[Random.Range(0, audioClips.Length)];
+        }
+
+        public float GetAnimationSpeed()
+        {
+            return clipSpeed;
+        }
+
+        public bool GetDisableMovement()
+        {
+            return disableMovement;
         }
     }
 }

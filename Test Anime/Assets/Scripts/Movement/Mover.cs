@@ -39,7 +39,7 @@ namespace RPG.Movement
         {
             agent.enabled = !health.IsDead();
             UpdateAnimator();
-            if (waypointMarker != null && waypointMarker.activeInHierarchy && Vector3.Distance(transform.position, agent.destination) < .1f && waypointMarker != null)
+            if (waypointMarker != null && waypointMarker.activeInHierarchy && !agent.hasPath)
                 waypointMarker.SetActive(false);
         }
 
