@@ -110,6 +110,7 @@ namespace RPG.Combat
             }
             attackLock = true;
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+         
             Health healthComponent = combatTarget.GetComponent<Health>();
             if (healthComponent.IsDead())
             {

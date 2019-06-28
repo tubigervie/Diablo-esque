@@ -16,7 +16,10 @@ namespace RPG.Stats
         ExperienceReward,
         ExperienceToLevelUp,
         Damage,
-        Energy
+        Energy,
+        Strength,
+        Dexterity,
+        Constitution
     }
 
     public class BaseStats : MonoBehaviour
@@ -29,6 +32,8 @@ namespace RPG.Stats
         [SerializeField] int currentLevel = 0;
         [SerializeField] bool shouldUseModifiers = false;
         [SerializeField] AudioClip levelUpAudio;
+        [SerializeField] float damageBonusPerStrengthPoint = .5f;
+
 
         public event Action onLevelUp;
 
