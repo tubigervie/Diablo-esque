@@ -14,8 +14,13 @@ namespace RPG.SceneManagement
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public IEnumerator FadeOut(float time)
+        public void StopFades()
         {
+            StopAllCoroutines();
+        }
+
+        public IEnumerator FadeOut(float time)
+        {            
             while(canvasGroup.alpha < 1) //alpha is not 1
             {
                 canvasGroup.alpha += Time.deltaTime / time;

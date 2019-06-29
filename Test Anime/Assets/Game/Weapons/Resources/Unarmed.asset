@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: cb7862bf16cd0e043babbf5f7c91be59, type: 2}
   equippedPrefab: {fileID: 0}
-  weaponDamage: 3
+  weaponDamage:
+    min: 1
+    max: 5
   weaponPercentageBonus: 0
   weaponRange: 2
   timeBetweenAttacks: 1.2

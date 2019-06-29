@@ -21,7 +21,7 @@ namespace RPG.Combat
         AudioSource audioSource;
         string[] abilityNames;
         bool disableMove = false;
-
+        [SerializeField] int skillCount = 5;
         float energyAsPercent { get { return currentEnergyPoints / maxEnergyPoints; } }
 
         // Use this for initialization
@@ -32,10 +32,15 @@ namespace RPG.Combat
             {
                 maxEnergyPoints = GetComponent<BaseStats>().GetStat(Stat.Energy);
             }
-            currentEnergyPoints = maxEnergyPoints;
-            AttachInitialAbilities();
-            currentAbilityTimes = new float[abilities.Length];
-            coolDownTimers = new float[abilities.Length];
+
+            if(abilityNames == null)
+            {                    
+                abilityNames = new string[abilities.Length];
+                AttachInitialAbilities();
+                currentAbilityTimes = new float[abilities.Length];
+                coolDownTimers = new float[abilities.Length];
+            }
+
             UpdateEnergyBar();
         }
 
@@ -82,9 +87,9 @@ namespace RPG.Combat
 
         void AttachInitialAbilities()
         {
-            abilityNames = new string[abilities.Length];
-            for (int abilityIndex = 0; abilityIndex < abilities.Length; abilityIndex++)
+            for (int abilityIndex = 0; abilityIndex < skillCount; abilityIndex++)
             {
+                if (abilities[abilityIndex] == null) continue;
                 abilities[abilityIndex].AttachAbilityTo(gameObject);
                 abilityNames[abilityIndex] = abilities[abilityIndex].name;
             }
@@ -102,6 +107,8 @@ namespace RPG.Combat
 
         public void AttemptSpecialAbility(int abilityIndex, GameObject target = null)
         {
+            if (abilities[abilityIndex] == null) return;
+
             var energyCost = abilities[abilityIndex].GetEnergyCost();
 
             if (energyCost <= currentEnergyPoints)
@@ -159,12 +166,24 @@ namespace RPG.Combat
 
         public object CaptureState()
         {
-            return abilityNames;
+            return new KeyValuePair<string[], float>(abilityNames, currentEnergyPoints);
         }
 
         public void RestoreState(object state)
         {
-            throw new System.NotImplementedException();
+            KeyValuePair<string[], float> values = (KeyValuePair<string[], float>) state;
+            currentEnergyPoints = values.Value;
+            abilityNames = values.Key;
+            abilities = new AbilityConfig[skillCount];
+            for(int i = 0; i < skillCount; i++)
+            {
+                if (i >= abilityNames.Length)
+                    abilities[i] = null;
+                abilities[i] = Resources.Load<AbilityConfig>(abilityNames[i]);
+                currentAbilityTimes = new float[abilities.Length];
+                coolDownTimers = new float[abilities.Length];
+            }
+            AttachInitialAbilities();
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DamageText : MonoBehaviour
+public class HealText : MonoBehaviour
 {
     [SerializeField] Text text;
     // Start is called before the first frame update

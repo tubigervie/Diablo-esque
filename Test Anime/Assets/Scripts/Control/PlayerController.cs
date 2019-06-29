@@ -88,17 +88,30 @@ namespace RPG.Control
         {
             if (!canMove)
                 return true;
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
-            if (hasHit)
+            //RaycastHit hit;
+            RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
+            foreach(RaycastHit hit in hits)
             {
-                if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
+                if(hit.collider.gameObject.layer == 8)
                 {
-                    mover.StartMoveAction(hit.point, 1f);
+                    if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
+                    {
+                        mover.StartMoveAction(hit.point, 1f);
+                    }
+                    return true;
                 }
-                return true;
             }
             return false;
+            //bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
+            //if (hasHit)
+            //{
+            //    if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
+            //    {
+            //        mover.StartMoveAction(hit.point, 1f);
+            //    }
+            //    return true;
+            //}
+            //return false;
         }
 
         public void ToggleMovement()

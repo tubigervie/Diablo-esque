@@ -22,4 +22,4 @@ MonoBehaviour:
   clipSpeed: 1.5
   disableMovement: 1
   radius: 3
-  damageToEachTarget: 30
+  percentageDamage: 125

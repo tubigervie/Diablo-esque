@@ -10,16 +10,16 @@ namespace RPG.Combat
     {
         [Header("Area Effect Specific")]
         [SerializeField] float radius = 5f;
-        [SerializeField] float damageToEachTarget = 15f;
+        [SerializeField] float percentageDamage;
 
         public override AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo)
         {
             return objectToAttachTo.AddComponent<AreaEffectBehaviour>();
         }
 
-        public float GetDamageToEachTarget()
+        public float GetDamageToEachTarget(float damage)
         {
-            return damageToEachTarget;
+            return damage * (percentageDamage / 100);
         }
 
         public float GetRadius()

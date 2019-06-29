@@ -86,6 +86,27 @@ namespace RPG.Saving
             return Path.Combine(Application.persistentDataPath, saveFile + ".sav");
         }
 
+        public bool CheckForSave(string saveFile)
+        {
+            string path = GetPathFromSaveFile(saveFile);
+            return File.Exists(path);
+        }
+
+        public void SwitchAutoToSave(string autoFile, string saveFile)
+        {
+            Dictionary<string, object> state;
+            using (FileStream stream = File.Open(GetPathFromSaveFile(autoFile), FileMode.Open))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                state = (Dictionary<string, object>)formatter.Deserialize(stream);
+            }
+            using (FileStream stream = File.Open(GetPathFromSaveFile(saveFile), FileMode.Create))
+            {
+                BinaryFormatter newFormatter = new BinaryFormatter();
+                newFormatter.Serialize(stream, state);
+            }
+        }
+
         public void DeleteAutoSave(string saveFile)
         {
             File.Delete(GetPathFromSaveFile(saveFile));

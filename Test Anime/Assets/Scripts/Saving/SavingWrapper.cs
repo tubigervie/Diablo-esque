@@ -50,7 +50,6 @@ namespace RPG.SceneManagement
 
         IEnumerator LoadLastScene()
         {
-            GetComponent<SavingSystem>().DeleteAutoSave(autoSaveFile);
             yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
 
             Fader fader = FindObjectOfType<Fader>();
@@ -68,7 +67,14 @@ namespace RPG.SceneManagement
 
         public void Save()
         {
+            SavingSystem saveSystem = GetComponent<SavingSystem>();
             ToggleSaveUI();
+            if(saveSystem.CheckForSave(autoSaveFile))
+            {
+                Debug.Log("heya");
+                GetComponent<SavingSystem>().Save(defaultSaveFile);
+                saveSystem.SwitchAutoToSave(autoSaveFile, defaultSaveFile);
+            }
             GetComponent<SavingSystem>().Save(defaultSaveFile);
         }
 

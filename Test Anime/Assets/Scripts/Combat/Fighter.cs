@@ -21,7 +21,7 @@ namespace RPG.Combat
         [SerializeField] Weapon defaultWeapon;
 
         public float timeSinceLastAttack = Mathf.Infinity;
-        Weapon currentWeapon = null;
+        [SerializeField] Weapon currentWeapon = null;
         bool attackLock = false;
         bool clickInput = false;
 
@@ -102,6 +102,12 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, combatTarget.transform.position) < currentWeapon.GetWeaponRange();
         }
 
+        public float GetBaseDamage()
+        {
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage();
+            return damage;
+        }
+
         void Hit()
         {
             if (combatTarget == null)
@@ -109,7 +115,7 @@ namespace RPG.Combat
                 return;
             }
             attackLock = true;
-            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage();
          
             Health healthComponent = combatTarget.GetComponent<Health>();
             if (healthComponent.IsDead())
@@ -167,7 +173,7 @@ namespace RPG.Combat
 
         public object CaptureState()
         {
-            return currentWeapon.name;
+            return (currentWeapon != null) ? currentWeapon.name : null;     
         }
 
         public void RestoreState(object state)
@@ -182,7 +188,7 @@ namespace RPG.Combat
         {
             if (stat == Stat.Damage)
             {
-                yield return currentWeapon.GetWeaponDamage(); //replace when weapon has stats
+                yield return currentWeapon.GetWeaponDamageBonus(); //replace when weapon has stats
             }
         }
 

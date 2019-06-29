@@ -12,12 +12,12 @@ namespace RPG.Resource
     {
         [SerializeField] float currentHealthPoints;
         float maxHealthPoints = -1f;
-        [SerializeField] DamageTextSpawner damageTextSpawner;
+        [SerializeField] TextNumberSpawner textNumberSpawner;
         bool isDead;
 
         void Awake()
         {
-            damageTextSpawner = FindObjectOfType<DamageTextSpawner>();
+            textNumberSpawner = FindObjectOfType<TextNumberSpawner>();
         }
 
         void Start()
@@ -70,7 +70,7 @@ namespace RPG.Resource
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            damageTextSpawner.Create(damage, transform.position);
+            textNumberSpawner.CreateDamageText(damage, transform.position);
             currentHealthPoints -= damage;
             AIController ai = GetComponent<AIController>();
             if (ai != null)
@@ -85,6 +85,7 @@ namespace RPG.Resource
 
         public void Heal(float amount)
         {
+            textNumberSpawner.CreateHealText(amount, transform.position);
             currentHealthPoints = Mathf.Clamp(currentHealthPoints + amount, currentHealthPoints, maxHealthPoints);
         }
 
