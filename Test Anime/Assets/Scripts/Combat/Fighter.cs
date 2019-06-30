@@ -102,9 +102,10 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, combatTarget.transform.position) < currentWeapon.GetWeaponRange();
         }
 
-        public float GetBaseDamage()
+        public float GetDamage()
         {
-            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage();
+            BaseStats stat = GetComponent<BaseStats>();
+            float damage = stat.GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage() + stat.GetAttributeBonus(Stat.Strength);
             return damage;
         }
 
@@ -115,8 +116,17 @@ namespace RPG.Combat
                 return;
             }
             attackLock = true;
-            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage();
-         
+            float damage = GetDamage();
+            BaseStats stat = GetComponent<BaseStats>();
+            float critChance = (stat.GetStat(Stat.CriticalHitChance) + stat.GetAttributeBonus(Stat.Dexterity)) / 100;
+
+            bool shouldBeCritical = Random.value < critChance;
+
+            if (shouldBeCritical)
+            {
+                damage *= 1.5f;
+            }
+
             Health healthComponent = combatTarget.GetComponent<Health>();
             if (healthComponent.IsDead())
             {
@@ -128,14 +138,14 @@ namespace RPG.Combat
                 AudioClip damageSound = currentWeapon.GetRandomWeaponSound();
                 if (damageSound != null)
                     GetComponent<AudioSource>().PlayOneShot(damageSound);
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage, shouldBeCritical);
             }
             else
             {
                 AudioClip damageSound = currentWeapon.GetRandomWeaponSound();
                 if (damageSound != null)
                     combatTarget.GetComponent<AudioSource>().PlayOneShot(damageSound);
-                healthComponent.TakeDamage(gameObject, damage);
+                healthComponent.TakeDamage(gameObject, damage, shouldBeCritical);
             }
             attackLock = false;
         }
@@ -186,17 +196,19 @@ namespace RPG.Combat
 
         public IEnumerable<float> GetAdditiveModifier(Stat stat)
         {
-            if (stat == Stat.Damage)
+            foreach(var modifier in currentWeapon.GetStatModifiers())
             {
-                yield return currentWeapon.GetWeaponDamageBonus(); //replace when weapon has stats
+                if(modifier.stat == stat)
+                    yield return currentWeapon.GetStatBonus(modifier.stat, BonusType.Flat);
             }
         }
 
         public IEnumerable<float> GetPercentageModifier(Stat stat)
         {
-            if (stat == Stat.Damage)
+            foreach (var modifier in currentWeapon.GetStatModifiers())
             {
-                yield return currentWeapon.GetPercentageBonus();
+                if (modifier.stat == stat)
+                    yield return currentWeapon.GetStatBonus(modifier.stat, BonusType.Percentage);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Resource;
+using RPG.Stats;
 
 namespace RPG.Combat
 {
@@ -13,13 +14,13 @@ namespace RPG.Combat
         [SerializeField] AnimatorOverrideController animatorOverride = null;
         [SerializeField] GameObject equippedPrefab = null;
         [SerializeField] DamageRange weaponDamage = new DamageRange(-1, -1);
-        [SerializeField] float weaponPercentageBonus;
-        [SerializeField] float weaponDamageBonus;
+
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] bool isRight = true;
         [SerializeField] Projectile projectile = null;
         [SerializeField] AudioClip[] audioClips;
+        [SerializeField] StatModifier[] statModifiers;
 
         const string weaponName = "Weapon";
 
@@ -62,19 +63,24 @@ namespace RPG.Combat
             return audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
         }
 
+        public StatModifier[] GetStatModifiers()
+        {
+            return statModifiers;
+        }
+
         public bool HasProjectile()
         {
             return projectile != null;
         }
 
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage)
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, bool isCritical = false)
         {
             Projectile projInstance;
             if (isRight)
                 projInstance = Instantiate(projectile, rightHand.position, Quaternion.identity);
             else
                 projInstance = Instantiate(projectile, leftHand.position, Quaternion.identity);
-            projInstance.SetTarget(target, instigator, calculatedDamage);
+            projInstance.SetTarget(target, instigator, calculatedDamage, isCritical);
         }
 
         public float GetWeaponDamage()
@@ -82,19 +88,20 @@ namespace RPG.Combat
             return weaponDamage.RandomlyChooseDamage();
         }
 
-        public float GetWeaponDamageBonus()
-        {
-            return weaponDamageBonus;
-        }
-
-        public float GetPercentageBonus()
-        {
-            return weaponPercentageBonus;
-        }
 
         public float GetWeaponRange()
         {
             return weaponRange;
+        }
+
+        public float GetStatBonus(Stat bonus, BonusType type)
+        {
+            foreach(StatModifier modifier in statModifiers)
+            {
+                if (modifier.stat == bonus && modifier.bonusType == type)
+                    return modifier.amount;
+            }
+            return 0;
         }
 
         public float GetWeaponTimeBetween()

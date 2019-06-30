@@ -19,7 +19,8 @@ namespace RPG.Stats
         Energy,
         Strength,
         Dexterity,
-        Constitution
+        Constitution,
+        CriticalHitChance
     }
 
     public class BaseStats : MonoBehaviour
@@ -33,7 +34,7 @@ namespace RPG.Stats
         [SerializeField] bool shouldUseModifiers = false;
         [SerializeField] AudioClip levelUpAudio;
         [SerializeField] float damageBonusPerStrengthPoint = .5f;
-
+        [SerializeField] float criticalHitChancePerDexterityPoint = .2f;
 
         public event Action onLevelUp;
 
@@ -66,7 +67,34 @@ namespace RPG.Stats
 
         public float GetStat(Stat stat)
         {
-            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
+            float percentageBonus = (1 + GetPercentageModifier(stat) / 100);
+            //Debug.Log(stat + " % bonus: " + percentageBonus);
+            float additiveBonus = (GetAdditiveModifier(stat));
+            //Debug.Log(stat + " + bonus: " + additiveBonus);
+            float baseAmount = GetBaseStat(stat);
+            //Debug.Log(stat + " base: " + baseAmount);
+            //Debug.Log("Total: " + ((baseAmount * percentageBonus) + additiveBonus));
+            return (baseAmount * percentageBonus) + additiveBonus;
+        }
+
+        public float GetAttributeBonus(Stat stat)
+        {
+            if (!shouldUseModifiers) return 0;
+            float total = 0;
+            switch (stat)
+            {
+                case Stat.Strength:
+                    total += GetStat(stat) * damageBonusPerStrengthPoint;
+                    return total;
+                case Stat.Dexterity:
+                    float dexTotal = GetStat(stat);
+                    Debug.Log("dex total: " + dexTotal);
+                    total += dexTotal * criticalHitChancePerDexterityPoint;
+                    return total;
+                case Stat.Constitution:
+                    break;
+            }
+            return 0;
         }
 
         public float GetBaseStat(Stat stat)

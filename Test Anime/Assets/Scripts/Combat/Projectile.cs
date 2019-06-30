@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject hitEffect = null;
     [SerializeField] AudioClip hitSound;
     float damage = 0;
+    bool isCritical;
     GameObject instigator;
 
     private void Start()
@@ -32,11 +33,12 @@ public class Projectile : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
-    public void SetTarget(Health target, GameObject instigator, float damage)
+    public void SetTarget(Health target, GameObject instigator, float damage, bool isCritical)
     {
         this.instigator = instigator;
         this.target = target;
         this.damage = damage;
+        this.isCritical = isCritical;
     }
 
     private Vector3 GetAimLocation()
@@ -58,7 +60,7 @@ public class Projectile : MonoBehaviour
                 return;
             if (hitSound != null)
                 other.GetComponent<AudioSource>().PlayOneShot(hitSound);
-            target.TakeDamage(instigator, damage);
+            target.TakeDamage(instigator, damage, isCritical);
             TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
             if(trail != null)
             {

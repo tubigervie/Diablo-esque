@@ -19,4 +19,5 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 589a11aa017e375428c360e38fe9e7ae, type: 3}
   clipSpeed: 1
-  extraHealth: 50
+  disableMovement: 1
+  extraHealth: 100

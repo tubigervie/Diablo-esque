@@ -35,7 +35,7 @@ namespace RPG.Combat
                 bool hitPlayer = hit.collider.gameObject.GetComponent<PlayerController>();
                 if (damageable != null && !hitPlayer)
                 {
-                    float damageToDeal = (config as AreaEffectConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetBaseDamage()) + GetComponent<BaseStats>().GetBaseStat(Stat.Damage); //replace with just GetStat once weapons stats are in
+                    float damageToDeal = (config as AreaEffectConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetDamage()) + GetComponent<BaseStats>().GetBaseStat(Stat.Damage); //replace with just GetStat once weapons stats are in
                     damageable.TakeDamage(this.gameObject, damageToDeal);
                 }
             }

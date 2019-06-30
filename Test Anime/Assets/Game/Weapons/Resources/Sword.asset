@@ -18,10 +18,13 @@ MonoBehaviour:
   weaponDamage:
     min: 18
     max: 25
-  weaponPercentageBonus: 0
   weaponRange: 2.75
   timeBetweenAttacks: 1.75
   isRight: 1
   projectile: {fileID: 0}
   audioClips:
   - {fileID: 8300000, guid: f436ad67b5dec7f40b938ed0ef13d55a, type: 3}
+  statModifiers:
+  - stat: 8
+    bonusType: 0
+    amount: 20

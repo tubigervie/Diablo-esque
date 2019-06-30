@@ -17,7 +17,19 @@ public class ExperienceUI : MonoBehaviour
         baseStats = GameObject.FindWithTag("Player").GetComponent<BaseStats>();
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        experience.onExperienceGained += UpdateExperience;
+        experience.onExperienceLoaded += UpdateExperience;
+    }
+
+    private void OnDisable()
+    {
+        experience.onExperienceGained -= UpdateExperience;
+        experience.onExperienceLoaded -= UpdateExperience;
+    }
+
+    public void UpdateExperience()
     {
         float XPtoLevelUp = baseStats.GetStat(Stat.ExperienceToLevelUp);
         float prevXPtoLevel = 0;

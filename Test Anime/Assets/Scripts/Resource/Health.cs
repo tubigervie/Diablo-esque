@@ -68,9 +68,13 @@ namespace RPG.Resource
             }
         }
 
-        public void TakeDamage(GameObject instigator, float damage)
+        public void TakeDamage(GameObject instigator, float damage, bool isCritical = false)
         {
-            textNumberSpawner.CreateDamageText(damage, transform.position);
+            if (isCritical)
+                textNumberSpawner.CreateCritText(damage, transform.position);
+            else
+                textNumberSpawner.CreateDamageText(damage, transform.position);
+
             currentHealthPoints -= damage;
             AIController ai = GetComponent<AIController>();
             if (ai != null)
