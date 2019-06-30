@@ -17,6 +17,7 @@ namespace RPG.Control
         EnemyHealthUI targetHealth;
         SpecialAbilities abilities;
         public bool canMove = true;
+        bool firstFrameOnly = false;
 
         // Start is called before the first frame update
         void Awake()
@@ -46,17 +47,31 @@ namespace RPG.Control
 
         private bool InteractWithCombat()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if(Input.GetKey(KeyCode.Alpha1))
             {
-                //Debug.Log()
+                if (abilities.SkipForLooping(0))
+                {
+                    abilities.ContinueLoop(0);
+                    return false;
+                }
                 abilities.AttemptSpecialAbility(0);
                 return true;
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (Input.GetKey(KeyCode.Alpha2))
             {
+                if (abilities.SkipForLooping(1))
+                {
+                    abilities.ContinueLoop(1);
+                    return false;
+                }
                 abilities.AttemptSpecialAbility(1);
                 return true;
             }
+            else
+            {
+                abilities.CancelLoops();
+            }
+
             bool clickInput = Input.GetMouseButtonDown(0);
             if (!clickInput)
                 return false;

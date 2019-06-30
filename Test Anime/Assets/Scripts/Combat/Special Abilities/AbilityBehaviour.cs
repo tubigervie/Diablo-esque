@@ -24,29 +24,25 @@ namespace RPG.Combat
     {
         protected AbilityConfig config;
 
-        const string ATTACK_TRIGGER = "ability";
-        const string DEFAULT_ATTACK_STATE = "Cast Spell 01";
+        public const string ABILITY_TRIGGER = "ability";
+        public const string DEFAULT_ABILITY_ANIMATION = "Cast Spell 01";
+        public const string DEFAULT_LOOP_START = "Spin Start";
+        public const string DEFAULT_LOOP = "Spin Loop";
+        public const string DEFAULT_LOOP_END = "Spin End";
+        public bool inUse = false;
+
         const float PARTICLE_CLEAN_UP_DELAY = 20f;
 
         public abstract void Use(GameObject target = null);
+
+        public abstract void Cancel();
 
         public void SetConfig(AbilityConfig configToSet)
         {
             config = configToSet;
         }
 
-        protected void PlayParticleEffect()
-        {
-            var particlePrefab = config.GetParticlePrefab();
-            var particleObject = Instantiate(
-                particlePrefab,
-                transform.position,
-                particlePrefab.transform.rotation
-            );
-            particleObject.transform.parent = transform; // set world space in prefab if required
-            particleObject.GetComponent<ParticleSystem>().Play();
-            StartCoroutine(DestroyParticleWhenFinished(particleObject));
-        }
+        protected abstract void PlayParticleEffect();
 
         IEnumerator DestroyParticleWhenFinished(GameObject particlePrefab)
         {
@@ -58,32 +54,16 @@ namespace RPG.Combat
             yield return new WaitForEndOfFrame();
         }
 
-        protected void PlayAbilityAnimation()
-        {            
-            var animator = GetComponent<Animator>();
-            animator.SetFloat("animSpeed", config.GetAnimationSpeed());
-            var animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
-            animator.runtimeAnimatorController = animatorOverrideController;
-
-            var currentOverrideController = GetComponent<Fighter>().GetOverrideController();
-
-            AnimationClipOverrides clipOverrides = new AnimationClipOverrides(currentOverrideController.overridesCount);
-            currentOverrideController.GetOverrides(clipOverrides);
-
-            clipOverrides[DEFAULT_ATTACK_STATE] = config.GetAbilityAnimation();
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-            
-            animator.SetTrigger(ATTACK_TRIGGER);
-            GetComponent<Fighter>().timeSinceLastAttack = 0;
-            animator.SetBool("inBattle", true);
-        }
+        protected abstract void PlayAbilityAnimation();
 
         protected void PlayAbilitySound()
         {
             var abilitySound = config.GetRandomAbilitySound();
+            if (abilitySound == null) return;
             var audioSource = GetComponent<AudioSource>();
             audioSource.PlayOneShot(abilitySound);
         }
+
     }
 
 }

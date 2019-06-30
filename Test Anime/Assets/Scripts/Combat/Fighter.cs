@@ -209,7 +209,11 @@ namespace RPG.Combat
 
         public IEnumerable<float> GetAdditiveModifier(Stat stat)
         {
-            foreach(var modifier in currentWeapon.GetStatModifiers())
+            if (currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
+            foreach (var modifier in currentWeapon.GetStatModifiers())
             {
                 if(modifier.stat == stat)
                     yield return currentWeapon.GetStatBonus(modifier.stat, BonusType.Flat);
@@ -218,6 +222,10 @@ namespace RPG.Combat
 
         public IEnumerable<float> GetPercentageModifier(Stat stat)
         {
+            if (currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
             foreach (var modifier in currentWeapon.GetStatModifiers())
             {
                 if (modifier.stat == stat)

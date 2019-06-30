@@ -5875,6 +5875,18 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1869809027841948924, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8fe6d0a3c983b254b91aeccbe241e6c3,
+        type: 2}
+    - target: {fileID: 6244765102765036889, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
 --- !u!4 &3594118166325817564

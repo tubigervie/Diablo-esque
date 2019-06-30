@@ -105,6 +105,31 @@ namespace RPG.Combat
             return disableMove;
         }
 
+        public void CancelLoops()
+        {
+            for(int i = 0; i < abilities.Length; i++)
+            {
+                if (abilities[i] != null && abilities[i].behaviour.inUse)
+                {
+                    abilities[i].behaviour.Cancel();
+                    abilities[i].behaviour.StopAllCoroutines();
+                    return;
+                }
+            }
+        }
+
+        public bool SkipForLooping(int abilityIndex)
+        {
+            return abilities[abilityIndex] != null && abilities[abilityIndex].IsLooping() && abilities[abilityIndex].behaviour.inUse;
+        }
+
+        public void ContinueLoop(int abilityIndex, GameObject target = null)
+        {
+            var energyCost = abilities[abilityIndex].GetEnergyCost();
+            ConsumeEnergy(energyCost * Time.deltaTime);
+            abilities[abilityIndex].Use(target);
+        }
+
         public void AttemptSpecialAbility(int abilityIndex, GameObject target = null)
         {
             if (abilities[abilityIndex] == null) return;
@@ -113,18 +138,21 @@ namespace RPG.Combat
 
             if (energyCost <= currentEnergyPoints)
             {
-                if (coolDownTimers[abilityIndex] > 0)
-                    return;
-                ConsumeEnergy(energyCost);
-                abilities[abilityIndex].Use(target);
-                disableMove = abilities[abilityIndex].GetDisableMovement();
-                coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
-                currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];
-           
-            }
-            else
-            {
-                audioSource.PlayOneShot(outOfEnergy);
+                if(abilities[abilityIndex].IsLooping())
+                {
+                    ConsumeEnergy(energyCost * Time.deltaTime);
+                    abilities[abilityIndex].Use(target);
+                }
+                else
+                {
+                    if (coolDownTimers[abilityIndex] > 0)
+                        return;
+                    ConsumeEnergy(energyCost);
+                    abilities[abilityIndex].Use(target);
+                    disableMove = abilities[abilityIndex].GetDisableMovement();
+                    coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
+                    currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];
+                }         
             }
         }
 

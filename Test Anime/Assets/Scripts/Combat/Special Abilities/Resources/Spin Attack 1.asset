@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed757e0de8a0e747aba2015e18df87c, type: 3}
+  m_Name: Spin Attack 1
+  m_EditorClassIdentifier: 
+  energyCost: 10
+  coolDownTime: 0
+  particlePrefab: {fileID: 150486, guid: 526c4229641a04e459198ae7e7778c74, type: 3}
+  abilityAnimation: {fileID: 7400002, guid: 5fb89ed908dc75642ac3b52a45361100, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: 145655d3e527834469d1c9070cc66bea, type: 3}
+  - {fileID: 8300000, guid: 0925fd4765537e14d985a7d4f7558b63, type: 3}
+  clipSpeed: 1
+  disableMovement: 0
+  isLooping: 1
+  behaviour: {fileID: 0}
+  abilityLoopAnimation: {fileID: 7400004, guid: 5fb89ed908dc75642ac3b52a45361100,
+    type: 3}
+  abilityEndAnimation: {fileID: 7400006, guid: 5fb89ed908dc75642ac3b52a45361100, type: 3}
+  radius: 2
+  percentageDamage: 50
+  hitsPerSecond: 3
+  attackSoundEffect: {fileID: 8300000, guid: 9a6b3edddc6829a41bedc0880968b9b6, type: 3}

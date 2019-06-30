@@ -14,8 +14,9 @@ namespace RPG.Combat
         [SerializeField] AudioClip[] audioClips;
         [SerializeField] float clipSpeed = 1;
         [SerializeField] bool disableMovement = true;
+        [SerializeField] bool isLooping = false;
 
-        protected AbilityBehaviour behaviour;
+        [HideInInspector] public AbilityBehaviour behaviour;
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
 
@@ -53,6 +54,8 @@ namespace RPG.Combat
 
         public AudioClip GetRandomAbilitySound()
         {
+            if (audioClips.Length == 0)
+                return null;
             return audioClips[Random.Range(0, audioClips.Length)];
         }
 
@@ -64,6 +67,11 @@ namespace RPG.Combat
         public bool GetDisableMovement()
         {
             return disableMovement;
+        }
+
+        public bool IsLooping()
+        {
+            return isLooping;
         }
     }
 }

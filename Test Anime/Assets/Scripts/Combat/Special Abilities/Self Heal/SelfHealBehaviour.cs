@@ -15,6 +15,44 @@ namespace RPG.Combat
             player = GetComponent<PlayerController>();
         }
 
+        protected override void PlayAbilityAnimation()
+        {
+            var animator = GetComponent<Animator>();
+            animator.SetFloat("animSpeed", config.GetAnimationSpeed());
+            var animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+            animator.runtimeAnimatorController = animatorOverrideController;
+
+            var currentOverrideController = GetComponent<Fighter>().GetOverrideController();
+
+            AnimationClipOverrides clipOverrides = new AnimationClipOverrides(currentOverrideController.overridesCount);
+            currentOverrideController.GetOverrides(clipOverrides);
+
+            clipOverrides[DEFAULT_ABILITY_ANIMATION] = config.GetAbilityAnimation();
+            animatorOverrideController.ApplyOverrides(clipOverrides);
+
+            animator.SetTrigger(ABILITY_TRIGGER);
+            GetComponent<Fighter>().timeSinceLastAttack = 0;
+            animator.SetBool("inBattle", true);
+        }
+
+        public override void Cancel()
+        {
+
+        }
+
+        protected override void PlayParticleEffect()
+        {
+            var particlePrefab = config.GetParticlePrefab();
+            if (particlePrefab == null) return;
+            var particleObject = Instantiate(
+                particlePrefab,
+                transform.position,
+                particlePrefab.transform.rotation
+            );
+            particleObject.transform.parent = transform; // set world space in prefab if required
+            particleObject.GetComponent<ParticleSystem>().Play();
+        }
+
         public override void Use(GameObject target)
         {
             PlayAbilitySound();
