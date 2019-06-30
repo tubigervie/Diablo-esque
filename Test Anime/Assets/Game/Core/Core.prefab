@@ -2116,6 +2116,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3662156279682160901, guid: 7e325077345883d41841e65f6e8d9ba2,
+        type: 3}
+      propertyPath: levelUpAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a3da3a9e4a31074bbd3154abf9e0fff, type: 3}
     - target: {fileID: 5718227515760546824, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
       propertyPath: rightHandTransform

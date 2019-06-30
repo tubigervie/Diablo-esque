@@ -20,7 +20,8 @@ namespace RPG.Stats
         Strength,
         Dexterity,
         Constitution,
-        CriticalHitChance
+        CriticalHitChance,
+        Defense
     }
 
     public class BaseStats : MonoBehaviour
@@ -33,8 +34,11 @@ namespace RPG.Stats
         [SerializeField] int currentLevel = 0;
         [SerializeField] bool shouldUseModifiers = false;
         [SerializeField] AudioClip levelUpAudio;
+
         [SerializeField] float damageBonusPerStrengthPoint = .5f;
         [SerializeField] float criticalHitChancePerDexterityPoint = .2f;
+        [SerializeField] float defenseBonusPerConstitutionPoint = .5f;
+        [SerializeField] float healthBonusPerConstitutionPoint = 2f;
 
         public event Action onLevelUp;
 
@@ -77,24 +81,30 @@ namespace RPG.Stats
             return (baseAmount * percentageBonus) + additiveBonus;
         }
 
-        public float GetAttributeBonus(Stat stat)
+
+        public float GetConstitutionHealthBonus()
         {
             if (!shouldUseModifiers) return 0;
-            float total = 0;
-            switch (stat)
-            {
-                case Stat.Strength:
-                    total += GetStat(stat) * damageBonusPerStrengthPoint;
-                    return total;
-                case Stat.Dexterity:
-                    float dexTotal = GetStat(stat);
-                    Debug.Log("dex total: " + dexTotal);
-                    total += dexTotal * criticalHitChancePerDexterityPoint;
-                    return total;
-                case Stat.Constitution:
-                    break;
-            }
-            return 0;
+            return GetStat(Stat.Constitution) * healthBonusPerConstitutionPoint;
+        }
+
+        public float GetConstitutionDefenseBonus()
+        {
+            if (!shouldUseModifiers) return 0;
+            return GetStat(Stat.Constitution) * defenseBonusPerConstitutionPoint;
+        }
+
+
+        public float GetStrengthDamageBonus()
+        {
+            if (!shouldUseModifiers) return 0;
+            return GetStat(Stat.Strength) * damageBonusPerStrengthPoint;
+        }
+
+        public float GetDexCritChanceBonus()
+        {
+            if (!shouldUseModifiers) return 0;
+            return GetStat(Stat.Dexterity) * criticalHitChancePerDexterityPoint;
         }
 
         public float GetBaseStat(Stat stat)
@@ -140,7 +150,7 @@ namespace RPG.Stats
             if(currentLevel < 1)
             {
                 currentLevel = CalculateLevel();
-                GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health));
+                GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health) + GetConstitutionHealthBonus());
             }
             return currentLevel;
         }
@@ -148,7 +158,7 @@ namespace RPG.Stats
         private void ChangeLevel()
         {
             currentLevel = CalculateLevel();
-            GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health));
+            GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health) + GetConstitutionHealthBonus());
             if(characterClass == CharacterClass.Player)
                 GetComponent<Combat.SpecialAbilities>().SetTotalEnergy(GetStat(Stat.Energy));
         }
@@ -159,7 +169,7 @@ namespace RPG.Stats
             if(newLevel > currentLevel)
             {
                 currentLevel = newLevel;
-                GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health));
+                GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health) + GetConstitutionHealthBonus());
                 if (characterClass == CharacterClass.Player)
                     GetComponent<Combat.SpecialAbilities>().SetTotalEnergy(GetStat(Stat.Energy));
                 LevelUpEffect();

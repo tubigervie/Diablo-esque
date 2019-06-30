@@ -105,8 +105,23 @@ namespace RPG.Combat
         public float GetDamage()
         {
             BaseStats stat = GetComponent<BaseStats>();
-            float damage = stat.GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage() + stat.GetAttributeBonus(Stat.Strength);
+            float damage = stat.GetStat(Stat.Damage) + currentWeapon.GetWeaponDamage() + stat.GetStrengthDamageBonus();
             return damage;
+        }
+
+        public float GetDefense()
+        {
+            BaseStats stat = GetComponent<BaseStats>();
+            float defense = stat.GetConstitutionDefenseBonus() + stat.GetStat(Stat.Defense);
+            return defense;
+        }
+
+        public bool ShouldCrit()
+        {
+            BaseStats stat = GetComponent<BaseStats>();
+            float critChance = (stat.GetStat(Stat.CriticalHitChance) + stat.GetDexCritChanceBonus()) / 100;
+
+            return Random.value < critChance;
         }
 
         void Hit()
@@ -116,11 +131,9 @@ namespace RPG.Combat
                 return;
             }
             attackLock = true;
-            float damage = GetDamage();
-            BaseStats stat = GetComponent<BaseStats>();
-            float critChance = (stat.GetStat(Stat.CriticalHitChance) + stat.GetAttributeBonus(Stat.Dexterity)) / 100;
+            float damage = Mathf.Clamp(GetDamage() - combatTarget.GetComponent<Fighter>().GetDefense(), 0, Mathf.Infinity);
 
-            bool shouldBeCritical = Random.value < critChance;
+            bool shouldBeCritical = ShouldCrit();
 
             if (shouldBeCritical)
             {
