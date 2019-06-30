@@ -15,9 +15,8 @@ MonoBehaviour:
   animatorOverride: {fileID: 22100000, guid: cb7862bf16cd0e043babbf5f7c91be59, type: 2}
   equippedPrefab: {fileID: 0}
   weaponDamage:
-    min: 1
+    min: 3
     max: 5
-  weaponPercentageBonus: 0
   weaponRange: 2
   timeBetweenAttacks: 1.2
   isRight: 1
@@ -25,3 +24,4 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: f6e23000514ea18468a42ab87a3ca097, type: 3}
   - {fileID: 8300000, guid: 7801475920ccd014abd271919ecb19b5, type: 3}
+  statModifiers: []

@@ -48,6 +48,7 @@ namespace RPG.Control
         {
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
+                //Debug.Log()
                 abilities.AttemptSpecialAbility(0);
                 return true;
             }
@@ -56,10 +57,12 @@ namespace RPG.Control
                 abilities.AttemptSpecialAbility(1);
                 return true;
             }
+            bool clickInput = Input.GetMouseButtonDown(0);
+            if (!clickInput)
+                return false;
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
-            foreach(RaycastHit hit in hits)
+            foreach (RaycastHit hit in hits)
             {
-                bool clickInput = Input.GetMouseButtonDown(0);
                 CombatTarget target = hit.collider.gameObject.GetComponent<CombatTarget>();
                 if (target == null)
                     continue;

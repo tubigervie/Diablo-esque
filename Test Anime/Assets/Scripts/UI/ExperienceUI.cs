@@ -21,12 +21,14 @@ public class ExperienceUI : MonoBehaviour
     {
         experience.onExperienceGained += UpdateExperience;
         experience.onExperienceLoaded += UpdateExperience;
+        baseStats.onLevelUp += UpdateExperience;
     }
 
     private void OnDisable()
     {
         experience.onExperienceGained -= UpdateExperience;
         experience.onExperienceLoaded -= UpdateExperience;
+        baseStats.onLevelUp -= UpdateExperience;
     }
 
     public void UpdateExperience()
