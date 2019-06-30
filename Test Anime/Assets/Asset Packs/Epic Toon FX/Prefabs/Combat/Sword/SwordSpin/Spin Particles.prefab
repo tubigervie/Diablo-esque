@@ -4741,7 +4741,7 @@ GameObject:
   - component: {fileID: 19850766}
   - component: {fileID: 19933586}
   m_Layer: 0
-  m_Name: SwordSpinBlue
+  m_Name: Spin Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
