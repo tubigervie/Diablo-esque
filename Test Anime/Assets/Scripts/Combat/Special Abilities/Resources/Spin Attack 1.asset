@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spin Attack 1
   m_EditorClassIdentifier: 
   energyCost: 10
-  coolDownTime: 0
+  coolDownTime: 2
   particlePrefab: {fileID: 150486, guid: 526c4229641a04e459198ae7e7778c74, type: 3}
   abilityAnimation: {fileID: 7400002, guid: 5fb89ed908dc75642ac3b52a45361100, type: 3}
   audioClips:
@@ -22,6 +22,7 @@ MonoBehaviour:
   clipSpeed: 1
   disableMovement: 0
   isLooping: 1
+  skillIcon: {fileID: 21300000, guid: 1b9d645afe0520a4ea593f291297b1ef, type: 3}
   behaviour: {fileID: 0}
   abilityLoopAnimation: {fileID: 7400004, guid: 5fb89ed908dc75642ac3b52a45361100,
     type: 3}

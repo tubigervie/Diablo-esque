@@ -11,6 +11,19 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
+        bool skill1InputDown;
+        bool skill2InputDown;
+        bool skill3InputDown;
+        //bool skill4InputDown;
+        //bool skill5InputDown;
+
+        bool skill1InputUp;
+        bool skill2InputUp;
+        bool skill3InputUp;
+        //bool skill4nputUp;
+        //bool skill5InputUp;
+
+
         Mover mover;
         Fighter fighter;
         Health health;
@@ -47,31 +60,99 @@ namespace RPG.Control
 
         private bool InteractWithCombat()
         {
-            if(Input.GetKey(KeyCode.Alpha1))
+            bool key1Down = Input.GetKeyDown(KeyCode.Alpha1);
+            bool key2Down = Input.GetKeyDown(KeyCode.Alpha2);
+            bool key3Down = Input.GetKeyDown(KeyCode.Alpha3);
+            bool key1Up = Input.GetKeyUp(KeyCode.Alpha1);
+            bool key2Up = Input.GetKeyUp(KeyCode.Alpha2);
+            bool key3Up = Input.GetKeyUp(KeyCode.Alpha3);
+
+            if (key1Up)
+                skill1InputDown = false;
+            if (key2Up)
+                skill2InputDown = false;
+            if (key3Up)
+                skill3InputDown = false;
+
+            if (key1Down || skill1InputDown)
             {
+                skill1InputDown = true;
                 if (abilities.SkipForLooping(0))
                 {
-                    abilities.ContinueLoop(0);
-                    return false;
+                    if (abilities.ContinueLoop(0))
+                        return false;
+                    else
+                    {
+                        skill1InputDown = false;
+                        abilities.PlayOutOfEnergy();
+                    }
                 }
-                abilities.AttemptSpecialAbility(0);
-                return true;
+                else if (abilities.HasEnoughEnergy(0))
+                {
+                    return abilities.AttemptSpecialAbility(0);
+                }
+                else
+                {
+                    skill1InputDown = false;
+                    abilities.PlayOutOfEnergy();
+                }
             }
-            else if (Input.GetKey(KeyCode.Alpha2))
+            else if (key2Down || skill2InputDown)
             {
+                skill2InputDown = true;
                 if (abilities.SkipForLooping(1))
                 {
-                    abilities.ContinueLoop(1);
-                    return false;
+                    if (abilities.ContinueLoop(1))
+                        return false;
+                    else
+                    {
+                        skill2InputDown = false;
+                        abilities.PlayOutOfEnergy();
+                    }
                 }
-                abilities.AttemptSpecialAbility(1);
-                return true;
+                else if (abilities.HasEnoughEnergy(1))
+                {
+                    return abilities.AttemptSpecialAbility(1);
+                }
+                else
+                {
+                    skill2InputDown = false;
+                    abilities.PlayOutOfEnergy();
+                }
+            }
+            else if (key3Down || skill3InputDown)
+            {
+                skill3InputDown = true;
+                if (abilities.SkipForLooping(2))
+                {
+                    if (abilities.ContinueLoop(2))
+                        return false;
+                    else
+                    {
+                        skill3InputDown = false;
+                        abilities.PlayOutOfEnergy();
+                    }
+                }
+                else if (abilities.HasEnoughEnergy(2))
+                {
+                    return abilities.AttemptSpecialAbility(2);
+                }
+                else
+                {
+                    skill3InputDown = false;
+                    abilities.PlayOutOfEnergy();
+                }
             }
             else
             {
                 abilities.CancelLoops();
             }
 
+            return InteractWithBasicAttacks();
+        }
+
+        private bool InteractWithBasicAttacks()
+        {
             bool clickInput = Input.GetMouseButtonDown(0);
             if (!clickInput)
                 return false;
@@ -85,10 +166,10 @@ namespace RPG.Control
                     continue;
                 if (clickInput && (!targetHealth.IsActive() || targetHealth.target != target.gameObject.GetComponent<Health>()))
                 {
-                    if(Vector3.Distance(transform.position, target.transform.position) < 20)
+                    if (Vector3.Distance(transform.position, target.transform.position) < 20)
                         targetHealth.OnEnabled(target.gameObject.GetComponent<Health>());
                 }
-                else if(clickInput)
+                else if (clickInput)
                 {
                     fighter.Attack(target.gameObject);
                 }
@@ -135,6 +216,10 @@ namespace RPG.Control
         public void ToggleMovement()
         {
             canMove = !canMove;
+            if(!canMove)
+            {
+                mover.Cancel();
+            }
         }
     }
 }

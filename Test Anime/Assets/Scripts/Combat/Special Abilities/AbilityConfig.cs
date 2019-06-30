@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG.Combat
 {
@@ -15,7 +16,7 @@ namespace RPG.Combat
         [SerializeField] float clipSpeed = 1;
         [SerializeField] bool disableMovement = true;
         [SerializeField] bool isLooping = false;
-
+        [SerializeField] Sprite skillIcon;
         [HideInInspector] public AbilityBehaviour behaviour;
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
@@ -45,6 +46,11 @@ namespace RPG.Combat
         public AnimationClip GetAbilityAnimation()
         {
             return abilityAnimation;
+        }
+
+        public Sprite GetIcon()
+        {
+            return skillIcon;
         }
 
         public float GetCooldownTime()

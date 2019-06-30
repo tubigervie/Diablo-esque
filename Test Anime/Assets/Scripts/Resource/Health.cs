@@ -26,6 +26,7 @@ namespace RPG.Resource
             {
                 float consBonus = GetComponent<BaseStats>().GetConstitutionHealthBonus();
                 maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) + consBonus;
+                currentHealthPoints = maxHealthPoints;
             }
         }
 

@@ -15,6 +15,7 @@ namespace RPG.Combat
         [SerializeField] float regenPointsPerSecond = 1f;
         [SerializeField] AudioClip outOfEnergy;
         [SerializeField] Image[] abilityCooldowns;
+        [SerializeField] Image[] abilityImages;
         float[] currentAbilityTimes;
         float[] coolDownTimers;
         [SerializeField] float currentEnergyPoints;
@@ -90,6 +91,7 @@ namespace RPG.Combat
             for (int abilityIndex = 0; abilityIndex < skillCount; abilityIndex++)
             {
                 if (abilities[abilityIndex] == null) continue;
+                abilityImages[abilityIndex].sprite = abilities[abilityIndex].GetIcon();
                 abilities[abilityIndex].AttachAbilityTo(gameObject);
                 abilityNames[abilityIndex] = abilities[abilityIndex].name;
             }
@@ -113,6 +115,8 @@ namespace RPG.Combat
                 {
                     abilities[i].behaviour.Cancel();
                     abilities[i].behaviour.StopAllCoroutines();
+                    coolDownTimers[i] = abilities[i].GetCooldownTime();
+                    currentAbilityTimes[i] = coolDownTimers[i];
                     return;
                 }
             }
@@ -123,37 +127,60 @@ namespace RPG.Combat
             return abilities[abilityIndex] != null && abilities[abilityIndex].IsLooping() && abilities[abilityIndex].behaviour.inUse;
         }
 
-        public void ContinueLoop(int abilityIndex, GameObject target = null)
+        public bool ContinueLoop(int abilityIndex, GameObject target = null)
         {
-            var energyCost = abilities[abilityIndex].GetEnergyCost();
-            ConsumeEnergy(energyCost * Time.deltaTime);
+            var energyCost = abilities[abilityIndex].GetEnergyCost() * Time.deltaTime;
+            if (energyCost > currentEnergyPoints)
+            {
+                CancelLoops();
+                return false;
+            }
+            ConsumeEnergy(energyCost);
             abilities[abilityIndex].Use(target);
+            return true;
         }
 
-        public void AttemptSpecialAbility(int abilityIndex, GameObject target = null)
+        public bool AttemptSpecialAbility(int abilityIndex, GameObject target = null)
         {
-            if (abilities[abilityIndex] == null) return;
+            if (abilities[abilityIndex] == null) return false;
+
+            for (int i = 0; i < abilities.Length; i++)
+            {
+                if (abilities[i] != null && abilities[i].behaviour.inUse && abilities[i] != abilities[abilityIndex])
+                {
+                    return false;
+                }
+            }
+
+            if (coolDownTimers[abilityIndex] > 0)
+                return false;
 
             var energyCost = abilities[abilityIndex].GetEnergyCost();
+
+            if (abilities[abilityIndex].IsLooping())
+            {
+                energyCost *= Time.deltaTime;
+            }
 
             if (energyCost <= currentEnergyPoints)
             {
-                if(abilities[abilityIndex].IsLooping())
+                if (abilities[abilityIndex].IsLooping())
                 {
-                    ConsumeEnergy(energyCost * Time.deltaTime);
+                    ConsumeEnergy(energyCost);
                     abilities[abilityIndex].Use(target);
                 }
                 else
                 {
-                    if (coolDownTimers[abilityIndex] > 0)
-                        return;
                     ConsumeEnergy(energyCost);
                     abilities[abilityIndex].Use(target);
                     disableMove = abilities[abilityIndex].GetDisableMovement();
                     coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
                     currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];
-                }         
+                }
+
+                return true;
             }
+            return false;
         }
 
         public void PlayOutOfEnergy()
@@ -164,6 +191,11 @@ namespace RPG.Combat
         public bool CanCastSpecialAbility(int index)
         {
             return abilities[index].GetEnergyCost() <= currentEnergyPoints && coolDownTimers[index] <= 0;
+        }
+
+        public bool HasEnoughEnergy(int index)
+        {
+            return abilities[index].GetEnergyCost() <= currentEnergyPoints;
         }
 
         public int GetNumberOfAbilities()

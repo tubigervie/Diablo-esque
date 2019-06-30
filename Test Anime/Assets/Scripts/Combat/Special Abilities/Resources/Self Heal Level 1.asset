@@ -20,4 +20,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 589a11aa017e375428c360e38fe9e7ae, type: 3}
   clipSpeed: 1
   disableMovement: 1
+  isLooping: 0
+  skillIcon: {fileID: 21300000, guid: 3c6e15d1ed6857b4ebbda524506c5370, type: 3}
+  behaviour: {fileID: 0}
   extraHealth: 100
