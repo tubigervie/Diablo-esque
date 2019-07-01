@@ -53,9 +53,9 @@ namespace RPG.Control
 
         private bool InteractWithCombat()
         {
-            bool key1Down = Input.GetKeyDown(KeyCode.Alpha1) && !abilities.CheckIfOtherInUse(0);
-            bool key2Down = Input.GetKeyDown(KeyCode.Alpha2) && !abilities.CheckIfOtherInUse(1);
-            bool key3Down = Input.GetKeyDown(KeyCode.Alpha3) && !abilities.CheckIfOtherInUse(2);
+            bool key1Down = Input.GetKeyDown(KeyCode.Alpha1);
+            bool key2Down = Input.GetKeyDown(KeyCode.Alpha2);
+            bool key3Down = Input.GetKeyDown(KeyCode.Alpha3);
             bool key1Up = Input.GetKeyUp(KeyCode.Alpha1);
             bool key2Up = Input.GetKeyUp(KeyCode.Alpha2);
             bool key3Up = Input.GetKeyUp(KeyCode.Alpha3);

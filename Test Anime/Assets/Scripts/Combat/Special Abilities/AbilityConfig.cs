@@ -35,7 +35,7 @@ namespace RPG.Combat
 
         public float GetEnergyCost()
         {
-            return energyCost;
+            return (isLooping) ? energyCost * Time.deltaTime : energyCost;
         }
 
         public GameObject GetParticlePrefab()

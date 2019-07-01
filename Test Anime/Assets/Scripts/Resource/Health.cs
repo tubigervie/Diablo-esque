@@ -24,7 +24,6 @@ namespace RPG.Resource
         {
             if(maxHealthPoints < 0)
             {
-                Debug.Log(maxHealthPoints);
                 float consBonus = GetComponent<BaseStats>().GetConstitutionHealthBonus();
                 maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) + consBonus;
                 currentHealthPoints = maxHealthPoints;
@@ -108,7 +107,10 @@ namespace RPG.Resource
 
         public void SetTotalHealth(float health)
         {
+            float oldMax = maxHealthPoints;
             maxHealthPoints = health;
+            if (oldMax < 0)
+                currentHealthPoints = maxHealthPoints;
         }
 
         void AwardExperience(GameObject instigator)

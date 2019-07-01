@@ -71,7 +71,6 @@ namespace RPG.SceneManagement
             ToggleSaveUI();
             if(saveSystem.CheckForSave(autoSaveFile))
             {
-                Debug.Log("heya");
                 GetComponent<SavingSystem>().Save(defaultSaveFile);
                 saveSystem.SwitchAutoToSave(autoSaveFile, defaultSaveFile);
             }

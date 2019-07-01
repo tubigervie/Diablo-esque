@@ -144,7 +144,7 @@ namespace RPG.Combat
                 if (abilities[i] != abilities[index]) continue;
                 if (abilities[i] != null && abilities[i].behaviour.inUse)
                 {
-                    Debug.Log(abilities[i].name + " is being used");
+                    Debug.Log("Can't do it. " + abilities[i].name + " is being used");
                     return true;
                 }
             }
@@ -158,7 +158,7 @@ namespace RPG.Combat
 
         public bool ContinueLoop(int abilityIndex, GameObject target = null)
         {
-            var energyCost = abilities[abilityIndex].GetEnergyCost() * Time.deltaTime;
+            var energyCost = abilities[abilityIndex].GetEnergyCost();
             if (energyCost > currentEnergyPoints)
             {
                 CancelAbility(abilityIndex);
@@ -172,44 +172,24 @@ namespace RPG.Combat
         public bool AttemptSpecialAbility(int abilityIndex, GameObject target = null)
         {
             if (abilities[abilityIndex] == null) return false;
-
-            for (int i = 0; i < abilities.Length; i++)
-            {
-                if (abilities[i] != null && abilities[i].behaviour.inUse && abilities[i] != abilities[abilityIndex])
-                {
-                    return false;
-                }
-            }
-
-            if (coolDownTimers[abilityIndex] > 0)
-                return false;
-
+            if (coolDownTimers[abilityIndex] > 0) return false;
             var energyCost = abilities[abilityIndex].GetEnergyCost();
 
             if (abilities[abilityIndex].IsLooping())
             {
-                energyCost *= Time.deltaTime;
+                ConsumeEnergy(energyCost);
+                abilities[abilityIndex].Use(target);
             }
-
-            if (energyCost <= currentEnergyPoints)
+            else
             {
-                if (abilities[abilityIndex].IsLooping())
-                {
-                    ConsumeEnergy(energyCost);
-                    abilities[abilityIndex].Use(target);
-                }
-                else
-                {
-                    ConsumeEnergy(energyCost);
-                    abilities[abilityIndex].Use(target);
-                    disableMove = abilities[abilityIndex].GetDisableMovement();
-                    coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
-                    currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];
-                }
-
-                return true;
+                ConsumeEnergy(energyCost);
+                abilities[abilityIndex].Use(target);
+                disableMove = abilities[abilityIndex].GetDisableMovement();
+                coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
+                currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];
             }
-            return false;
+
+            return true;
         }
 
         public void PlayOutOfEnergy()

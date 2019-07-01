@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed757e0de8a0e747aba2015e18df87c, type: 3}
   m_Name: Spin Attack 1
   m_EditorClassIdentifier: 
-  energyCost: 10
+  energyCost: 20
   coolDownTime: 2
   particlePrefab: {fileID: 150486, guid: 526c4229641a04e459198ae7e7778c74, type: 3}
   abilityAnimation: {fileID: 7400002, guid: 5fb89ed908dc75642ac3b52a45361100, type: 3}
