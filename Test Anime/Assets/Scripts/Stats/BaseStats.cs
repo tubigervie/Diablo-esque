@@ -7,7 +7,7 @@ namespace RPG.Stats
 {
     public enum CharacterClass
     {
-        Player, Grunt, Mage, Archer
+        Player, Grunt, Mage, Archer, Dummy
     }
 
     public enum Stat
@@ -79,6 +79,12 @@ namespace RPG.Stats
             //Debug.Log(stat + " base: " + baseAmount);
             //Debug.Log("Total: " + ((baseAmount * percentageBonus) + additiveBonus));
             return (baseAmount * percentageBonus) + additiveBonus;
+        }
+
+        public float GetDefense()
+        {
+            float defense = GetConstitutionDefenseBonus() + GetStat(Stat.Defense);
+            return defense;
         }
 
 

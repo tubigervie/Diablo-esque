@@ -122,6 +122,35 @@ namespace RPG.Combat
             }
         }
 
+        public void CancelAbility(int index)
+        {
+            for(int i = 0; i< abilities.Length; i++)
+            {
+                if (abilities[index] != null && abilities[i] == abilities[index] && abilities[i].behaviour.inUse)
+                {
+                    abilities[i].behaviour.Cancel();
+                    abilities[i].behaviour.StopAllCoroutines();
+                    coolDownTimers[i] = abilities[i].GetCooldownTime();
+                    currentAbilityTimes[i] = coolDownTimers[i];
+                    return;
+                }
+            }
+        }
+
+        public bool CheckIfOtherInUse(int index)
+        {
+            for (int i = 0; i < abilities.Length; i++)
+            {
+                if (abilities[i] != abilities[index]) continue;
+                if (abilities[i] != null && abilities[i].behaviour.inUse)
+                {
+                    Debug.Log(abilities[i].name + " is being used");
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool SkipForLooping(int abilityIndex)
         {
             return abilities[abilityIndex] != null && abilities[abilityIndex].IsLooping() && abilities[abilityIndex].behaviour.inUse;
@@ -203,8 +232,24 @@ namespace RPG.Combat
             return abilities.Length;
         }
 
+        public bool AbilityInUse()
+        {
+            for (int i = 0; i < abilities.Length; i++)
+            {
+                if (abilities[i] != null && abilities[i].behaviour.inUse)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void AddEnergyPoints()
         {
+            for (int i = 0; i < abilities.Length; i++)
+            {
+                if (abilities[i] != null && abilities[i].behaviour.inUse) return;
+            }
             var pointsToAdd = regenPointsPerSecond * Time.deltaTime;
             currentEnergyPoints = Mathf.Clamp(currentEnergyPoints + pointsToAdd, 0, maxEnergyPoints);
         }

@@ -60,19 +60,30 @@ namespace RPG.Control
 
         private bool InteractWithCombat()
         {
-            bool key1Down = Input.GetKeyDown(KeyCode.Alpha1);
-            bool key2Down = Input.GetKeyDown(KeyCode.Alpha2);
-            bool key3Down = Input.GetKeyDown(KeyCode.Alpha3);
+            bool key1Down = Input.GetKeyDown(KeyCode.Alpha1) && !abilities.CheckIfOtherInUse(0);
+            Debug.Log(key1Down);
+            bool key2Down = Input.GetKeyDown(KeyCode.Alpha2) && !abilities.CheckIfOtherInUse(1);
+            bool key3Down = Input.GetKeyDown(KeyCode.Alpha3) && !abilities.CheckIfOtherInUse(2);
             bool key1Up = Input.GetKeyUp(KeyCode.Alpha1);
             bool key2Up = Input.GetKeyUp(KeyCode.Alpha2);
             bool key3Up = Input.GetKeyUp(KeyCode.Alpha3);
 
-            if (key1Up)
+            if(key1Up)
+            {
+                abilities.CancelAbility(0);
                 skill1InputDown = false;
-            if (key2Up)
+            }
+            if(key2Up)
+            {
+                abilities.CancelAbility(1);
                 skill2InputDown = false;
-            if (key3Up)
+            }
+            if(key3Up)
+            {
+                abilities.CancelAbility(2);
                 skill3InputDown = false;
+            }
+
 
             if (key1Down || skill1InputDown)
             {
@@ -89,15 +100,17 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(0))
                 {
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     return abilities.AttemptSpecialAbility(0);
                 }
                 else
                 {
                     skill1InputDown = false;
+                    if(abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     abilities.PlayOutOfEnergy();
                 }
             }
-            else if (key2Down || skill2InputDown)
+            else if ((key2Down || skill2InputDown))
             {
                 skill2InputDown = true;
                 if (abilities.SkipForLooping(1))
@@ -112,15 +125,17 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(1))
                 {
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     return abilities.AttemptSpecialAbility(1);
                 }
                 else
                 {
                     skill2InputDown = false;
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     abilities.PlayOutOfEnergy();
                 }
             }
-            else if (key3Down || skill3InputDown)
+            else if ((key3Down || skill3InputDown))
             {
                 skill3InputDown = true;
                 if (abilities.SkipForLooping(2))
@@ -135,17 +150,20 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(2))
                 {
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     return abilities.AttemptSpecialAbility(2);
                 }
                 else
                 {
                     skill3InputDown = false;
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     abilities.PlayOutOfEnergy();
                 }
             }
             else
             {
-                abilities.CancelLoops();
+                //abilities.CancelLoops();
+                Debug.Log("Cancellinggg");
             }
 
             return InteractWithBasicAttacks();

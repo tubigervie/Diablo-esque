@@ -60,24 +60,24 @@ namespace RPG.Saving
 
             return false;
         }
-        //#if UNITY_EDITOR
-        //        private void Update()
-        //        {
-        //            if (Application.IsPlaying(this.gameObject))
-        //                return;
-        //            if (string.IsNullOrEmpty(gameObject.scene.path))
-        //                return;
-        //            SerializedObject serializedObject = new SerializedObject(this);
-        //            SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
-        //            if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
-        //            {
-        //                property.stringValue = System.Guid.NewGuid().ToString();
-        //                serializedObject.ApplyModifiedProperties();
-        //            }
-        //            globalLookup[property.stringValue] = this;
-        //        }
-        //    }
-        //#endif
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Application.IsPlaying(this.gameObject))
+                return;
+            if (string.IsNullOrEmpty(gameObject.scene.path))
+                return;
+            SerializedObject serializedObject = new SerializedObject(this);
+            SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
+            if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
+            {
+                property.stringValue = System.Guid.NewGuid().ToString();
+                serializedObject.ApplyModifiedProperties();
+            }
+            globalLookup[property.stringValue] = this;
+        }
     }
+#endif
 }
+
 

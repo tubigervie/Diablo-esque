@@ -43,24 +43,26 @@ namespace RPG.Control
         public void MoveInput()
         {
             Vector3 destination = Vector3.zero;
+            float inputX = Input.GetAxisRaw("Horizontal");
+            float inputY = Input.GetAxisRaw("Vertical");
 
-            if (Input.GetKey(KeyCode.W))
+            if (inputY > 0)
                 destination += transform.position + (Camera.main.transform.forward);
-            else if (Input.GetKey(KeyCode.S))
+            else if (inputY < 0)
                 destination += transform.position - Camera.main.transform.forward;
 
             if(destination != Vector3.zero)
             {
-                if (Input.GetKey(KeyCode.D))
+                if (inputX > 0)
                     destination += Camera.main.transform.right;
-                else if (Input.GetKey(KeyCode.A))
+                else if (inputX < 0)
                     destination -= Camera.main.transform.right;
             }
             else
             {
-                if (Input.GetKey(KeyCode.D))
+                if (inputX > 0)
                     destination += transform.position + Camera.main.transform.right;
-                else if (Input.GetKey(KeyCode.A))
+                else if (inputX < 0)
                     destination += transform.position - Camera.main.transform.right;
             }
 

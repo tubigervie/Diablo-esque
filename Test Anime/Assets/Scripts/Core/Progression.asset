@@ -132,3 +132,14 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+  - characterClass: 4
+    stats:
+    - stat: 0
+      levels:
+      - 100000
+    - stat: 9
+      levels:
+      - 0
+    - stat: 1
+      levels:
+      - 0

@@ -13,7 +13,7 @@ namespace RPG.Resource
         [SerializeField] float currentHealthPoints;
         float maxHealthPoints = -1f;
         [SerializeField] TextNumberSpawner textNumberSpawner;
-        bool isDead;
+        [SerializeField] bool isDead;
 
         void Awake()
         {
@@ -24,6 +24,7 @@ namespace RPG.Resource
         {
             if(maxHealthPoints < 0)
             {
+                Debug.Log(maxHealthPoints);
                 float consBonus = GetComponent<BaseStats>().GetConstitutionHealthBonus();
                 maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) + consBonus;
                 currentHealthPoints = maxHealthPoints;
@@ -123,7 +124,8 @@ namespace RPG.Resource
             isDead = true;
             GetComponent<CapsuleCollider>().enabled = false;
             GetComponent<Animator>().SetTrigger("die");
-            GetComponent<ActionScheduler>().CancelCurrentAction();
+            if (GetComponent<ActionScheduler>() != null)
+                GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }

@@ -244,12 +244,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6244765102765036889, guid: c8d343d8fdf7b4d47ba518e97407867e,
+    - target: {fileID: 1869809027841948924, guid: c8d343d8fdf7b4d47ba518e97407867e,
         type: 3}
-      propertyPath: defaultWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 542f75443de468944aec0a0a7521b87e,
-        type: 2}
+      propertyPath: abilities.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 411011832831093129, guid: c8d343d8fdf7b4d47ba518e97407867e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -375,11 +374,12 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -5
       objectReference: {fileID: 0}
-    - target: {fileID: 1869809027841948924, guid: c8d343d8fdf7b4d47ba518e97407867e,
+    - target: {fileID: 6244765102765036889, guid: c8d343d8fdf7b4d47ba518e97407867e,
         type: 3}
-      propertyPath: abilities.Array.size
-      value: 5
-      objectReference: {fileID: 0}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 542f75443de468944aec0a0a7521b87e,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 1869809027841948927, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
     - {fileID: 2941184454217773700, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 1173363270}
   - component: {fileID: 1173363269}
   - component: {fileID: 1173363268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}

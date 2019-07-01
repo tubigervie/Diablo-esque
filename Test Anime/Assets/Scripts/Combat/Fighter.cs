@@ -109,13 +109,6 @@ namespace RPG.Combat
             return damage;
         }
 
-        public float GetDefense()
-        {
-            BaseStats stat = GetComponent<BaseStats>();
-            float defense = stat.GetConstitutionDefenseBonus() + stat.GetStat(Stat.Defense);
-            return defense;
-        }
-
         public bool ShouldCrit()
         {
             BaseStats stat = GetComponent<BaseStats>();
@@ -131,7 +124,7 @@ namespace RPG.Combat
                 return;
             }
             attackLock = true;
-            float damage = Mathf.Clamp(GetDamage() - combatTarget.GetComponent<Fighter>().GetDefense(), 0, Mathf.Infinity);
+            float damage = Mathf.Clamp(GetDamage() - combatTarget.GetComponent<BaseStats>().GetDefense(), 0, Mathf.Infinity);
 
             bool shouldBeCritical = ShouldCrit();
 

@@ -1,5 +1,6 @@
 ﻿using RPG.Control;
 using RPG.Resource;
+using RPG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -102,7 +103,7 @@ namespace RPG.Combat
                 if (damageable != null && !hitPlayer)
                 {
                     hasHit = true;
-                    float damageToDeal = (config as SpinAttackConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetDamage()) - hit.collider.gameObject.GetComponent<Fighter>().GetDefense(); //replace with just GetStat once weapons stats are in
+                    float damageToDeal = (config as SpinAttackConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetDamage()) - hit.collider.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
                     bool shouldCrit = GetComponent<Fighter>().ShouldCrit();
                     if (shouldCrit)
                         damageToDeal *= 1.5f;

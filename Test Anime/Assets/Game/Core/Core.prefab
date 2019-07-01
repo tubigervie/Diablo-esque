@@ -2321,6 +2321,10 @@ PrefabInstance:
       propertyPath: currentEnergyPoints
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 595803565, guid: 7e325077345883d41841e65f6e8d9ba2, type: 3}
+      propertyPath: regenPointsPerSecond
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3662156279682160901, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
       propertyPath: levelUpAudio
