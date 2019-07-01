@@ -24,5 +24,5 @@ MonoBehaviour:
   projectile: {fileID: 2865314515808014173, guid: 2d64ab83457d770418f4adef81d50433,
     type: 3}
   audioClips:
-  - {fileID: 8300000, guid: ebe162524288df642b0b0be55560612a, type: 3}
+  - {fileID: 8300000, guid: e623d9b05e575e4479c906e24d8eb6e0, type: 3}
   statModifiers: []
