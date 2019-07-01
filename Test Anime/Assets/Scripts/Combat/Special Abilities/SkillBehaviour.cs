@@ -17,6 +17,7 @@ public class SkillBehaviour : StateMachineBehaviour
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.SetBool("abilityOneShot", false);
         if (animator.gameObject.GetComponent<SpecialAbilities>().GetDisableMove())
         {
             animator.gameObject.GetComponent<SpecialAbilities>().SetDisableMove(false);

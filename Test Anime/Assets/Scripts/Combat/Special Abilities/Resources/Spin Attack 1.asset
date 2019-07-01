@@ -27,7 +27,7 @@ MonoBehaviour:
   abilityLoopAnimation: {fileID: 7400004, guid: 5fb89ed908dc75642ac3b52a45361100,
     type: 3}
   abilityEndAnimation: {fileID: 7400006, guid: 5fb89ed908dc75642ac3b52a45361100, type: 3}
-  radius: 2
+  radius: 2.25
   percentageDamage: 50
   hitsPerSecond: 3
   attackSoundEffect: {fileID: 8300000, guid: 9a6b3edddc6829a41bedc0880968b9b6, type: 3}

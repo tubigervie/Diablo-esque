@@ -24,7 +24,8 @@ namespace RPG.Combat
             clipOverrides[DEFAULT_ABILITY_ANIMATION] = config.GetAbilityAnimation();
             animatorOverrideController.ApplyOverrides(clipOverrides);
 
-            animator.SetTrigger(ABILITY_TRIGGER);
+            animator.SetBool(ABILITY_TRIGGER, false);
+            animator.SetBool(ABILITY_TRIGGER, true);
             GetComponent<Fighter>().timeSinceLastAttack = 0;
             animator.SetBool("inBattle", true);
         }

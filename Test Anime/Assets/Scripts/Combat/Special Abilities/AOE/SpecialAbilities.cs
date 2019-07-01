@@ -151,9 +151,9 @@ namespace RPG.Combat
             return false;
         }
 
-        public bool SkipForLooping(int abilityIndex)
+        public bool IsLooping(int abilityIndex)
         {
-            return abilities[abilityIndex] != null && abilities[abilityIndex].IsLooping() && abilities[abilityIndex].behaviour.inUse;
+            return abilities[abilityIndex] != null && abilities[abilityIndex].IsLooping();
         }
 
         public bool ContinueLoop(int abilityIndex, GameObject target = null)
@@ -161,7 +161,7 @@ namespace RPG.Combat
             var energyCost = abilities[abilityIndex].GetEnergyCost() * Time.deltaTime;
             if (energyCost > currentEnergyPoints)
             {
-                CancelLoops();
+                CancelAbility(abilityIndex);
                 return false;
             }
             ConsumeEnergy(energyCost);
@@ -220,6 +220,11 @@ namespace RPG.Combat
         public bool CanCastSpecialAbility(int index)
         {
             return abilities[index].GetEnergyCost() <= currentEnergyPoints && coolDownTimers[index] <= 0;
+        }
+
+        public bool OffCooldown(int index)
+        {
+            return coolDownTimers[index] <= 0;
         }
 
         public bool HasEnoughEnergy(int index)

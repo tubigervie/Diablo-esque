@@ -11,18 +11,11 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
-        bool skill1InputDown;
-        bool skill2InputDown;
-        bool skill3InputDown;
+        bool skill1WasDown;
+        bool skill2WasDown;
+        bool skill3WasDown;
         //bool skill4InputDown;
         //bool skill5InputDown;
-
-        bool skill1InputUp;
-        bool skill2InputUp;
-        bool skill3InputUp;
-        //bool skill4nputUp;
-        //bool skill5InputUp;
-
 
         Mover mover;
         Fighter fighter;
@@ -61,7 +54,6 @@ namespace RPG.Control
         private bool InteractWithCombat()
         {
             bool key1Down = Input.GetKeyDown(KeyCode.Alpha1) && !abilities.CheckIfOtherInUse(0);
-            Debug.Log(key1Down);
             bool key2Down = Input.GetKeyDown(KeyCode.Alpha2) && !abilities.CheckIfOtherInUse(1);
             bool key3Down = Input.GetKeyDown(KeyCode.Alpha3) && !abilities.CheckIfOtherInUse(2);
             bool key1Up = Input.GetKeyUp(KeyCode.Alpha1);
@@ -71,30 +63,67 @@ namespace RPG.Control
             if(key1Up)
             {
                 abilities.CancelAbility(0);
-                skill1InputDown = false;
+                skill1WasDown = false;
             }
             if(key2Up)
             {
                 abilities.CancelAbility(1);
-                skill2InputDown = false;
+                skill2WasDown = false;
             }
             if(key3Up)
             {
                 abilities.CancelAbility(2);
-                skill3InputDown = false;
+                skill3WasDown = false;
             }
 
-
-            if (key1Down || skill1InputDown)
+            if (key1Down)
             {
-                skill1InputDown = true;
-                if (abilities.SkipForLooping(0))
+                if (abilities.HasEnoughEnergy(0))
+                {
+                    skill1WasDown = true;
+                    skill2WasDown = false;
+                    skill3WasDown = false;
+                    abilities.CancelLoops();
+                    return abilities.AttemptSpecialAbility(0);
+                }
+                else
+                    abilities.PlayOutOfEnergy();
+            }
+            else if (key2Down)
+            {
+                if (abilities.HasEnoughEnergy(1))
+                {
+                    skill2WasDown = true;
+                    skill1WasDown = false;
+                    skill3WasDown = false;
+                    abilities.CancelLoops();
+                    return abilities.AttemptSpecialAbility(1);
+                }
+                else
+                    abilities.PlayOutOfEnergy();
+            }
+            else if(key3Down)
+            {
+                if (abilities.HasEnoughEnergy(2))
+                {
+                    skill3WasDown = true;
+                    skill2WasDown = false;
+                    skill1WasDown = false;
+                    abilities.CancelLoops();
+                    return abilities.AttemptSpecialAbility(2);
+                }
+                else
+                    abilities.PlayOutOfEnergy();
+            }
+            else if(skill1WasDown && abilities.OffCooldown(0))
+            {
+                if (abilities.IsLooping(0))
                 {
                     if (abilities.ContinueLoop(0))
                         return false;
                     else
                     {
-                        skill1InputDown = false;
+                        skill1WasDown = false;
                         abilities.PlayOutOfEnergy();
                     }
                 }
@@ -105,21 +134,20 @@ namespace RPG.Control
                 }
                 else
                 {
-                    skill1InputDown = false;
-                    if(abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    skill1WasDown = false;
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     abilities.PlayOutOfEnergy();
                 }
             }
-            else if ((key2Down || skill2InputDown))
+           else if (skill2WasDown && abilities.OffCooldown(1))
             {
-                skill2InputDown = true;
-                if (abilities.SkipForLooping(1))
+                if (abilities.IsLooping(1))
                 {
                     if (abilities.ContinueLoop(1))
                         return false;
                     else
                     {
-                        skill2InputDown = false;
+                        skill2WasDown = false;
                         abilities.PlayOutOfEnergy();
                     }
                 }
@@ -130,21 +158,20 @@ namespace RPG.Control
                 }
                 else
                 {
-                    skill2InputDown = false;
+                    skill2WasDown = false;
                     if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     abilities.PlayOutOfEnergy();
                 }
             }
-            else if ((key3Down || skill3InputDown))
+            else if (skill3WasDown && abilities.OffCooldown(2))
             {
-                skill3InputDown = true;
-                if (abilities.SkipForLooping(2))
+                if (abilities.IsLooping(2))
                 {
                     if (abilities.ContinueLoop(2))
                         return false;
                     else
                     {
-                        skill3InputDown = false;
+                        skill3WasDown = false;
                         abilities.PlayOutOfEnergy();
                     }
                 }
@@ -155,7 +182,7 @@ namespace RPG.Control
                 }
                 else
                 {
-                    skill3InputDown = false;
+                    skill3WasDown = false;
                     if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
                     abilities.PlayOutOfEnergy();
                 }
@@ -163,7 +190,6 @@ namespace RPG.Control
             else
             {
                 //abilities.CancelLoops();
-                Debug.Log("Cancellinggg");
             }
 
             return InteractWithBasicAttacks();

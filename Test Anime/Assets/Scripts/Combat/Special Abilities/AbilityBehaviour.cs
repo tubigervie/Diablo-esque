@@ -24,7 +24,7 @@ namespace RPG.Combat
     {
         protected AbilityConfig config;
 
-        public const string ABILITY_TRIGGER = "ability";
+        public const string ABILITY_TRIGGER = "abilityOneShot";
         public const string DEFAULT_ABILITY_ANIMATION = "Cast Spell 01";
         public const string DEFAULT_LOOP_START = "Spin Start";
         public const string DEFAULT_LOOP = "Spin Loop";
