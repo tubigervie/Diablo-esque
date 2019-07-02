@@ -10,34 +10,31 @@ namespace RPG.Combat
         Canvas canvas;
         [SerializeField] GameObject pivot;
         [SerializeField] Text weaponName;
-        [SerializeField] Weapon weapon = null;
+        public InventoryItem weapon = null;
+        public bool wasFromInventory;
         [SerializeField] float respawnTime = 5;
-        Camera camera;
+        Camera _camera;
 
         private void Awake()
         {
             canvas = GetComponentInChildren<Canvas>();
             canvas.worldCamera = Camera.main;
-            camera = Camera.main;
+            _camera = Camera.main;
         }
 
         private void Start()
         {
-            weaponName.text = weapon.name;
+            weaponName.text = weapon.displayName;
         }
 
         private void Update()
         {
-            pivot.transform.LookAt(camera.transform.position);
+            pivot.transform.LookAt(_camera.transform.position);
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void Hide()
         {
-            if(other.gameObject.tag == "Player")
-            {
-                other.GetComponent<Fighter>().EquipWeapon(weapon);
-                StartCoroutine(HideForSeconds(respawnTime));
-            }
+            StartCoroutine(HideForSeconds(respawnTime));
         }
 
         private IEnumerator HideForSeconds(float time)

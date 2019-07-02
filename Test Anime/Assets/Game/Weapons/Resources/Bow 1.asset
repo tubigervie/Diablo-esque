@@ -10,8 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 804a1a8a1a488724cbb9c89126dbaa69, type: 3}
-  m_Name: Bow
+  m_Name: Bow 1
   m_EditorClassIdentifier: 
+  _itemID: 4a809da0-c037-4ac5-898e-4a987f6eb342
+  statModifiers:
+  - stat: 8
+    bonusType: 0
+    amount: 25
+  _baseCost: 0
+  _rarity: 0
+  _level: 0
+  _displayName: Brown Bow
+  _description: 
+  _icon: {fileID: 21300000, guid: 1911a1537fb803a49a6c895addceb344, type: 3}
+  _pickup: {fileID: 5568881573280107256, guid: f2c3dd767a586c64e9b79e30d2a1449c, type: 3}
+  _allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: 4ad00eaa3301a164cb437e361cd6a2d9, type: 2}
   equippedPrefab: {fileID: 1580528733340496614, guid: 5e61616c610e679409e6f8fb1d28aab2,
     type: 3}
@@ -25,7 +38,3 @@ MonoBehaviour:
     type: 3}
   audioClips:
   - {fileID: 8300000, guid: 459ca760d1a5de44eb68bcd69f408a6a, type: 3}
-  statModifiers:
-  - stat: 8
-    bonusType: 0
-    amount: 25

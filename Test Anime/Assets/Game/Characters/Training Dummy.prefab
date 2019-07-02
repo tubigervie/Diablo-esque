@@ -279,7 +279,8 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 2191732724588154302}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9533848, guid: 8c942bdc58af4db4bb16156a0562487c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8c942bdc58af4db4bb16156a0562487c, type: 3}
 --- !u!4 &2191732724588202026 stripped
 Transform:
@@ -573,7 +574,12 @@ PrefabInstance:
       propertyPath: characterClass
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1612619967160946372, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}
+    - {fileID: 4538827784363355469, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}
+    - {fileID: 6604524915324169364, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}
+    - {fileID: 6111248935525959342, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}
+    - {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}
 --- !u!4 &7311169703256627056 stripped
 Transform:

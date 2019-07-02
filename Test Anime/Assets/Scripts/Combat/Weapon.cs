@@ -9,7 +9,7 @@ using RPG.Stats;
 namespace RPG.Combat
 {
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make New Weapon", order = 0)]
-    public class Weapon : ScriptableObject
+    public class Weapon : EquippableItem
     {
         [SerializeField] AnimatorOverrideController animatorOverride = null;
         [SerializeField] GameObject equippedPrefab = null;
@@ -20,7 +20,6 @@ namespace RPG.Combat
         [SerializeField] bool isRight = true;
         [SerializeField] Projectile projectile = null;
         [SerializeField] AudioClip[] audioClips;
-        [SerializeField] StatModifier[] statModifiers;
 
         const string weaponName = "Weapon";
 

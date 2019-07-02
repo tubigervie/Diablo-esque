@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804a1a8a1a488724cbb9c89126dbaa69, type: 3}
   m_Name: Unarmed
   m_EditorClassIdentifier: 
+  _itemID: d2a1fc9e-5b71-4a58-ab2b-12c7b1078289
+  statModifiers: []
+  _baseCost: 0
+  _rarity: 0
+  _level: 0
+  _displayName: Fists
+  _description: 
+  _icon: {fileID: 21300000, guid: e8b868ccb81f12f4b80ae85b3330ae25, type: 3}
+  _pickup: {fileID: 9110102520606314152, guid: 92a3c04daeb245845a35ad4e928721e6, type: 3}
+  _allowedEquipLocation: 0
   animatorOverride: {fileID: 22100000, guid: cb7862bf16cd0e043babbf5f7c91be59, type: 2}
   equippedPrefab: {fileID: 0}
   weaponDamage:
@@ -24,4 +34,3 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: f6e23000514ea18468a42ab87a3ca097, type: 3}
   - {fileID: 8300000, guid: 7801475920ccd014abd271919ecb19b5, type: 3}
-  statModifiers: []

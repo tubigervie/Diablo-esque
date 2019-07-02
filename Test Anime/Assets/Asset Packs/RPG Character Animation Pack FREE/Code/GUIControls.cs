@@ -30,16 +30,16 @@ public class GUIControls : MonoBehaviour{
 			rpgCharacterController.isBlocking = false;
 		}
 		if(!rpgCharacterController.isDead){
-			if(rpgCharacterController.weapon == Weapon.RELAX || rpgCharacterController.weapon != Weapon.UNARMED){
+			if(rpgCharacterController.weapon == RPGWeapon.RELAX || rpgCharacterController.weapon != RPGWeapon.UNARMED){
 				if(GUI.Button(new Rect(1115, 310, 100, 30), "Unarmed")){
 					rpgCharacterController.animator.SetBool("Relax", false);
 					rpgCharacterController.isRelax = false;
 					StartCoroutine(rpgCharacterController._SwitchWeapon(0));
-					rpgCharacterController.weapon = Weapon.UNARMED;
+					rpgCharacterController.weapon = RPGWeapon.UNARMED;
 					rpgCharacterController.canAction = true;
 					rpgCharacterController.animator.SetTrigger("RelaxTrigger");
 				}
-				if(!rpgCharacterController.isSitting && !rpgCharacterController.isMoving && rpgCharacterController.weapon == Weapon.RELAX){
+				if(!rpgCharacterController.isSitting && !rpgCharacterController.isMoving && rpgCharacterController.weapon == RPGWeapon.RELAX){
 					if(GUI.Button(new Rect(1115, 345, 100, 30), "Sit")){
 						rpgCharacterController.canAction = false;
 						rpgCharacterController.isSitting = true;
@@ -55,7 +55,7 @@ public class GUIControls : MonoBehaviour{
 						rpgCharacterController.animator.SetTrigger("IdleTrigger");
 					}
 				}
-				if(rpgCharacterController.isSitting && !rpgCharacterController.isMoving && rpgCharacterController.weapon == Weapon.RELAX){
+				if(rpgCharacterController.isSitting && !rpgCharacterController.isMoving && rpgCharacterController.weapon == RPGWeapon.RELAX){
 					if(GUI.Button(new Rect(1115, 345, 100, 30), "Stand")){
 						rpgCharacterController.canAction = false;
 						rpgCharacterController.isSitting = false;
@@ -68,7 +68,7 @@ public class GUIControls : MonoBehaviour{
 			if(rpgCharacterController.canAction && !rpgCharacterController.isRelax){
 				if(rpgCharacterController.isGrounded){
 					//crossbow can't block
-					if(rpgCharacterController.weapon != Weapon.TWOHANDCROSSBOW){
+					if(rpgCharacterController.weapon != RPGWeapon.TWOHANDCROSSBOW){
 						//if character is not blocking
 						blockGui = GUI.Toggle(new Rect(25, 215, 100, 30), blockGui, "Block");
 						if(blockGui){
@@ -128,14 +128,14 @@ public class GUIControls : MonoBehaviour{
 							StartCoroutine(rpgCharacterController._Turning(2));
 						}
 						//ATTACK LEFT
-						if(rpgCharacterController.weapon == Weapon.SHIELD || rpgCharacterController.weapon == Weapon.RIFLE || rpgCharacterController.weapon != Weapon.ARMED || (rpgCharacterController.weapon == Weapon.ARMED && rpgCharacterController.leftWeapon != 0) && rpgCharacterController.leftWeapon != 7){
+						if(rpgCharacterController.weapon == RPGWeapon.SHIELD || rpgCharacterController.weapon == RPGWeapon.RIFLE || rpgCharacterController.weapon != RPGWeapon.ARMED || (rpgCharacterController.weapon == RPGWeapon.ARMED && rpgCharacterController.leftWeapon != 0) && rpgCharacterController.leftWeapon != 7){
 							if(GUI.Button(new Rect(25, 85, 100, 30), "Attack L")){
 								rpgCharacterController.Attack(1);
 							}
 						}
 						//ATTACK RIGHT
-						if(rpgCharacterController.weapon == Weapon.RIFLE || rpgCharacterController.weapon != Weapon.ARMED || (rpgCharacterController.weapon == Weapon.ARMED && rpgCharacterController.rightWeapon != 0) || rpgCharacterController.weapon == Weapon.ARMEDSHIELD){
-							if(rpgCharacterController.weapon != Weapon.SHIELD){
+						if(rpgCharacterController.weapon == RPGWeapon.RIFLE || rpgCharacterController.weapon != RPGWeapon.ARMED || (rpgCharacterController.weapon == RPGWeapon.ARMED && rpgCharacterController.rightWeapon != 0) || rpgCharacterController.weapon == RPGWeapon.ARMEDSHIELD){
+							if(rpgCharacterController.weapon != RPGWeapon.SHIELD){
 								if(GUI.Button(new Rect(130, 85, 100, 30), "Attack R")){
 									rpgCharacterController.Attack(2);
 								}
@@ -167,51 +167,51 @@ public class GUIControls : MonoBehaviour{
 							rpgCharacterController.GetHit();
 						}
 						//Weapon Switching
-						if(rpgCharacterController.weapon == Weapon.UNARMED && !rpgCharacterController.isMoving){
+						if(rpgCharacterController.weapon == RPGWeapon.UNARMED && !rpgCharacterController.isMoving){
 							if(GUI.Button(new Rect(1115, 310, 100, 30), "Relax")){
 								rpgCharacterController.animator.SetBool("Relax", true);
 								rpgCharacterController.isRelax = true;
-								rpgCharacterController.weapon = Weapon.RELAX;
+								rpgCharacterController.weapon = RPGWeapon.RELAX;
 								rpgCharacterController.canAction = false;
 								rpgCharacterController.animator.SetTrigger("RelaxTrigger");
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.TWOHANDSWORD){
+						if(rpgCharacterController.weapon != RPGWeapon.TWOHANDSWORD){
 							if(GUI.Button(new Rect(1115, 350, 100, 30), "2 Hand Sword")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(1));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.TWOHANDCLUB){
+						if(rpgCharacterController.weapon != RPGWeapon.TWOHANDCLUB){
 							if(GUI.Button(new Rect(1000, 350, 100, 30), "2 Hand Club")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(20));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.TWOHANDSPEAR){
+						if(rpgCharacterController.weapon != RPGWeapon.TWOHANDSPEAR){
 							if(GUI.Button(new Rect(1115, 380, 100, 30), "2 Hand Spear")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(2));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.TWOHANDAXE){
+						if(rpgCharacterController.weapon != RPGWeapon.TWOHANDAXE){
 							if(GUI.Button(new Rect(1115, 410, 100, 30), "2 Hand Axe")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(3));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.TWOHANDBOW){
+						if(rpgCharacterController.weapon != RPGWeapon.TWOHANDBOW){
 							if(GUI.Button(new Rect(1115, 440, 100, 30), "2 Hand Bow")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(4));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.TWOHANDCROSSBOW){
+						if(rpgCharacterController.weapon != RPGWeapon.TWOHANDCROSSBOW){
 							if(GUI.Button(new Rect(1115, 470, 100, 30), "Crossbow")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(5));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.RIFLE){
+						if(rpgCharacterController.weapon != RPGWeapon.RIFLE){
 							if(GUI.Button(new Rect(1000, 470, 100, 30), "Rifle")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(18));
 							}
 						}
-						if(rpgCharacterController.weapon != Weapon.STAFF){
+						if(rpgCharacterController.weapon != RPGWeapon.STAFF){
 							if(GUI.Button(new Rect(1115, 500, 100, 30), "Staff")){
 								StartCoroutine(rpgCharacterController._SwitchWeapon(6));
 							}
@@ -302,7 +302,7 @@ public class GUIControls : MonoBehaviour{
 					if(GUI.Button(new Rect(30, 270, 100, 30), "Death")){
 						StartCoroutine(rpgCharacterController._Death());
 					}
-					if(rpgCharacterController.weapon != Weapon.ARMED){
+					if(rpgCharacterController.weapon != RPGWeapon.ARMED){
 						if(GUI.Button(new Rect(130, 165, 100, 30), "Pickup")){
 							rpgCharacterController.Pickup();
 						}
@@ -310,7 +310,7 @@ public class GUIControls : MonoBehaviour{
 							rpgCharacterController.Activate();
 						}
 					}
-					else if(rpgCharacterController.weapon == Weapon.ARMED){
+					else if(rpgCharacterController.weapon == RPGWeapon.ARMED){
 						if(rpgCharacterController.leftWeapon != 0 && rpgCharacterController.rightWeapon != 0){
 						}
 						else{
@@ -359,13 +359,13 @@ public class GUIControls : MonoBehaviour{
 			}
 			//Special attack
 			if(!rpgCharacterController.isRelax && rpgCharacterController.isGrounded){
-				if(rpgCharacterController.weapon == Weapon.TWOHANDSWORD){
+				if(rpgCharacterController.weapon == RPGWeapon.TWOHANDSWORD){
 					if(GUI.Button(new Rect(235, 85, 100, 30), "Special Attack1")){
 						rpgCharacterController.Special(1);
 					}
 				}
 				//Casting Armed and Staff
-				if(rpgCharacterController.weapon == Weapon.ARMED || rpgCharacterController.weapon == Weapon.STAFF || rpgCharacterController.weapon == Weapon.UNARMED){
+				if(rpgCharacterController.weapon == RPGWeapon.ARMED || rpgCharacterController.weapon == RPGWeapon.STAFF || rpgCharacterController.weapon == RPGWeapon.UNARMED){
 					if(GUI.Button(new Rect(25, 330, 100, 30), "Cast Atk Left")){
 						if(!rpgCharacterController.isCasting){
 							rpgCharacterController.Cast(1, "attack");
@@ -374,7 +374,7 @@ public class GUIControls : MonoBehaviour{
 							rpgCharacterController.Cast(0, "attack");
 						}
 					}
-					if(rpgCharacterController.weapon != Weapon.STAFF){
+					if(rpgCharacterController.weapon != RPGWeapon.STAFF){
 						if(GUI.Button(new Rect(130, 330, 100, 30), "Cast Atk Right")){
 							if(!rpgCharacterController.isCasting){
 								rpgCharacterController.Cast(2, "attack");

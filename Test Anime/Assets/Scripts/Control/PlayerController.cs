@@ -6,6 +6,7 @@ using RPG.Combat;
 using RPG.Core;
 using RPG.UI;
 using RPG.Resource;
+using System;
 
 namespace RPG.Control
 {
@@ -15,7 +16,8 @@ namespace RPG.Control
         {
             None,
             Movement,
-            Combat
+            Combat,
+            Loot
         }
 
         [System.Serializable]
@@ -61,11 +63,56 @@ namespace RPG.Control
         {
             if (health.IsDead())
                 return;
+            if (InteractWithItems())
+                return;
             if (InteractWithCombat())
                 return;
             if (InteractWithMovement())
                 return;
             SetCursor(CursorType.None);
+        }
+
+        private bool InteractWithItems()
+        {
+            bool clickInput = Input.GetMouseButtonDown(0);
+            RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
+            foreach (RaycastHit hit in hits)
+            {
+                WeaponPickup target = hit.collider.gameObject.GetComponent<WeaponPickup>();
+                if (target == null)
+                    continue;
+                SetCursor(CursorType.Loot);
+                if (clickInput)
+                {
+                    if (Vector3.Distance(transform.position, target.transform.position) < 2f)
+                    {
+                        GetComponent<Inventory>().AddToFirstEmptySlot(target.weapon);
+                        target.Hide();
+                    }
+                    else
+                    {
+                        this.StopAllCoroutines();
+                        StartCoroutine(MoveAndCollect(target));
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private IEnumerator MoveAndCollect(WeaponPickup target)
+        {
+            //Vector3 directionOfTravel = (transform.position - target.transform.position).normalized;
+            //Vector3 targetPosition = target.transform.position + (directionOfTravel * 3); 
+            mover.MoveTo(target.transform.position, 1f);
+            while(Vector3.Distance(transform.position, target.transform.position) > 2f)
+            {
+                yield return null;
+            }
+            mover.Cancel();
+            yield return new WaitForSeconds(.1f);
+            GetComponent<Inventory>().AddToFirstEmptySlot(target.weapon);
+            target.Hide();
         }
 
         private void OnDisable()
@@ -260,6 +307,7 @@ namespace RPG.Control
                 {
                     if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
                     {
+                        this.StopAllCoroutines();
                         mover.StartMoveAction(hit.point, 1f);
                         SetCursor(CursorType.Movement);
                         return true;

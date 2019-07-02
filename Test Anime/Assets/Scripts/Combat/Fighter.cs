@@ -36,10 +36,17 @@ namespace RPG.Combat
             }
         }
 
+        public Weapon GetCurrentWeapon()
+        {
+            return currentWeapon;
+        }
+
         public void EquipWeapon(Weapon weapon)
         {
             currentWeapon = weapon;
             weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+            if(GetComponent<Inventory>() != null)
+                GetComponent<Inventory>().SetWeaponSlot(weapon);
             timeSinceLastAttack = Mathf.Infinity;
             if(anim != null)
                 anim.SetBool("inBattle", false);

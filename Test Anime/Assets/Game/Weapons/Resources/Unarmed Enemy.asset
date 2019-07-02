@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804a1a8a1a488724cbb9c89126dbaa69, type: 3}
   m_Name: Unarmed Enemy
   m_EditorClassIdentifier: 
+  _itemID: 473e96e1-65f3-45d7-9459-df2a4bfe3749
+  statModifiers: []
+  _baseCost: 0
+  _rarity: 0
+  _level: 0
+  _displayName: 
+  _description: 
+  _icon: {fileID: 0}
+  _pickup: {fileID: 0}
+  _allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: 227c64c5801c0164fa5819b64e418bf9, type: 2}
   equippedPrefab: {fileID: 0}
   weaponDamage:
@@ -24,4 +34,3 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: f6e23000514ea18468a42ab87a3ca097, type: 3}
   - {fileID: 8300000, guid: 7801475920ccd014abd271919ecb19b5, type: 3}
-  statModifiers: []
