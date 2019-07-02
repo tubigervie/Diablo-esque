@@ -11,6 +11,22 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
+        enum CursorType
+        {
+            None,
+            Movement,
+            Combat
+        }
+
+        [System.Serializable]
+        struct CursorMapping
+        {
+            public CursorType type;
+            public Texture2D texture;
+            public Vector2 hotspot;
+        }
+
+        [SerializeField] CursorMapping[] cursorMappings = null;
         bool skill1WasDown;
         bool skill2WasDown;
         bool skill3WasDown;
@@ -49,6 +65,12 @@ namespace RPG.Control
                 return;
             if (InteractWithMovement())
                 return;
+            SetCursor(CursorType.None);
+        }
+
+        private void OnDisable()
+        {
+            SetCursor(CursorType.None);
         }
 
         private bool InteractWithCombat()
@@ -198,8 +220,6 @@ namespace RPG.Control
         private bool InteractWithBasicAttacks()
         {
             bool clickInput = Input.GetMouseButtonDown(0);
-            if (!clickInput)
-                return false;
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
@@ -208,6 +228,7 @@ namespace RPG.Control
                     continue;
                 if (!GetComponent<Fighter>().CanAttack(target.gameObject))
                     continue;
+                SetCursor(CursorType.Combat);
                 if (clickInput && (!targetHealth.IsActive() || targetHealth.target != target.gameObject.GetComponent<Health>()))
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 20)
@@ -240,8 +261,9 @@ namespace RPG.Control
                     if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
                     {
                         mover.StartMoveAction(hit.point, 1f);
+                        SetCursor(CursorType.Movement);
+                        return true;
                     }
-                    return true;
                 }
             }
             return false;
@@ -264,6 +286,24 @@ namespace RPG.Control
             {
                 mover.Cancel();
             }
+        }
+
+        private void SetCursor(CursorType type)
+        {
+            CursorMapping mapping = GetCursorMapping(type);
+            Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
+        }
+
+        private CursorMapping GetCursorMapping(CursorType type)
+        {
+            foreach (CursorMapping mapping in cursorMappings)
+            {
+                if (mapping.type == type)
+                {
+                    return mapping;
+                }
+            }
+            return cursorMappings[0];
         }
     }
 }
