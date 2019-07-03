@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISaveable
 {
     int coins;
     [SerializeField] EquippableItem defaultWeapon;
@@ -31,7 +31,8 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        inventorySlots = new InventorySlot[inventorySize];
+        if(inventorySlots == null)
+            inventorySlots = new InventorySlot[inventorySize];
         //inventorySlots[0].item = inventoryItemList.GetFromID("82e243bc-95fb-4ed5-bc4a-db34bc4530ca");
     }
 
@@ -236,5 +237,56 @@ public class Inventory : MonoBehaviour
     public int GetCoinAmount()
     {
         return coins;
+    }
+
+    public object CaptureState()
+    {
+        Dictionary<string, object> state = new Dictionary<string, object>();
+        var slotStrings = new string[inventorySize];
+        for (int i = 0; i < inventorySize; i++)
+        {
+            if (inventorySlots[i].item != null)
+                slotStrings[i] = inventorySlots[i].item.itemID;
+            else
+                slotStrings[i] = null;
+        }
+        state["inventorySlots"] = slotStrings;
+
+        RemoveDestroyedDrops();
+
+        var droppedItemsList = new Dictionary<string, object>[droppedItems.Count];
+
+        for (int i = 0; i < droppedItemsList.Length; i++)
+        {
+            droppedItemsList[i] = new Dictionary<string, object>();
+            droppedItemsList[i]["itemID"] = droppedItems[i].weapon.itemID;
+            droppedItemsList[i]["position"] = new SerializableVector3(droppedItems[i].transform.position);
+        }
+        state["droppedItems"] = droppedItemsList;
+        return state;
+    }
+
+    public void RestoreState(object state)
+    {
+        Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
+        string[] slotStrings = (string[])stateDict["inventorySlots"];
+        if (inventorySlots == null)
+            inventorySlots = new InventorySlot[inventorySize];
+        for (int i = 0; i < inventorySize; i++)
+        {
+            inventorySlots[i].item = inventoryItemList.GetFromID(slotStrings[i]);
+        }
+        inventoryUpdated();
+        DeleteAllDrops();
+        if(stateDict.ContainsKey("droppedItems"))
+        {
+            Dictionary<string, object>[] droppedItems = (Dictionary<string, object>[])stateDict["droppedItems"];
+            foreach (var item in droppedItems)
+            {
+                var pickupItem = inventoryItemList.GetFromID((string)item["itemID"]);
+                Vector3 position = ((SerializableVector3)item["position"]).ToVector();
+                SpawnPickup(pickupItem, position);
+            }
+        }
     }
 }

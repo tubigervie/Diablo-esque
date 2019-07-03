@@ -46,7 +46,10 @@ namespace RPG.Combat
             currentWeapon = weapon;
             weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
             if(GetComponent<Inventory>() != null)
-                GetComponent<Inventory>().SetWeaponSlot(weapon);
+            {
+                if(weapon.name != "Unarmed")
+                    GetComponent<Inventory>().SetWeaponSlot(weapon);
+            }
             timeSinceLastAttack = Mathf.Infinity;
             if(anim != null)
                 anim.SetBool("inBattle", false);

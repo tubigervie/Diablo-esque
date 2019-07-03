@@ -18,7 +18,8 @@ MonoBehaviour:
   _rarity: 0
   _level: 0
   _displayName: Woodcutter's Axe
-  _description: 
+  _description: A small wood axe. Not intended to be a weapon... but nothing is stopping
+    you.
   _icon: {fileID: 21300000, guid: 9415af11d73bb804c8d24343e1351132, type: 3}
   _pickup: {fileID: 4710561703844433384, guid: 874a5c4656581e34c99172901badba76, type: 3}
   _allowedEquipLocation: 5

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RPG.Saving;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +35,7 @@ namespace RPG.Combat
 
         public void Hide()
         {
-            StartCoroutine(HideForSeconds(respawnTime));
+            ShowPickup(false);
         }
 
         private IEnumerator HideForSeconds(float time)

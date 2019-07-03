@@ -18,7 +18,7 @@ MonoBehaviour:
   _rarity: 0
   _level: 0
   _displayName: Fire Staff
-  _description: 
+  _description: BURN THESE HOES
   _icon: {fileID: 21300000, guid: 5732dc58816b91d4dbc488b1b3c8f08b, type: 3}
   _pickup: {fileID: 6773622935569930765, guid: eedb0bdbeae72ad4d8e1494b9b549e18, type: 3}
   _allowedEquipLocation: 5

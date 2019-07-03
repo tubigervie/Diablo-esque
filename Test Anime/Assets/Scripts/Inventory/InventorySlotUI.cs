@@ -52,9 +52,12 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
         {
             Debug.Log("Dropped from equipped into inv");
             var sendingItem = _inventory.PopEquipSlot(equipItem.parentSlot.type);
+            Debug.Log("UUID: " + sendingItem.itemID);
             var swappedItem = _inventory.ReplaceItemInSlot(sendingItem, index);
             if (swappedItem == null)
                 _inventory.RemoveEquippedItem(equipItem.parentSlot.type);
+            else
+                _inventory.ReplaceEquipSlot((EquippableItem) swappedItem, equipItem.parentSlot.type);
             //_inventory.AddToFirstEmptySlot(swappedItem);
         }
         else

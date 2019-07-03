@@ -18,7 +18,7 @@ MonoBehaviour:
   _rarity: 0
   _level: 0
   _displayName: Demon Sword
-  _description: 
+  _description: DESTROY EVERYTHING
   _icon: {fileID: 21300000, guid: 9415af11d73bb804c8d24343e1351132, type: 3}
   _pickup: {fileID: 5128753668660147585, guid: 38f998594cc6b3b4ea8bdd63da3fb78d, type: 3}
   _allowedEquipLocation: 5

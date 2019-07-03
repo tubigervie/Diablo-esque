@@ -21,6 +21,7 @@ namespace RPG.CameraUI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            Debug.Log("should be reading tooltip");
             var item = GetComponent<IItemHolder>().item;
             if (!item) return;
 
@@ -32,6 +33,8 @@ namespace RPG.CameraUI
             }
 
             _tooltip.title = item.displayName;
+            Debug.Log("item display " + item.displayName);
+            Debug.Log("tooltip " + _tooltip.title);
             _tooltip.body = item.description;
 
             PositionTooltip();

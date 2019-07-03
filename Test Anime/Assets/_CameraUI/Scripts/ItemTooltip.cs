@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 namespace RPG.CameraUI
 {
     public class ItemTooltip : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI titleText;
-        [SerializeField] TextMeshProUGUI bodyText;
+        [SerializeField] Text titleText;
+        [SerializeField] Text bodyText;
 
         public string title
         {
