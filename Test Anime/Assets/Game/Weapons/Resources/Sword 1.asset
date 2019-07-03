@@ -13,13 +13,22 @@ MonoBehaviour:
   m_Name: Sword 1
   m_EditorClassIdentifier: 
   _itemID: 82e243bc-95fb-4ed5-bc4a-db34bc4530ca
-  statModifiers: []
+  statModifiers:
+  - stat: 0
+    bonusType: 0
+    amount: 100
+  - stat: 7
+    bonusType: 1
+    amount: 20
+  - stat: 5
+    bonusType: 1
+    amount: 15
   _baseCost: 0
   _rarity: 0
   _level: 0
   _displayName: Demon Sword
   _description: DESTROY EVERYTHING
-  _icon: {fileID: 21300000, guid: 9415af11d73bb804c8d24343e1351132, type: 3}
+  _icon: {fileID: 21300000, guid: b4fbbbf3fc5f7334dbfc0840e8a0600a, type: 3}
   _pickup: {fileID: 5128753668660147585, guid: 38f998594cc6b3b4ea8bdd63da3fb78d, type: 3}
   _allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: 034ddca3c1b92c74289c2faf01abd34a, type: 2}

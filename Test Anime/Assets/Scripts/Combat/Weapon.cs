@@ -87,6 +87,11 @@ namespace RPG.Combat
             return weaponDamage.RandomlyChooseDamage();
         }
 
+        public DamageRange GetDamageRange()
+        {
+            return weaponDamage;
+        }
+
 
         public float GetWeaponRange()
         {

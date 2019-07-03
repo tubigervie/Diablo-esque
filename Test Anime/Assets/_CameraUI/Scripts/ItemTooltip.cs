@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPG.Stats;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RPG.CameraUI
@@ -7,6 +8,8 @@ namespace RPG.CameraUI
     {
         [SerializeField] Text titleText;
         [SerializeField] Text bodyText;
+        [SerializeField] Text valueText;
+        [SerializeField] ModifierTextSpawner modifierText;
 
         public string title
         {
@@ -30,6 +33,23 @@ namespace RPG.CameraUI
             {
                 return bodyText.text;
             }
+        }
+
+        public string value
+        {
+            set
+            {
+                valueText.text = value;
+            }
+            get
+            {
+                return valueText.text;
+            }
+        }
+
+        public void SpawnModifier(BonusType bonus, float amount, Stat stat)
+        {
+            modifierText.Spawn(bonus, amount, stat);
         }
     }
 }

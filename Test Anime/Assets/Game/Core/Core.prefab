@@ -2124,6 +2124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4, type: 2}
+  equipSFX: {fileID: 8300000, guid: 2c96ce3ffa19fa445b5d1fa1d3204cc4, type: 3}
   inventoryItemList: {fileID: 11400000, guid: fc3ce0d22e05f734b80751ad13491935, type: 2}
   inventorySize: 20
   weaponSlot:

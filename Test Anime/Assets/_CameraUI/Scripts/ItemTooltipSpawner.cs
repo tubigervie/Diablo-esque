@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPG.Combat;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace RPG.CameraUI
@@ -36,6 +37,15 @@ namespace RPG.CameraUI
             Debug.Log("item display " + item.displayName);
             Debug.Log("tooltip " + _tooltip.title);
             _tooltip.body = item.description;
+
+            Weapon weap = item as Weapon;
+
+            _tooltip.value = "Attack: " + weap.GetDamageRange().min + " - " + weap.GetDamageRange().max;
+
+            foreach(StatModifier modifier in item.statModifiers)
+            {
+                _tooltip.SpawnModifier(modifier.bonusType, modifier.amount, modifier.stat);
+            }
 
             PositionTooltip();
         }

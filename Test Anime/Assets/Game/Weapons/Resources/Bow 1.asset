@@ -22,7 +22,7 @@ MonoBehaviour:
   _level: 0
   _displayName: Brown Bow
   _description: AHHHHHHH.
-  _icon: {fileID: 21300000, guid: 1911a1537fb803a49a6c895addceb344, type: 3}
+  _icon: {fileID: 21300000, guid: 4f855dc9e2f58da4e92a44a8bd76baaf, type: 3}
   _pickup: {fileID: 5568881573280107256, guid: f2c3dd767a586c64e9b79e30d2a1449c, type: 3}
   _allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: 4ad00eaa3301a164cb437e361cd6a2d9, type: 2}

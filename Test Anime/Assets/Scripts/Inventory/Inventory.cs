@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour, ISaveable
 {
     int coins;
     [SerializeField] EquippableItem defaultWeapon;
-    //[SerializeField]
+    [SerializeField] AudioClip equipSFX;
     [SerializeField] InventoryItemList inventoryItemList;
     [SerializeField] int inventorySize;
     private InventorySlot[] inventorySlots;
@@ -187,6 +187,7 @@ public class Inventory : MonoBehaviour, ISaveable
             case EquippableItem.EquipLocation.Weapon:
                 weaponSlot.item = item;
                 GetComponent<Fighter>().EquipWeapon(item as Weapon);
+                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
         }
         inventoryUpdated();
