@@ -86,7 +86,7 @@ namespace RPG.Control
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
-                        GetComponent<Inventory>().AddToFirstEmptySlot(target.weapon);
+                        GetComponent<Inventory>().AddItemIntoInventory(target.weaponInstance);
                         target.Hide();
                     }
                     else
@@ -111,7 +111,7 @@ namespace RPG.Control
             }
             mover.Cancel();
             yield return new WaitForSeconds(.1f);
-            GetComponent<Inventory>().AddToFirstEmptySlot(target.weapon);
+            GetComponent<Inventory>().AddItemIntoInventory(target.weaponInstance);
             target.Hide();
         }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   _itemID: 71bc4e9c-bc14-4bc8-bf37-10906d3e902a
   statModifiers: []
   _baseCost: 0
-  _rarity: 0
+  _rarity: 00000000
   _level: 0
   _displayName: Woodcutter's Axe
   _description: A small wood axe. Not intended to be a weapon... but nothing is stopping

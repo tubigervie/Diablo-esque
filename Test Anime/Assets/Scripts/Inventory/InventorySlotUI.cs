@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public interface IItemHolder
 {
-    InventoryItem item { get; set; }
+    ItemInstance item { get; set; }
 }
 
 public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
@@ -16,11 +16,11 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
     public int index { get; set; }
 
     Inventory _inventory;
-    InventoryItem _item;
+    ItemInstance _item;
 
     public Inventory inventory { set { _inventory = value; } }
 
-    public InventoryItem item
+    public ItemInstance item
     {
         get => _item;
         set
@@ -29,18 +29,18 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
         }
     }
 
-    public void SetItem(InventoryItem item)
+    public void SetItem(ItemInstance item)
     {
         _item = item;
 
-        if (item == null)
+        if (item != null && item.itemBase != null)
         {
-            _iconImage.enabled = false;
+            _iconImage.enabled = true;
+            _iconImage.sprite = item.itemBase.icon;
         }
         else
         {
-            _iconImage.enabled = true;
-            _iconImage.sprite = item.icon;
+            _iconImage.enabled = false;
         }
     }
 
@@ -54,10 +54,13 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
             var sendingItem = _inventory.PopEquipSlot(equipItem.parentSlot.type);
             Debug.Log("UUID: " + sendingItem.itemID);
             var swappedItem = _inventory.ReplaceItemInSlot(sendingItem, index);
-            if (swappedItem == null)
+            if (swappedItem == null || swappedItem.itemBase == null)
                 _inventory.RemoveEquippedItem(equipItem.parentSlot.type);
             else
-                _inventory.ReplaceEquipSlot((EquippableItem) swappedItem, equipItem.parentSlot.type);
+            {
+                EquipInstance equipInst = new EquipInstance(swappedItem.itemBase as EquippableItem, swappedItem.properties);
+                _inventory.ReplaceEquipSlot(equipInst, equipItem.parentSlot.type);
+            }
             //_inventory.AddToFirstEmptySlot(swappedItem);
         }
         else

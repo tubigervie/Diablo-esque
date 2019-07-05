@@ -22,10 +22,9 @@ namespace RPG.CameraUI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Debug.Log("should be reading tooltip");
             var item = GetComponent<IItemHolder>().item;
-            if (!item) return;
-
+            if (item == null) return;
+            if (item.itemBase == null) return;
             var parentCanvas = GetComponentInParent<Canvas>();
 
             if (!_tooltip)
@@ -33,16 +32,15 @@ namespace RPG.CameraUI
                 _tooltip = Instantiate(tooltipPrefab, parentCanvas.transform);
             }
 
-            _tooltip.title = item.displayName;
-            Debug.Log("item display " + item.displayName);
+            _tooltip.title = item.itemBase.displayName;
+            Debug.Log("item display " + item.itemBase.displayName);
             Debug.Log("tooltip " + _tooltip.title);
-            _tooltip.body = item.description;
+            _tooltip.body = item.itemBase.description;
+            WeaponInstance weap = new WeaponInstance(item.itemBase as Weapon, item.properties);
+            _tooltip.value = "DMG: " + weap.GetDamageRange().min + " - " + weap.GetDamageRange().max;
+            _tooltip.setRarity(item.properties.rarity);
 
-            Weapon weap = item as Weapon;
-
-            _tooltip.value = "Attack: " + weap.GetDamageRange().min + " - " + weap.GetDamageRange().max;
-
-            foreach(StatModifier modifier in item.statModifiers)
+            foreach(StatModifier modifier in item.properties.statModifiers)
             {
                 _tooltip.SpawnModifier(modifier.bonusType, modifier.amount, modifier.stat);
             }

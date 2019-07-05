@@ -8,31 +8,35 @@ using UnityEngine;
 public class Inventory : MonoBehaviour, ISaveable
 {
     int coins;
-    [SerializeField] EquippableItem defaultWeapon;
+    [SerializeField] EquippableItem defaultWeaponBase;
     [SerializeField] AudioClip equipSFX;
     [SerializeField] InventoryItemList inventoryItemList;
     [SerializeField] int inventorySize;
-    private InventorySlot[] inventorySlots;
+    [SerializeField] InventorySlot[] inventorySlots;
     [SerializeField] EquipSlot weaponSlot;
     List<WeaponPickup> droppedItems = new List<WeaponPickup>();
 
     [System.Serializable]
     public struct InventorySlot
     {
-        public InventoryItem item;
+        public ItemInstance item;
     }
 
     [System.Serializable]
     public struct EquipSlot
     {
         public EquippableItem.EquipLocation type;
-        public EquippableItem item;
+        public EquipInstance item;
     }
 
     private void Awake()
     {
-        if(inventorySlots == null)
-            inventorySlots = new InventorySlot[inventorySize];
+        //if(inventorySlots == null)
+        inventorySlots = new InventorySlot[inventorySize];
+        for(int i = 0; i < inventorySize; i++)
+        {
+            inventorySlots[i].item = null;
+        }
         //inventorySlots[0].item = inventoryItemList.GetFromID("82e243bc-95fb-4ed5-bc4a-db34bc4530ca");
     }
 
@@ -52,7 +56,7 @@ public class Inventory : MonoBehaviour, ISaveable
         return weaponSlot;
     }
 
-    public EquippableItem PopEquipSlot(EquippableItem.EquipLocation type)
+    public ItemInstance PopEquipSlot(EquippableItem.EquipLocation type)
     {
         switch (type)
         {
@@ -87,7 +91,8 @@ public class Inventory : MonoBehaviour, ISaveable
             case EquippableItem.EquipLocation.Boots:
                 break;
             case EquippableItem.EquipLocation.Weapon:
-                GetComponent<Fighter>().EquipWeapon(defaultWeapon as Weapon);
+                WeaponInstance defaultWeaponInstance = new WeaponInstance(defaultWeaponBase as Weapon, 1);
+                GetComponent<Fighter>().EquipWeapon(defaultWeaponInstance);
                 weaponSlot.item = null;
                 break;
         }
@@ -110,32 +115,40 @@ public class Inventory : MonoBehaviour, ISaveable
             case EquippableItem.EquipLocation.Boots:
                 break;
             case EquippableItem.EquipLocation.Weapon:
-                item = weaponSlot.item;
+                item = weaponSlot.item.itemBase as EquippableItem;
                 var spawnLocation = transform.position;
-                SpawnPickup(item, spawnLocation);
-                GetComponent<Fighter>().EquipWeapon(defaultWeapon as Weapon);
+                //SpawnPickup(item, spawnLocation);
+                WeaponInstance defaultWeaponInstance = new WeaponInstance(defaultWeaponBase as Weapon, 1);
+                GetComponent<Fighter>().EquipWeapon(defaultWeaponInstance);
                 weaponSlot.item = null;
                 break;
         }
         inventoryUpdated();
     }
 
-    public void SetWeaponSlot(Weapon weapon)
+    public void AddItemIntoInventory(ItemInstance weapon)
+    {
+        //inventoryItemList.AddToInventoryItemList(weapon);
+        AddToFirstEmptySlot(weapon);
+    }
+
+    public void SetWeaponSlot(EquipInstance weapon)
     {
         weaponSlot.item = weapon;
     }
 
-    public bool AddToFirstEmptySlot(InventoryItem item)
+    public bool AddToFirstEmptySlot(ItemInstance item)
     {
         for(int i = 0; i< inventorySlots.Length; i++)
         {
-            if(inventorySlots[i].item == null)
+            if(inventorySlots[i].item == null || inventorySlots[i].item.itemBase == null)
             {
                 inventorySlots[i].item = item;
                 inventoryUpdated();
                 return true;
             }
         }
+        Debug.Log("couldnt find empty");
         return false;
     }
 
@@ -145,18 +158,18 @@ public class Inventory : MonoBehaviour, ISaveable
         if (item == null) return false;
 
         var spawnLocation = transform.position;
-        SpawnPickup(item, spawnLocation);
+        //SpawnPickup(item, spawnLocation);
 
-        return true; ;
+        return true; 
     }
 
-    private void SpawnPickup(InventoryItem item, Vector3 spawnLocation)
-    {
-        var pickup = item.SpawnPickup(spawnLocation);
-        droppedItems.Add(pickup);
-    }
+    //private void SpawnPickup(ItemInstance item, Vector3 spawnLocation)
+    //{
+    //    var pickup = item.SpawnPickup(spawnLocation);
+    //    droppedItems.Add(pickup);
+    //}
 
-    public InventoryItem ReplaceItemInSlot(InventoryItem item, int slot)
+    public ItemInstance ReplaceItemInSlot(ItemInstance item, int slot)
     {
         var oldItem = inventorySlots[slot].item;
         inventorySlots[slot].item = item;
@@ -164,7 +177,7 @@ public class Inventory : MonoBehaviour, ISaveable
         return oldItem;
     }
 
-    public InventoryItem ReplaceEquipSlot(EquippableItem item, EquippableItem.EquipLocation type)
+    public EquipInstance ReplaceEquipSlot(EquipInstance item, EquippableItem.EquipLocation type)
     {
         var oldItem = weaponSlot.item;
         switch (type)
@@ -186,7 +199,8 @@ public class Inventory : MonoBehaviour, ISaveable
                 break;
             case EquippableItem.EquipLocation.Weapon:
                 weaponSlot.item = item;
-                GetComponent<Fighter>().EquipWeapon(item as Weapon);
+                WeaponInstance weapInst = new WeaponInstance(item.equipBase as Weapon, item.properties);
+                GetComponent<Fighter>().EquipWeapon(weapInst);
                 GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
         }
@@ -195,12 +209,12 @@ public class Inventory : MonoBehaviour, ISaveable
     }
 
 
-    public InventoryItem GetItemInSlot(int slot)
+    public ItemInstance GetItemInSlot(int slot)
     {
         return inventorySlots[slot].item;
     }
 
-    public InventoryItem PopItemFromSlot(int slot)
+    public ItemInstance PopItemFromSlot(int slot)
     {
         var item = inventorySlots[slot].item;
         inventorySlots[slot].item = null;
@@ -243,51 +257,86 @@ public class Inventory : MonoBehaviour, ISaveable
     public object CaptureState()
     {
         Dictionary<string, object> state = new Dictionary<string, object>();
-        var slotStrings = new string[inventorySize];
+        var slotValues = new KeyValuePair<string, ItemProperties>[inventorySize];
         for (int i = 0; i < inventorySize; i++)
         {
-            if (inventorySlots[i].item != null)
-                slotStrings[i] = inventorySlots[i].item.itemID;
+            if (inventorySlots[i].item != null && inventorySlots[i].item.itemBase != null)
+                slotValues[i] = new KeyValuePair<string, ItemProperties>(inventorySlots[i].item.itemBase.itemID, inventorySlots[i].item.properties);
             else
-                slotStrings[i] = null;
+            {
+                slotValues[i] = new KeyValuePair<string, ItemProperties>();
+                Debug.Log("slot key: " + slotValues[i].Key);
+            }
         }
-        state["inventorySlots"] = slotStrings;
+        state["inventorySlots"] = slotValues;
+        if (weaponSlot.item != null)
+            state["weaponSlot"] = new KeyValuePair<string, ItemProperties>(weaponSlot.item.itemID, weaponSlot.item.properties);
+        else
+            state["weaponSlot"] = defaultWeaponBase.itemID;
+        //RemoveDestroyedDrops();
 
-        RemoveDestroyedDrops();
+        //var droppedItemsList = new Dictionary<string, object>[droppedItems.Count];
 
-        var droppedItemsList = new Dictionary<string, object>[droppedItems.Count];
-
-        for (int i = 0; i < droppedItemsList.Length; i++)
-        {
-            droppedItemsList[i] = new Dictionary<string, object>();
-            droppedItemsList[i]["itemID"] = droppedItems[i].weapon.itemID;
-            droppedItemsList[i]["position"] = new SerializableVector3(droppedItems[i].transform.position);
-        }
-        state["droppedItems"] = droppedItemsList;
+        //for (int i = 0; i < droppedItemsList.Length; i++)
+        //{
+        //    droppedItemsList[i] = new Dictionary<string, object>();
+        //    droppedItemsList[i]["itemID"] = droppedItems[i].weapon.itemID;
+        //    droppedItemsList[i]["position"] = new SerializableVector3(droppedItems[i].transform.position);
+        //}
+        //state["droppedItems"] = droppedItemsList;
         return state;
     }
 
     public void RestoreState(object state)
     {
         Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
-        string[] slotStrings = (string[])stateDict["inventorySlots"];
-        if (inventorySlots == null)
-            inventorySlots = new InventorySlot[inventorySize];
+        KeyValuePair<string, ItemProperties>[] slotStrings = (KeyValuePair<string, ItemProperties>[])stateDict["inventorySlots"];
+        inventorySlots = new InventorySlot[inventorySize];
         for (int i = 0; i < inventorySize; i++)
         {
-            inventorySlots[i].item = inventoryItemList.GetFromID(slotStrings[i]);
+            inventorySlots[i].item = null;
         }
-        inventoryUpdated();
-        DeleteAllDrops();
-        if(stateDict.ContainsKey("droppedItems"))
+        for (int i = 0; i < inventorySize; i++)
         {
-            Dictionary<string, object>[] droppedItems = (Dictionary<string, object>[])stateDict["droppedItems"];
-            foreach (var item in droppedItems)
+            if(!String.IsNullOrEmpty(slotStrings[i].Key))
             {
-                var pickupItem = inventoryItemList.GetFromID((string)item["itemID"]);
-                Vector3 position = ((SerializableVector3)item["position"]).ToVector();
-                SpawnPickup(pickupItem, position);
+                InventoryItem itemBase = inventoryItemList.GetFromID(slotStrings[i].Key);
+                inventorySlots[i].item = new ItemInstance(itemBase, slotStrings[i].Value);
             }
         }
+        if (stateDict["weaponSlot"] != null)
+        {
+            try
+            {
+                KeyValuePair<string, ItemProperties> weaponPair = (KeyValuePair<string, ItemProperties>)stateDict["weaponSlot"];
+                EquippableItem equipBase = inventoryItemList.GetFromID(weaponPair.Key) as EquippableItem;
+                WeaponInstance weapon = new WeaponInstance(equipBase as Weapon, weaponPair.Value);
+                GetComponent<Fighter>().EquipWeapon(weapon);
+                weaponSlot.item = weapon;
+            }
+            catch
+            {
+                string weaponBase = (string)stateDict["weaponSlot"];
+                EquippableItem equipBase = inventoryItemList.GetFromID(weaponBase) as EquippableItem;
+                WeaponInstance weapon = new WeaponInstance(equipBase as Weapon, 1);
+                GetComponent<Fighter>().EquipWeapon(weapon);
+                weaponSlot.item = null;
+            }
+        }
+        else
+        {            
+        }
+        inventoryUpdated();
+        //DeleteAllDrops();
+        //if(stateDict.ContainsKey("droppedItems"))
+        //{
+        //    Dictionary<string, object>[] droppedItems = (Dictionary<string, object>[])stateDict["droppedItems"];
+        //    foreach (var item in droppedItems)
+        //    {
+        //        var pickupItem = inventoryItemList.GetFromID((string)item["itemID"]);
+        //        Vector3 position = ((SerializableVector3)item["position"]).ToVector();
+        //        //SpawnPickup(pickupItem, position);
+        //    }
+        //}
     }
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
     bonusType: 0
     amount: 25
   _baseCost: 0
-  _rarity: 0
+  _rarity: 0000000001000000
   _level: 0
   _displayName: Brown Bow
   _description: AHHHHHHH.

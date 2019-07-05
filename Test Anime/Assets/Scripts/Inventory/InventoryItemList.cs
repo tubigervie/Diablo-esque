@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("RPG/Inventory/Index"))]
 public class InventoryItemList : ScriptableObject
 {
-    [SerializeField] InventoryItem[] allInventoryItems;
+    [SerializeField] List<InventoryItem> allInventoryItems;
 
     public InventoryItem GetFromID(string itemID)
     {
@@ -18,5 +18,23 @@ public class InventoryItemList : ScriptableObject
         }
 
         return null;
+    }
+
+    public void AddToInventoryItemList(InventoryItem inventoryItem)
+    {
+        if(!allInventoryItems.Contains(inventoryItem))
+            allInventoryItems.Add(inventoryItem);
+    }
+
+
+    public void RemoveByID(string itemID)
+    {
+        foreach (var item in allInventoryItems)
+        {
+            if (item.itemID == itemID)
+            {
+                allInventoryItems.Remove(item);
+            }
+        }
     }
 }

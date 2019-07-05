@@ -15,7 +15,7 @@ MonoBehaviour:
   _itemID: b13b09e1-c29a-447a-afe4-54d99d81fec1
   statModifiers: []
   _baseCost: 0
-  _rarity: 0
+  _rarity: 00000000010000000200000003000000
   _level: 0
   _displayName: Fire Staff
   _description: BURN THESE HOES

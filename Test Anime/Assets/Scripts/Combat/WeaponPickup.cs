@@ -12,6 +12,7 @@ namespace RPG.Combat
         [SerializeField] GameObject pivot;
         [SerializeField] Text weaponName;
         public InventoryItem weapon = null;
+        public ItemInstance weaponInstance;
         public bool wasFromInventory;
         [SerializeField] float respawnTime = 5;
         Camera _camera;
@@ -26,6 +27,8 @@ namespace RPG.Combat
         private void Start()
         {
             weaponName.text = weapon.displayName;
+
+            weaponInstance = new ItemInstance(weapon, 1);
         }
 
         private void Update()

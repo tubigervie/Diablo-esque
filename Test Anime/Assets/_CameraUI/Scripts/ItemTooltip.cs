@@ -9,6 +9,7 @@ namespace RPG.CameraUI
         [SerializeField] Text titleText;
         [SerializeField] Text bodyText;
         [SerializeField] Text valueText;
+        [SerializeField] Text rarityText;
         [SerializeField] ModifierTextSpawner modifierText;
 
         public string title
@@ -27,7 +28,7 @@ namespace RPG.CameraUI
         {
             set
             {
-                bodyText.text = value;
+                bodyText.text = "\"" + value + "\"";
             }
             get
             {
@@ -44,6 +45,32 @@ namespace RPG.CameraUI
             get
             {
                 return valueText.text;
+            }
+        }
+
+        public void setRarity(Rarity rarity)
+        {
+            rarityText.text = rarity.ToString();
+            switch (rarity)
+            {
+                case Rarity.Common:
+                    rarityText.color = Color.white;
+                    break;
+                case Rarity.Uncommon:
+                    rarityText.color = Color.yellow;
+                    break;
+                case Rarity.Rare:
+                    rarityText.color = Color.green;
+                    break;
+                case Rarity.Epic:
+                    rarityText.color = Color.blue;
+                    break;
+                case Rarity.Legendary:
+                    rarityText.color = Color.cyan;
+                    break;
+                case Rarity.Mythical:
+                    rarityText.color = Color.red;
+                    break;
             }
         }
 

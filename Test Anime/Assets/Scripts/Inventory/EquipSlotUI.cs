@@ -11,13 +11,13 @@ public class EquipSlotUI : MonoBehaviour, IItemHolder, IDropHandler
     public int index { get; set; }
 
     Inventory _inventory;
-    InventoryItem _item;
+    ItemInstance _item;
 
     public Inventory inventory { set { _inventory = value; } }
 
     public EquippableItem.EquipLocation type { get => _type; }
 
-    public InventoryItem item
+    public ItemInstance item
     {
         get => _item;
         set
@@ -26,18 +26,18 @@ public class EquipSlotUI : MonoBehaviour, IItemHolder, IDropHandler
         }
     }
 
-    public void SetItem(InventoryItem item)
+    public void SetItem(ItemInstance item)
     {
         _item = item;
 
-        if (item == null)
+        if (item != null && item.itemBase != null)
         {
-            _iconImage.enabled = false;
+            _iconImage.enabled = true;
+            _iconImage.sprite = item.itemBase.icon;
         }
         else
         {
-            _iconImage.enabled = true;
-            _iconImage.sprite = item.icon;
+            _iconImage.enabled = false;
         }
     }
 
@@ -55,11 +55,12 @@ public class EquipSlotUI : MonoBehaviour, IItemHolder, IDropHandler
             Debug.Log("Dropped from inv into equip slot");
             if (invItem.parentSlot.index == index) return;
 
-            var sendingItem = (EquippableItem)_inventory.PopItemFromSlot(invItem.parentSlot.index);
-            if((sendingItem.allowedEquipLocation == type))
+            ItemInstance itemInst = _inventory.PopItemFromSlot(invItem.parentSlot.index);
+            var sendingItem = new EquipInstance(itemInst.itemBase as EquippableItem, itemInst.properties);
+            if((sendingItem.equipBase.allowedEquipLocation == type))
             {
                 Debug.Log("before swap");
-                var swappedItem = _inventory.ReplaceEquipSlot(sendingItem, sendingItem.allowedEquipLocation);
+                var swappedItem = _inventory.ReplaceEquipSlot(sendingItem, sendingItem.equipBase.allowedEquipLocation);
                 _inventory.ReplaceItemInSlot(swappedItem, invItem.parentSlot.index);
                 Debug.Log("after swap");
             }

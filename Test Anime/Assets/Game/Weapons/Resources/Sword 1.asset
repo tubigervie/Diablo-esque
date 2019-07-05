@@ -24,7 +24,7 @@ MonoBehaviour:
     bonusType: 1
     amount: 15
   _baseCost: 0
-  _rarity: 0
+  _rarity: 02000000030000000400000005000000
   _level: 0
   _displayName: Demon Sword
   _description: DESTROY EVERYTHING

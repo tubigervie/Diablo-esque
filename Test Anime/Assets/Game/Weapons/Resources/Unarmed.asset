@@ -15,7 +15,7 @@ MonoBehaviour:
   _itemID: d2a1fc9e-5b71-4a58-ab2b-12c7b1078289
   statModifiers: []
   _baseCost: 0
-  _rarity: 0
+  _rarity: 00000000
   _level: 0
   _displayName: Fists
   _description: 

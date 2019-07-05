@@ -62,7 +62,7 @@ namespace RPG.Combat
             return audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
         }
 
-        public StatModifier[] GetStatModifiers()
+        public List<StatModifier> GetStatModifiers()
         {
             return statModifiers;
         }

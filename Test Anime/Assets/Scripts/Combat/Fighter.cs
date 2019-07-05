@@ -9,7 +9,7 @@ using RPG.Stats;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
+    public class Fighter : MonoBehaviour, IAction, IModifier
     {
         ActionScheduler actionScheduler;
         Health combatTarget;
@@ -21,7 +21,7 @@ namespace RPG.Combat
         [SerializeField] Weapon defaultWeapon;
 
         public float timeSinceLastAttack = Mathf.Infinity;
-        [SerializeField] Weapon currentWeapon = null;
+        [SerializeField] WeaponInstance currentWeapon = null;
         bool attackLock = false;
         bool clickInput = false;
 
@@ -32,23 +32,26 @@ namespace RPG.Combat
             actionScheduler = GetComponent<ActionScheduler>();
             if(currentWeapon == null)
             {
-                EquipWeapon(defaultWeapon);
+                WeaponInstance defaultInstance = new WeaponInstance(defaultWeapon, 1);
+                EquipWeapon(defaultInstance);
             }
         }
 
-        public Weapon GetCurrentWeapon()
+        public WeaponInstance GetCurrentWeapon()
         {
             return currentWeapon;
         }
 
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(WeaponInstance weapon)
         {
             currentWeapon = weapon;
-            weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+            weapon.weaponBase.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
             if(GetComponent<Inventory>() != null)
             {
-                if(weapon.name != "Unarmed")
+                if(weapon.weaponBase.name != "Unarmed")
+                {
                     GetComponent<Inventory>().SetWeaponSlot(weapon);
+                }
             }
             timeSinceLastAttack = Mathf.Infinity;
             if(anim != null)
@@ -109,7 +112,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, combatTarget.transform.position) < currentWeapon.GetWeaponRange();
+            return Vector3.Distance(transform.position, combatTarget.transform.position) < currentWeapon.weaponBase.GetWeaponRange();
         }
 
         public float GetDamage()
@@ -149,16 +152,16 @@ namespace RPG.Combat
                 Cancel();
                 return;
             }
-            if(currentWeapon.HasProjectile())
+            if(currentWeapon.weaponBase.HasProjectile())
             {
-                AudioClip damageSound = currentWeapon.GetRandomWeaponSound();
+                AudioClip damageSound = currentWeapon.weaponBase.GetRandomWeaponSound();
                 if (damageSound != null)
                     GetComponent<AudioSource>().PlayOneShot(damageSound);
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage, shouldBeCritical);
+                currentWeapon.weaponBase.LaunchProjectile(rightHandTransform, leftHandTransform, healthComponent, gameObject, damage, shouldBeCritical);
             }
             else
             {
-                AudioClip damageSound = currentWeapon.GetRandomWeaponSound();
+                AudioClip damageSound = currentWeapon.weaponBase.GetRandomWeaponSound();
                 if (damageSound != null)
                     combatTarget.GetComponent<AudioSource>().PlayOneShot(damageSound);
                 healthComponent.TakeDamage(gameObject, damage, shouldBeCritical);
@@ -173,7 +176,7 @@ namespace RPG.Combat
 
         void AttackBehavior()
         {
-            if (timeSinceLastAttack > currentWeapon.GetWeaponTimeBetween())
+            if (timeSinceLastAttack > currentWeapon.weaponBase.GetWeaponTimeBetween())
             {
                 transform.LookAt(combatTarget.transform);
                 TriggerAttack(); //This will trigger the Hit() event
@@ -197,26 +200,14 @@ namespace RPG.Combat
             return test != null && !test.IsDead();
         }
 
-        public object CaptureState()
-        {
-            return (currentWeapon != null) ? currentWeapon.name : null;     
-        }
-
-        public void RestoreState(object state)
-        {
-            string weaponName = (string) state;
-            Weapon weapon = Resources.Load<Weapon>(weaponName);
-            EquipWeapon(weapon);
-            currentWeapon = weapon;
-        }
-
         public IEnumerable<float> GetAdditiveModifier(Stat stat)
         {
             if (currentWeapon == null)
             {
-                EquipWeapon(defaultWeapon);
+                WeaponInstance defaultInstance = new WeaponInstance(defaultWeapon, 1);
+                EquipWeapon(defaultInstance);
             }
-            foreach (var modifier in currentWeapon.GetStatModifiers())
+            foreach (var modifier in currentWeapon.properties.statModifiers)
             {
                 if(modifier.stat == stat)
                     yield return currentWeapon.GetStatBonus(modifier.stat, BonusType.Flat);
@@ -227,9 +218,10 @@ namespace RPG.Combat
         {
             if (currentWeapon == null)
             {
-                EquipWeapon(defaultWeapon);
+                WeaponInstance defaultInstance = new WeaponInstance(defaultWeapon, 1);
+                EquipWeapon(defaultInstance);
             }
-            foreach (var modifier in currentWeapon.GetStatModifiers())
+            foreach (var modifier in currentWeapon.properties.statModifiers)
             {
                 if (modifier.stat == stat)
                     yield return currentWeapon.GetStatBonus(modifier.stat, BonusType.Percentage);
@@ -238,7 +230,7 @@ namespace RPG.Combat
 
         public AnimatorOverrideController GetOverrideController()
         {
-            return currentWeapon.GetOverride();
+            return currentWeapon.weaponBase.GetOverride();
         }
 
     }
