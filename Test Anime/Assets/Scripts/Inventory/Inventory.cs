@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour, ISaveable
     [SerializeField] AudioClip equipSFX;
     [SerializeField] InventoryItemList inventoryItemList;
     [SerializeField] int inventorySize;
-    [SerializeField] InventorySlot[] inventorySlots;
+    private InventorySlot[] inventorySlots;
     [SerializeField] EquipSlot weaponSlot;
     List<WeaponPickup> droppedItems = new List<WeaponPickup>();
 

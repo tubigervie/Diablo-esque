@@ -68,7 +68,6 @@ public class WeaponInstance : EquipInstance
 
     public float GetWeaponDamage()
     {
-        Debug.Log(properties.rarity);
         return damageRange.RandomlyChooseDamage();
     }
 

@@ -33,8 +33,8 @@ namespace RPG.CameraUI
             }
 
             _tooltip.title = item.itemBase.displayName;
-            Debug.Log("item display " + item.itemBase.displayName);
-            Debug.Log("tooltip " + _tooltip.title);
+            //Debug.Log("item display " + item.itemBase.displayName);
+            //Debug.Log("tooltip " + _tooltip.title);
             _tooltip.body = item.itemBase.description;
             WeaponInstance weap = new WeaponInstance(item.itemBase as Weapon, item.properties);
             _tooltip.value = "DMG: " + weap.GetDamageRange().min + " - " + weap.GetDamageRange().max;
