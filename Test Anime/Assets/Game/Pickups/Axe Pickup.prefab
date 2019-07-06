@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7271229049350683781}
   m_LocalRotation: {x: 0.9990429, y: -0, z: -0, w: 0.043741103}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3064076757638044150}
@@ -122,6 +122,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Axe Pickup
       objectReference: {fileID: 0}
+    - target: {fileID: 8224321185566235667, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+        type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 026b84fddc6cba7498e4020fd3575069,
+        type: 2}
+    - target: {fileID: 4301387144674994174, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.21
+      objectReference: {fileID: 0}
     - target: {fileID: 5079108995068696889, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -177,16 +188,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8224321185566235667, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+    - target: {fileID: 2388829940358377777, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
         type: 3}
-      propertyPath: weapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 026b84fddc6cba7498e4020fd3575069,
-        type: 2}
-    - target: {fileID: 4301387144674994174, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388829940358377777, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
         type: 3}
-      propertyPath: m_Center.z
-      value: 0.21
+      propertyPath: m_LocalPosition.z
+      value: -0.014999986
       objectReference: {fileID: 0}
     - target: {fileID: 3350749674362070638, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
         type: 3}
@@ -313,6 +323,27 @@ PrefabInstance:
       propertyPath: m_FontData.m_Alignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3104774550220724717, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+        type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 026b84fddc6cba7498e4020fd3575069,
+        type: 2}
+    - target: {fileID: 3104774550220724717, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+        type: 3}
+      propertyPath: pivot
+      value: 
+      objectReference: {fileID: 3464964538800090909}
+    - target: {fileID: 3104774550220724717, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+        type: 3}
+      propertyPath: itemName
+      value: 
+      objectReference: {fileID: 1943468758640027746}
+    - target: {fileID: 4111544996766723849, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49217af266a2e5e4c9a1d2eece2fa71c, type: 3}
 --- !u!4 &8431144062121035970 stripped
@@ -321,3 +352,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3710383773675803131}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3464964538800090909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 246546249477586662, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3710383773675803131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1943468758640027746 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2991930481468979609, guid: 49217af266a2e5e4c9a1d2eece2fa71c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3710383773675803131}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -78,7 +78,7 @@ namespace RPG.Control
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
-                WeaponPickup target = hit.collider.gameObject.GetComponent<WeaponPickup>();
+                ItemPickup target = hit.collider.gameObject.GetComponent<ItemPickup>();
                 if (target == null)
                     continue;
                 SetCursor(CursorType.Loot);
@@ -86,8 +86,13 @@ namespace RPG.Control
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
-                        GetComponent<Inventory>().AddItemIntoInventory(target.weaponInstance);
-                        target.Hide();
+                        Inventory inv = GetComponent<Inventory>();
+                        inv.AddItemIntoInventory(target.itemInstance);
+                        if (target.wasFromInventory)
+                        {
+                            inv.RemoveDroppedItem(target);
+                        }
+                        Destroy(target.gameObject);
                     }
                     else
                     {
@@ -100,7 +105,7 @@ namespace RPG.Control
             return false;
         }
 
-        private IEnumerator MoveAndCollect(WeaponPickup target)
+        private IEnumerator MoveAndCollect(ItemPickup target)
         {
             //Vector3 directionOfTravel = (transform.position - target.transform.position).normalized;
             //Vector3 targetPosition = target.transform.position + (directionOfTravel * 3); 
@@ -111,8 +116,13 @@ namespace RPG.Control
             }
             mover.Cancel();
             yield return new WaitForSeconds(.1f);
-            GetComponent<Inventory>().AddItemIntoInventory(target.weaponInstance);
-            target.Hide();
+            Inventory inv = GetComponent<Inventory>();
+            inv.AddItemIntoInventory(target.itemInstance);
+            if (target.wasFromInventory)
+            {
+                inv.RemoveDroppedItem(target);
+            }
+            Destroy(target.gameObject);
         }
 
         private void OnDisable()

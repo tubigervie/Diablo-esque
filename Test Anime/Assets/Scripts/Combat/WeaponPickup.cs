@@ -6,57 +6,24 @@ using UnityEngine.UI;
 
 namespace RPG.Combat
 {
-    public class WeaponPickup : MonoBehaviour
+    public class WeaponPickup : ItemPickup
     {
-        Canvas canvas;
-        [SerializeField] GameObject pivot;
-        [SerializeField] Text weaponName;
-        public InventoryItem weapon = null;
-        public ItemInstance weaponInstance;
-        public bool wasFromInventory;
-        [SerializeField] float respawnTime = 5;
-        Camera _camera;
+        public Weapon weapon = null;
+        public WeaponInstance weaponInstance;
 
-        private void Awake()
+        public override void InitRandom(int level)
         {
-            canvas = GetComponentInChildren<Canvas>();
-            canvas.worldCamera = Camera.main;
-            _camera = Camera.main;
+            itemName.text = item.displayName;
+            weaponInstance = new WeaponInstance(weapon, 1);
         }
 
-        private void Start()
+        public override void InitInstance(ItemInstance item)
         {
-            weaponName.text = weapon.displayName;
-
-            weaponInstance = new ItemInstance(weapon, 1);
+            itemName.text = item.itemBase.name;
+            WeaponInstance weapInst = new WeaponInstance(item.itemBase as Weapon, item.properties);
+            this.weapon = weapInst.weaponBase;
+            weaponInstance = weapInst;
         }
-
-        private void Update()
-        {
-            pivot.transform.LookAt(_camera.transform.position);
-        }
-
-        public void Hide()
-        {
-            ShowPickup(false);
-        }
-
-        private IEnumerator HideForSeconds(float time)
-        {
-            ShowPickup(false);
-            yield return new WaitForSeconds(time);
-            ShowPickup(true);
-        }
-
-        private void ShowPickup(bool shouldShow)
-        {
-            GetComponent<Collider>().enabled = shouldShow;
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(shouldShow);
-            }
-        }
-
     }
 }
 

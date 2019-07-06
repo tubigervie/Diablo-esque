@@ -29,7 +29,7 @@ MonoBehaviour:
   _displayName: Demon Sword
   _description: DESTROY EVERYTHING
   _icon: {fileID: 21300000, guid: b4fbbbf3fc5f7334dbfc0840e8a0600a, type: 3}
-  _pickup: {fileID: 5128753668660147585, guid: 38f998594cc6b3b4ea8bdd63da3fb78d, type: 3}
+  _pickup: {fileID: 2168543429528219775, guid: 38f998594cc6b3b4ea8bdd63da3fb78d, type: 3}
   _allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: 034ddca3c1b92c74289c2faf01abd34a, type: 2}
   equippedPrefab: {fileID: 1580528733340496614, guid: 1628f2b57d8bb134389bfd02d11805b7,

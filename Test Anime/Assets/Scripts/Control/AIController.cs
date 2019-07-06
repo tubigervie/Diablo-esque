@@ -54,6 +54,7 @@ namespace RPG.Control
         public void RestoreState(object state)
         {
             currentAggro = (float)state;
+            currentAggro = 0;
         }
 
 

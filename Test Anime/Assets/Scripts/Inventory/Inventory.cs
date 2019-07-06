@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour, ISaveable
     [SerializeField] int inventorySize;
     private InventorySlot[] inventorySlots;
     [SerializeField] EquipSlot weaponSlot;
-    List<WeaponPickup> droppedItems = new List<WeaponPickup>();
+    List<ItemPickup> droppedItems = new List<ItemPickup>();
 
     [System.Serializable]
     public struct InventorySlot
@@ -115,9 +115,8 @@ public class Inventory : MonoBehaviour, ISaveable
             case EquippableItem.EquipLocation.Boots:
                 break;
             case EquippableItem.EquipLocation.Weapon:
-                item = weaponSlot.item.itemBase as EquippableItem;
                 var spawnLocation = transform.position;
-                //SpawnPickup(item, spawnLocation);
+                SpawnPickup(weaponSlot.item, spawnLocation);
                 WeaponInstance defaultWeaponInstance = new WeaponInstance(defaultWeaponBase as Weapon, 1);
                 GetComponent<Fighter>().EquipWeapon(defaultWeaponInstance);
                 weaponSlot.item = null;
@@ -135,6 +134,11 @@ public class Inventory : MonoBehaviour, ISaveable
     public void SetWeaponSlot(EquipInstance weapon)
     {
         weaponSlot.item = weapon;
+    }
+
+    public void RemoveDroppedItem(ItemPickup pickup)
+    {
+        droppedItems.Remove(pickup);
     }
 
     public bool AddToFirstEmptySlot(ItemInstance item)
@@ -158,16 +162,16 @@ public class Inventory : MonoBehaviour, ISaveable
         if (item == null) return false;
 
         var spawnLocation = transform.position;
-        //SpawnPickup(item, spawnLocation);
+        SpawnPickup(item, spawnLocation);
 
         return true; 
     }
 
-    //private void SpawnPickup(ItemInstance item, Vector3 spawnLocation)
-    //{
-    //    var pickup = item.SpawnPickup(spawnLocation);
-    //    droppedItems.Add(pickup);
-    //}
+    private void SpawnPickup(ItemInstance item, Vector3 spawnLocation)
+    {
+        var pickup = item.itemBase.SpawnPickup(spawnLocation, item);
+        droppedItems.Add(pickup);
+    }
 
     public ItemInstance ReplaceItemInSlot(ItemInstance item, int slot)
     {
@@ -233,7 +237,7 @@ public class Inventory : MonoBehaviour, ISaveable
 
     private void RemoveDestroyedDrops()
     {
-        var newList = new List<WeaponPickup>();
+        var newList = new List<ItemPickup>();
         foreach (var item in droppedItems)
         {
             if (item != null)
@@ -273,17 +277,18 @@ public class Inventory : MonoBehaviour, ISaveable
             state["weaponSlot"] = new KeyValuePair<string, ItemProperties>(weaponSlot.item.itemID, weaponSlot.item.properties);
         else
             state["weaponSlot"] = defaultWeaponBase.itemID;
-        //RemoveDestroyedDrops();
+        RemoveDestroyedDrops();
 
-        //var droppedItemsList = new Dictionary<string, object>[droppedItems.Count];
+        var droppedItemsList = new Dictionary<string, object>[droppedItems.Count];
 
-        //for (int i = 0; i < droppedItemsList.Length; i++)
-        //{
-        //    droppedItemsList[i] = new Dictionary<string, object>();
-        //    droppedItemsList[i]["itemID"] = droppedItems[i].weapon.itemID;
-        //    droppedItemsList[i]["position"] = new SerializableVector3(droppedItems[i].transform.position);
-        //}
-        //state["droppedItems"] = droppedItemsList;
+        for (int i = 0; i < droppedItemsList.Length; i++)
+        {
+            droppedItemsList[i] = new Dictionary<string, object>();
+            droppedItemsList[i]["itemID"] = droppedItems[i].itemInstance.itemID;
+            droppedItemsList[i]["itemProperties"] = droppedItems[i].itemInstance.properties;
+            droppedItemsList[i]["position"] = new SerializableVector3(droppedItems[i].transform.position);
+        }
+        state["droppedItems"] = droppedItemsList;
         return state;
     }
 
@@ -327,16 +332,17 @@ public class Inventory : MonoBehaviour, ISaveable
         {            
         }
         inventoryUpdated();
-        //DeleteAllDrops();
-        //if(stateDict.ContainsKey("droppedItems"))
-        //{
-        //    Dictionary<string, object>[] droppedItems = (Dictionary<string, object>[])stateDict["droppedItems"];
-        //    foreach (var item in droppedItems)
-        //    {
-        //        var pickupItem = inventoryItemList.GetFromID((string)item["itemID"]);
-        //        Vector3 position = ((SerializableVector3)item["position"]).ToVector();
-        //        //SpawnPickup(pickupItem, position);
-        //    }
-        //}
+        DeleteAllDrops();
+        if (stateDict.ContainsKey("droppedItems"))
+        {
+            Dictionary<string, object>[] droppedItems = (Dictionary<string, object>[])stateDict["droppedItems"];
+            foreach (var item in droppedItems)
+            {
+                var pickupItem = inventoryItemList.GetFromID((string)item["itemID"]);
+                ItemInstance instancedItem = new ItemInstance(pickupItem, (ItemProperties)item["itemProperties"]);
+                Vector3 position = ((SerializableVector3)item["position"]).ToVector();
+                SpawnPickup(instancedItem, position);
+            }
+        }
     }
 }

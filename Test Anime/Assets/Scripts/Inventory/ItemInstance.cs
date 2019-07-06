@@ -23,7 +23,7 @@ public class ItemInstance
     public ItemInstance(InventoryItem item, int level)
     {
         System.Random random = new System.Random();
-        this.properties.rarity = item.possibleRarityValues[random.Next(0, item.possibleRarityValues.Length - 1)];
+        this.properties.rarity = item.possibleRarityValues[random.Next(0, item.possibleRarityValues.Length)];
         this.properties.level = level;
         this.properties.statModifiers = new List<StatModifier>();
         this.properties.statModifiers.AddRange(item.statModifiers);

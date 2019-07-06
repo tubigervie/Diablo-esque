@@ -27,7 +27,7 @@ public abstract class InventoryItem : ScriptableObject
     [TextArea]
     [SerializeField] string _description;
     [SerializeField] Sprite _icon;
-    [SerializeField] WeaponPickup _pickup;
+    [SerializeField] ItemPickup _pickup;
 
     public string itemID { get { return _itemID; } }
     public Sprite icon { get { return _icon; } }
@@ -35,12 +35,22 @@ public abstract class InventoryItem : ScriptableObject
     public string description { get { return _description; } }
     public Rarity[] possibleRarityValues { get { return _rarity; } }
 
-    public WeaponPickup SpawnPickup(Vector3 position)
+    public ItemPickup SpawnPickup(Vector3 position)
     {
         var pickup = Instantiate(_pickup);
         pickup.wasFromInventory = true;
         pickup.transform.position = position;
-        pickup.weapon = this;
+        pickup.item = this;
+        return pickup;
+    }
+
+    public ItemPickup SpawnPickup(Vector3 position, ItemInstance item)
+    {
+        position.y += .25f;
+        var pickup = Instantiate(_pickup);
+        pickup.InitInstance(item);
+        pickup.wasFromInventory = true;
+        pickup.transform.position = position;
         return pickup;
     }
 }

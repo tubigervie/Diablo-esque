@@ -63,7 +63,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992628716028598352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.31}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4781249437602659955}
@@ -144,8 +144,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5079108995068696889}
-  - component: {fileID: 8224321185566235667}
   - component: {fileID: 4301387144674994174}
+  - component: {fileID: 3104774550220724717}
   m_Layer: 0
   m_Name: Root Pickup
   m_TagString: Untagged
@@ -168,22 +168,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8224321185566235667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5079108995068696888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d31915b4e973e4689c7fe638f28dad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivot: {fileID: 246546249477586662}
-  weaponName: {fileID: 2991930481468979609}
-  weapon: {fileID: 11400000, guid: e018048994bdfdc4abcb4148e0c267b4, type: 2}
-  respawnTime: 5
 --- !u!65 &4301387144674994174
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -197,6 +181,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3104774550220724717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079108995068696888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855bb8397e44e4e42b5924c38e485142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 246546249477586662}
+  itemName: {fileID: 2991930481468979609}
+  legendaryParticlePrefab: {fileID: 167898, guid: 0fb0846ec7b795e4586da62f99d560a5,
+    type: 3}
+  mythicalParticlePrefab: {fileID: 167898, guid: 8a98d6094bb6a944e93d26f94ab50ddc,
+    type: 3}
+  epicParticlePrefab: {fileID: 167898, guid: ee11ffe3177c776439f33ae99bbcae65, type: 3}
+  item: {fileID: 0}
+  itemInstance:
+    itemID: 
+    properties:
+      rarity: 0
+      level: 0
+      statModifiers: []
+      instanceID: 
+    itemBase: {fileID: 0}
+  wasFromInventory: 0
+  respawnTime: 5
 --- !u!1 &8570317493199382008
 GameObject:
   m_ObjectHideFlags: 0
