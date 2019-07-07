@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a28703d2e0b944d828a4e612942f14, type: 3}
+  m_Name: Gloves 1
+  m_EditorClassIdentifier: 
+  _itemID: 4f9c39d1-d449-4a48-ae8f-b050da4e07b6
+  statModifiers:
+  - stat: 5
+    bonusType: 0
+    minAmount: 5
+    maxAmount: 10
+  - stat: 6
+    bonusType: 0
+    minAmount: 5
+    maxAmount: 10
+  _baseCost: 0
+  _rarity: 0200000001000000
+  _level: 0
+  _displayName: Gloves of Testing
+  _description: Simple, brown gloves.
+  _icon: {fileID: 21300000, guid: 4597cb6091d3a374bb12f64c76400ffe, type: 3}
+  _pickup: {fileID: 822367855222189990, guid: 2344249e69d5e4047889cf789b3d62d8, type: 3}
+  isWeapon: 0
+  _allowedEquipLocation: 3

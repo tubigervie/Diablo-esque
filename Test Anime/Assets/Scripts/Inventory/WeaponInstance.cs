@@ -12,7 +12,7 @@ public class WeaponInstance : EquipInstance
 
     public WeaponInstance(Weapon item, int level) : base(item, level)
     {
-        isWeapon = true;
+        this.properties.isWeapon = true;
         this.weaponBase = item;
         float damageMultiplier = 1;
         switch (this.properties.rarity)
@@ -41,7 +41,7 @@ public class WeaponInstance : EquipInstance
 
     public WeaponInstance(Weapon item, ItemProperties properties) : base(item, properties)
     {
-        isWeapon = true;
+        this.properties.isWeapon = true;
         this.weaponBase = item;
         float damageMultiplier = 1;
         switch (this.properties.rarity)

@@ -10,7 +10,7 @@ public class EquippableItem : InventoryItem
         Helmet,
         Amulet,
         Body,
-        Pants,
+        Gloves,
         Boots,
         Weapon,
     }

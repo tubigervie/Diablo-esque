@@ -9,14 +9,18 @@ using UnityEngine;
 public class Inventory : MonoBehaviour, ISaveable, IModifier
 {
     int coins;
+
     [SerializeField] EquippableItem defaultWeaponBase;
     [SerializeField] EquippableItem defaultAmuletBase;
+    [SerializeField] EquippableItem defaultGloveBase;
+
     [SerializeField] AudioClip equipSFX;
     [SerializeField] InventoryItemList inventoryItemList;
     [SerializeField] int inventorySize;
     private InventorySlot[] inventorySlots;
-    [SerializeField] EquipSlot weaponSlot;
-    [SerializeField] EquipSlot necklaceSlot;
+    EquipSlot weaponSlot;
+    EquipSlot necklaceSlot;
+    EquipSlot gloveSlot;
     List<ItemPickup> droppedItems = new List<ItemPickup>();
 
     [System.Serializable]
@@ -59,6 +63,11 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         return weaponSlot;
     }
 
+    public EquipSlot GetGloveSlot()
+    {
+        return gloveSlot;
+    }
+
     public ItemInstance PopEquipSlot(EquippableItem.EquipLocation type)
     {
         switch (type)
@@ -69,8 +78,8 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 return necklaceSlot.item;
             case EquippableItem.EquipLocation.Body:
                 return weaponSlot.item;
-            case EquippableItem.EquipLocation.Pants:
-                return weaponSlot.item;
+            case EquippableItem.EquipLocation.Gloves:
+                return gloveSlot.item;
             case EquippableItem.EquipLocation.Boots:
                 return weaponSlot.item;
             case EquippableItem.EquipLocation.Weapon:
@@ -90,7 +99,8 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 break;
             case EquippableItem.EquipLocation.Body:
                 break;
-            case EquippableItem.EquipLocation.Pants:
+            case EquippableItem.EquipLocation.Gloves:
+                gloveSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Boots:
                 break;
@@ -117,7 +127,10 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 break;
             case EquippableItem.EquipLocation.Body:
                 break;
-            case EquippableItem.EquipLocation.Pants:
+            case EquippableItem.EquipLocation.Gloves:
+                spawnLocation = transform.position;
+                SpawnPickup(gloveSlot.item, spawnLocation);
+                gloveSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Boots:
                 break;
@@ -134,7 +147,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
 
     public void AddItemIntoInventory(ItemInstance weapon)
     {
-        //inventoryItemList.AddToInventoryItemList(weapon);
+        inventoryItemList.AddToInventoryItemList(weapon.itemBase);
         AddToFirstEmptySlot(weapon);
     }
 
@@ -206,9 +219,10 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 oldItem = necklaceSlot.item;
                 weaponSlot.item = item;
                 break;
-            case EquippableItem.EquipLocation.Pants:
-                oldItem = necklaceSlot.item;
-                weaponSlot.item = item;
+            case EquippableItem.EquipLocation.Gloves:
+                oldItem = gloveSlot.item;
+                gloveSlot.item = item;
+                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Boots:
                 oldItem = necklaceSlot.item;
@@ -310,7 +324,11 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         if (necklaceSlot.item != null)
             state["necklaceSlot"] = new KeyValuePair<string, ItemProperties>(necklaceSlot.item.itemID, necklaceSlot.item.properties);
         else
-            state["necklaceSlot"] = defaultWeaponBase.itemID;
+            state["necklaceSlot"] = defaultAmuletBase.itemID;
+        if (gloveSlot.item != null)
+            state["gloveSlot"] = new KeyValuePair<string, ItemProperties>(gloveSlot.item.itemID, gloveSlot.item.properties);
+        else
+            state["gloveSlot"] = defaultGloveBase.itemID;
 
         RemoveDestroyedDrops();
 
@@ -374,12 +392,24 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             }
             catch
             {
-                string necklaceBase = (string)stateDict["necklaceSlot"];
-                EquippableItem equipBase = inventoryItemList.GetFromID(necklaceBase) as EquippableItem;
-                EquipInstance necklace = new EquipInstance(equipBase, 1);
                 necklaceSlot.item = null;
             }
         }
+        if (stateDict["gloveSlot"] != null)
+        {
+            try
+            {
+                KeyValuePair<string, ItemProperties> glovePair = (KeyValuePair<string, ItemProperties>)stateDict["gloveSlot"];
+                EquippableItem equipBase = inventoryItemList.GetFromID(glovePair.Key) as EquippableItem;
+                EquipInstance gloves = new EquipInstance(equipBase as EquippableItem, glovePair.Value);
+                gloveSlot.item = gloves;
+            }
+            catch
+            {
+                gloveSlot.item = null;
+            }
+        }
+
         inventoryUpdated();
         DeleteAllDrops();
         if (stateDict.ContainsKey("droppedItems"))
@@ -405,7 +435,15 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     yield return necklaceSlot.item.GetStatBonus(modifier.stat, BonusType.Flat);
             }
         }
-        
+        if (gloveSlot.item != null)
+        {
+            foreach (var modifier in gloveSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return gloveSlot.item.GetStatBonus(modifier.stat, BonusType.Flat);
+            }
+        }
+
     }
 
     public IEnumerable<float> GetPercentageModifier(Stat stat)
@@ -418,6 +456,14 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     yield return necklaceSlot.item.GetStatBonus(modifier.stat, BonusType.Percentage);
             }
         }
-        
+        if (gloveSlot.item != null)
+        {
+            foreach (var modifier in gloveSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return gloveSlot.item.GetStatBonus(modifier.stat, BonusType.Percentage);
+            }
+        }
+
     }
 }

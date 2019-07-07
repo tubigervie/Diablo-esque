@@ -12,6 +12,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] InventorySlotUI inventoryItemPrefab;
     [SerializeField] EquipSlotUI weaponSlot;
     [SerializeField] EquipSlotUI necklaceSlot;
+    [SerializeField] EquipSlotUI gloveSlot;
     [SerializeField] Text damageText;
     [SerializeField] Text defenseText;
 
@@ -21,6 +22,7 @@ public class InventoryUI : MonoBehaviour
         var player = GameObject.FindWithTag("Player");
         _playerInventory = player.GetComponent<Inventory>();
         _playerInventory.inventoryUpdated += Redraw;
+        player.GetComponent<BaseStats>().onLevelUp += Redraw;
         Redraw();
         weaponSlot.inventory = _playerInventory;
         weaponSlot.index = 100;
@@ -28,7 +30,11 @@ public class InventoryUI : MonoBehaviour
         necklaceSlot.inventory = _playerInventory;
         necklaceSlot.index = 200;
         necklaceSlot.SetItem(_playerInventory.GetNecklaceSlot().item);
+        gloveSlot.inventory = _playerInventory;
+        gloveSlot.index = 300;
+        gloveSlot.SetItem(_playerInventory.GetGloveSlot().item);
     }
+
 
     private void Redraw()
     {
@@ -47,6 +53,7 @@ public class InventoryUI : MonoBehaviour
 
         weaponSlot.SetItem(_playerInventory.GetWeaponSlot().item);
         necklaceSlot.SetItem(_playerInventory.GetNecklaceSlot().item);
+        gloveSlot.SetItem(_playerInventory.GetGloveSlot().item);
         BaseStats stats = _playerInventory.gameObject.GetComponent<BaseStats>();
         float damageBonus = stats.GetStat(Stat.Damage) + stats.GetStrengthDamageBonus();
         Fighter fighter = _playerInventory.gameObject.GetComponent<Fighter>();

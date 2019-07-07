@@ -33,6 +33,7 @@ MonoBehaviour:
   _description: BURN THESE HOES
   _icon: {fileID: 21300000, guid: eb29de031f0e36842822e01f02be00cc, type: 3}
   _pickup: {fileID: 519170288112689139, guid: eedb0bdbeae72ad4d8e1494b9b549e18, type: 3}
+  isWeapon: 1
   _allowedEquipLocation: 5
   animatorOverride: {fileID: 22100000, guid: b63ba964d5b777f47aff866b9eb6d52a, type: 2}
   equippedPrefab: {fileID: 1580528733340496614, guid: d29a7675bf2486a438b74d45cd502663,
