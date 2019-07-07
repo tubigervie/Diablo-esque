@@ -1,4 +1,5 @@
 ﻿using RPG.Combat;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -36,13 +37,18 @@ namespace RPG.CameraUI
             //Debug.Log("item display " + item.itemBase.displayName);
             //Debug.Log("tooltip " + _tooltip.title);
             _tooltip.body = item.itemBase.description;
-            WeaponInstance weap = new WeaponInstance(item.itemBase as Weapon, item.properties);
-            _tooltip.value = "DMG: " + weap.GetDamageRange().min + " - " + weap.GetDamageRange().max;
+            if (item.isWeapon)
+            {
+                WeaponInstance weap = new WeaponInstance(item.itemBase as Weapon, item.properties);
+                _tooltip.value = "DMG: " + (float)Math.Round(weap.GetDamageRange().min, 1) + " - " + (float)Math.Round(weap.GetDamageRange().max, 1);
+            }
+            else
+                _tooltip.value = "";
             _tooltip.setRarity(item.properties.rarity);
 
             foreach(StatModifier modifier in item.properties.statModifiers)
             {
-                _tooltip.SpawnModifier(modifier.bonusType, modifier.amount, modifier.stat);
+                _tooltip.SpawnModifier(modifier.bonusType, modifier.maxAmount, modifier.stat);
             }
 
             PositionTooltip();

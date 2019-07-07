@@ -58,6 +58,7 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
                 _inventory.RemoveEquippedItem(equipItem.parentSlot.type);
             else
             {
+                Debug.Log("swapped Item or item base is not null");
                 EquipInstance equipInst = new EquipInstance(swappedItem.itemBase as EquippableItem, swappedItem.properties);
                 _inventory.ReplaceEquipSlot(equipInst, equipItem.parentSlot.type);
             }

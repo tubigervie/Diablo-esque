@@ -20,10 +20,10 @@ namespace RPG.UI
             return healthUI.activeInHierarchy;
         }
 
-        public void OnEnabled(Health combatTarget)
+        public void OnEnabled(Health combatTarget, string displayID)
         {
             target = combatTarget;
-            enemyName.text = combatTarget.gameObject.name;
+            enemyName.text = displayID;
             enemyLvl.text = "Lv " + combatTarget.gameObject.GetComponent<RPG.Stats.BaseStats>().GetLevel();
             healthSlider.fillAmount = combatTarget.GetCurrentHealth() / combatTarget.GetTotalHealth();
             healthUI.SetActive(true);

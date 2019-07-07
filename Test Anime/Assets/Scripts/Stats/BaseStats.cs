@@ -156,7 +156,8 @@ namespace RPG.Stats
             if(currentLevel < 1)
             {
                 currentLevel = CalculateLevel();
-                GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health) + GetConstitutionHealthBonus());
+                GetComponent<Resource.Health>().UpdateMaxHealth();
+                GetComponent<Resource.Health>().RegenerateHealth();
             }
             return currentLevel;
         }
@@ -164,8 +165,9 @@ namespace RPG.Stats
         private void ChangeLevel()
         {
             currentLevel = CalculateLevel();
-            GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health) + GetConstitutionHealthBonus());
-            if(characterClass == CharacterClass.Player)
+            GetComponent<Resource.Health>().UpdateMaxHealth();
+            GetComponent<Resource.Health>().RegenerateHealth();
+            if (characterClass == CharacterClass.Player)
                 GetComponent<Combat.SpecialAbilities>().SetTotalEnergy(GetStat(Stat.Energy));
         }
 
@@ -175,7 +177,7 @@ namespace RPG.Stats
             if(newLevel > currentLevel)
             {
                 currentLevel = newLevel;
-                GetComponent<Resource.Health>().SetTotalHealth(GetStat(Stat.Health) + GetConstitutionHealthBonus());
+                GetComponent<Resource.Health>().UpdateMaxHealth();
                 if (characterClass == CharacterClass.Player)
                     GetComponent<Combat.SpecialAbilities>().SetTotalEnergy(GetStat(Stat.Energy));
                 LevelUpEffect();

@@ -122,6 +122,11 @@ namespace RPG.Combat
             return damage;
         }
 
+        public DamageRange GetDamageRange()
+        {
+            return currentWeapon.GetDamageRange();
+        }
+
         public bool ShouldCrit()
         {
             BaseStats stat = GetComponent<BaseStats>();

@@ -12,6 +12,7 @@ public class WeaponInstance : EquipInstance
 
     public WeaponInstance(Weapon item, int level) : base(item, level)
     {
+        isWeapon = true;
         this.weaponBase = item;
         float damageMultiplier = 1;
         switch (this.properties.rarity)
@@ -40,6 +41,7 @@ public class WeaponInstance : EquipInstance
 
     public WeaponInstance(Weapon item, ItemProperties properties) : base(item, properties)
     {
+        isWeapon = true;
         this.weaponBase = item;
         float damageMultiplier = 1;
         switch (this.properties.rarity)
@@ -76,13 +78,4 @@ public class WeaponInstance : EquipInstance
         return damageRange;
     }
 
-    public float GetStatBonus(Stat bonus, BonusType type)
-    {
-        foreach (StatModifier modifier in properties.statModifiers)
-        {
-            if (modifier.stat == bonus && modifier.bonusType == type)
-                return modifier.amount;
-        }
-        return 0;
-    }
 }

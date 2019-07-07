@@ -54,16 +54,17 @@ public class EquipSlotUI : MonoBehaviour, IItemHolder, IDropHandler
         {
             Debug.Log("Dropped from inv into equip slot");
             if (invItem.parentSlot.index == index) return;
-
             ItemInstance itemInst = _inventory.PopItemFromSlot(invItem.parentSlot.index);
             var sendingItem = new EquipInstance(itemInst.itemBase as EquippableItem, itemInst.properties);
-            if((sendingItem.equipBase.allowedEquipLocation == type))
+            if ((sendingItem.equipBase.allowedEquipLocation == type))
             {
                 Debug.Log("before swap");
                 var swappedItem = _inventory.ReplaceEquipSlot(sendingItem, sendingItem.equipBase.allowedEquipLocation);
                 _inventory.ReplaceItemInSlot(swappedItem, invItem.parentSlot.index);
                 Debug.Log("after swap");
             }
+            else
+                _inventory.AddItemToSlot(invItem.parentSlot.index, sendingItem);
         }
     }
 

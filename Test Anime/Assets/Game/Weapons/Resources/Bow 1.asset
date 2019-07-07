@@ -16,7 +16,12 @@ MonoBehaviour:
   statModifiers:
   - stat: 8
     bonusType: 0
-    amount: 25
+    minAmount: 5
+    maxAmount: 10
+  - stat: 6
+    bonusType: 0
+    minAmount: 5
+    maxAmount: 10
   _baseCost: 0
   _rarity: 0000000001000000
   _level: 0

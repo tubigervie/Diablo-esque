@@ -32,7 +32,7 @@ public class ItemPickup : MonoBehaviour
         
     }
 
-    public virtual void InitRandom(int level)
+    public virtual void InitRandom(int level, bool isDrop = false)
     {
         Destroy(currentParticle);
         itemName.text = item.displayName;
@@ -119,5 +119,10 @@ public class ItemPickup : MonoBehaviour
         {
             child.gameObject.SetActive(shouldShow);
         }
+    }
+
+    public void UpdatePosition()
+    {
+        transform.position = transform.position;
     }
 }

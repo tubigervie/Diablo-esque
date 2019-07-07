@@ -1,12 +1,19 @@
-﻿using System.Collections;
+﻿using RPG.Combat;
+using RPG.Stats;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     Inventory _playerInventory;
     [SerializeField] InventorySlotUI inventoryItemPrefab;
-    [SerializeField] EquipSlotUI equipSlot;
+    [SerializeField] EquipSlotUI weaponSlot;
+    [SerializeField] EquipSlotUI necklaceSlot;
+    [SerializeField] Text damageText;
+    [SerializeField] Text defenseText;
 
     // Start is called before the first frame update
     void Start()
@@ -15,9 +22,12 @@ public class InventoryUI : MonoBehaviour
         _playerInventory = player.GetComponent<Inventory>();
         _playerInventory.inventoryUpdated += Redraw;
         Redraw();
-        equipSlot.inventory = _playerInventory;
-        equipSlot.index = 100;
-        equipSlot.SetItem(_playerInventory.GetWeaponSlot().item);
+        weaponSlot.inventory = _playerInventory;
+        weaponSlot.index = 100;
+        weaponSlot.SetItem(_playerInventory.GetWeaponSlot().item);
+        necklaceSlot.inventory = _playerInventory;
+        necklaceSlot.index = 200;
+        necklaceSlot.SetItem(_playerInventory.GetNecklaceSlot().item);
     }
 
     private void Redraw()
@@ -35,7 +45,15 @@ public class InventoryUI : MonoBehaviour
             itemUI.SetItem(_playerInventory.slots[i].item);
         }
 
-        equipSlot.SetItem(_playerInventory.GetWeaponSlot().item);
+        weaponSlot.SetItem(_playerInventory.GetWeaponSlot().item);
+        necklaceSlot.SetItem(_playerInventory.GetNecklaceSlot().item);
+        BaseStats stats = _playerInventory.gameObject.GetComponent<BaseStats>();
+        float damageBonus = stats.GetStat(Stat.Damage) + stats.GetStrengthDamageBonus();
+        Fighter fighter = _playerInventory.gameObject.GetComponent<Fighter>();
+        float damageMin = (float) Math.Round(fighter.GetDamageRange().min + damageBonus, 1);
+        float damageMax = (float)Math.Round(fighter.GetDamageRange().max + damageBonus, 1);
+        damageText.text = damageMin.ToString() + " - " + damageMax.ToString();
+        defenseText.text = ((float)Math.Round(stats.GetDefense())).ToString();
     }
 
     public void CloseInventoryUI()

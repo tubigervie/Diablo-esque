@@ -76,7 +76,10 @@ namespace RPG.CameraUI
 
         public void SpawnModifier(BonusType bonus, float amount, Stat stat)
         {
-            modifierText.Spawn(bonus, amount, stat);
+            if(stat == Stat.CriticalHitChance)
+                modifierText.Spawn(BonusType.Percentage, amount, stat);
+            else
+                modifierText.Spawn(bonus, amount, stat);
         }
     }
 }

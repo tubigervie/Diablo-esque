@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a28703d2e0b944d828a4e612942f14, type: 3}
+  m_Name: Amulet 1
+  m_EditorClassIdentifier: 
+  _itemID: e56536ce-a7c2-4131-87c1-48896d025e87
+  statModifiers:
+  - stat: 0
+    bonusType: 1
+    minAmount: 5
+    maxAmount: 10
+  - stat: 4
+    bonusType: 0
+    minAmount: 10
+    maxAmount: 20
+  - stat: 5
+    bonusType: 0
+    minAmount: 10
+    maxAmount: 15
+  - stat: 6
+    bonusType: 0
+    minAmount: 10
+    maxAmount: 15
+  - stat: 7
+    bonusType: 0
+    minAmount: 10
+    maxAmount: 15
+  _baseCost: 0
+  _rarity: 02000000030000000400000005000000
+  _level: 0
+  _displayName: Amulet of Testing
+  _description: Either the greatest trinket in the game or the most bugged out, broken
+    POS.
+  _icon: {fileID: 21300000, guid: 2a160b3cb6d1cb2439c39322dce42505, type: 3}
+  _pickup: {fileID: 1233334192523474388, guid: dac14f7529520274f918fed3173fd445, type: 3}
+  _allowedEquipLocation: 1

@@ -53,7 +53,7 @@ namespace RPG.Movement
 
         public void MoveTo(Vector3 destination, float speedFraction)
         {
-            agent.destination = destination;
+            agent.destination = destination;         
             agent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
             agent.isStopped = false;
         }

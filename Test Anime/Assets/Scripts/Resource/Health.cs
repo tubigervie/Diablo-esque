@@ -2,6 +2,7 @@
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,13 @@ namespace RPG.Resource
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float currentHealthPoints;
-        float maxHealthPoints = -1f;
+        [SerializeField] float maxHealthPoints = -1f;
         [SerializeField] TextNumberSpawner textNumberSpawner;
         [SerializeField] bool isDead;
 
-        void Awake()
+        public event Action onDie = delegate { };
+
+    void Awake()
         {
             textNumberSpawner = FindObjectOfType<TextNumberSpawner>();
         }
@@ -33,11 +36,24 @@ namespace RPG.Resource
         private void OnEnable()
         {
             GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
+            Inventory inventory = GetComponent<Inventory>();
+            if (inventory != null)
+                inventory.inventoryUpdated += UpdateMaxHealth;
         }
 
         private void OnDisable()
         {
             GetComponent<BaseStats>().onLevelUp -= RegenerateHealth;
+            Inventory inventory = GetComponent<Inventory>();
+            if (inventory != null)
+                inventory.inventoryUpdated -= UpdateMaxHealth;
+        }
+
+        public void UpdateMaxHealth()
+        {
+            float consBonus = GetComponent<BaseStats>().GetConstitutionHealthBonus();
+            maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) + consBonus;
+            currentHealthPoints = Mathf.Clamp(currentHealthPoints, currentHealthPoints, maxHealthPoints);
         }
 
         public object CaptureState()
@@ -85,6 +101,7 @@ namespace RPG.Resource
             if(currentHealthPoints == 0 && !isDead)
             {
                 Die();
+                onDie();
                 AwardExperience(instigator);
             }
         }

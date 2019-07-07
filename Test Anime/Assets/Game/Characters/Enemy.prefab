@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74d93575e007e145aad1b19d3b0858e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayID: Goblin
 --- !u!114 &4763089687135310355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,6 +33,26 @@ MonoBehaviour:
   patrolSpeedFraction: 0.5
   wayPointTime: 5
   currentAggro: 0
+--- !u!114 &7672232736302461977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993223078316785223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 856c334d60154b5438f74cfcff5ca22a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  drops:
+  - item: {fileID: 11400000, guid: 026b84fddc6cba7498e4020fd3575069, type: 2}
+    dropPercentage: 50
+  - item: {fileID: 11400000, guid: a276931967c9221439832ce54fd7f07c, type: 2}
+    dropPercentage: 5
+  - item: {fileID: 11400000, guid: 4c975c841189a7f41a97d8f69d722a7f, type: 2}
+    dropPercentage: 10
 --- !u!1001 &2328368421618499801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39,6 +60,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5007092953221788180, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -94,30 +120,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4321590226341363358, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 4321590226341363345, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6111248935525959342, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: uniqueIdentifier
+      propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+      objectReference: {fileID: 9000000, guid: 395730576d95e0240a03e9b32045d35a, type: 3}
+    - target: {fileID: 4321590226341363345, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: healthPoints
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f6e4a40478058b744bcaabf9f2c9da80, type: 2}
+    - target: {fileID: 4538827784363355467, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: maxHealthPoints
-      value: 40
+      propertyPath: m_Radius
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: currentHealthPoints
-      value: 40
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538827784363355469, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1612619967160946372, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
@@ -156,35 +187,25 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 5385881859841920334}
-    - target: {fileID: 4321590226341363345, guid: 8bfd8d842537beb46ab66081bda9efb0,
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
         type: 3}
-      propertyPath: m_Avatar
+      propertyPath: healthPoints
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535603409965506509, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111248935525959342, guid: 8bfd8d842537beb46ab66081bda9efb0,
+        type: 3}
+      propertyPath: uniqueIdentifier
       value: 
-      objectReference: {fileID: 9000000, guid: 395730576d95e0240a03e9b32045d35a, type: 3}
-    - target: {fileID: 4321590226341363345, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f6e4a40478058b744bcaabf9f2c9da80, type: 2}
-    - target: {fileID: 4538827784363355469, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_Speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355466, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 4538827784363355467, guid: 8bfd8d842537beb46ab66081bda9efb0,
-        type: 3}
-      propertyPath: m_Radius
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfd8d842537beb46ab66081bda9efb0, type: 3}

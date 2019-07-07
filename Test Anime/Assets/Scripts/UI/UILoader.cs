@@ -14,6 +14,7 @@ public class UILoader : MonoBehaviour
         var uiScene = SceneManager.GetSceneByName(sceneName);
         if (!uiScene.isLoaded)
         {
+
             SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         }
     }

@@ -11,7 +11,7 @@ namespace RPG.Combat
         public Weapon weapon = null;
         public WeaponInstance weaponInstance;
 
-        public override void InitRandom(int level)
+        public override void InitRandom(int level, bool isDrop = false)
         {
             itemName.text = item.displayName;
             weaponInstance = new WeaponInstance(weapon, 1);

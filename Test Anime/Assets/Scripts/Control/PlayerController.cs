@@ -63,9 +63,9 @@ namespace RPG.Control
         {
             if (health.IsDead())
                 return;
-            if (InteractWithItems())
-                return;
             if (InteractWithCombat())
+                return;
+            if (InteractWithItems())
                 return;
             if (InteractWithMovement())
                 return;
@@ -289,7 +289,7 @@ namespace RPG.Control
                 if (clickInput && (!targetHealth.IsActive() || targetHealth.target != target.gameObject.GetComponent<Health>()))
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 20)
-                        targetHealth.OnEnabled(target.gameObject.GetComponent<Health>());
+                        targetHealth.OnEnabled(target.gameObject.GetComponent<Health>(), target.displayID);
                 }
                 else if (clickInput)
                 {
@@ -311,18 +311,32 @@ namespace RPG.Control
                 return true;
             //RaycastHit hit;
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
+            float shortesttYPos = Mathf.Infinity;
+            RaycastHit shortestHit = new RaycastHit();
             foreach(RaycastHit hit in hits)
             {
                 if(hit.collider.gameObject.layer == 8)
                 {
-                    if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
+                    float hitYPos = hit.collider.gameObject.transform.position.y;
+                    if (shortestHit.collider == null)
                     {
-                        this.StopAllCoroutines();
-                        mover.StartMoveAction(hit.point, 1f);
-                        SetCursor(CursorType.Movement);
-                        return true;
+                        shortestHit = hit;
+                        shortesttYPos = hitYPos;
+                    }
+                    else if(hitYPos > shortesttYPos)
+                    {
+                        shortestHit = hit;
+                        shortesttYPos = hitYPos;
                     }
                 }
+            }
+            if (shortestHit.collider == null) return false;
+            if (Input.GetMouseButton(1) && !shortestHit.collider.CompareTag("Player") && Vector3.Distance(transform.position, shortestHit.point) > .5f)
+            {
+                this.StopAllCoroutines();
+                mover.StartMoveAction(shortestHit.point, 1f);
+                SetCursor(CursorType.Movement);
+                return true;
             }
             return false;
             //bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);

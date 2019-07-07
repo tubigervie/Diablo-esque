@@ -45,14 +45,23 @@ namespace RPG.Combat
             UpdateEnergyBar();
         }
 
+        public void UpdateMaxEnergy()
+        {
+            maxEnergyPoints = GetComponent<BaseStats>().GetStat(Stat.Energy);
+            currentEnergyPoints = Mathf.Clamp(currentEnergyPoints, currentEnergyPoints, maxEnergyPoints);
+            UpdateEnergyBar();
+        }
+
         private void OnEnable()
         {
             GetComponent<BaseStats>().onLevelUp += RegenerateEnergy;
+            GetComponent<Inventory>().inventoryUpdated += UpdateMaxEnergy;
         }
 
         private void OnDisable()
         {
             GetComponent<BaseStats>().onLevelUp -= RegenerateEnergy;
+            GetComponent<Inventory>().inventoryUpdated -= UpdateMaxEnergy;
         }
 
         void Update()

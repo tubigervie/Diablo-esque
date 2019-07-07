@@ -103,6 +103,11 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3240130751810055525, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: displayID
+      value: Goblin Archer
+      objectReference: {fileID: 0}
     - target: {fileID: 5385881859853727366, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: m_Bones.Array.data[0]
@@ -493,6 +498,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 52671a3611952bd4d9502380cb37c3a7, type: 2}
+    - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: drops.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: drops.Array.data[0].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 542f75443de468944aec0a0a7521b87e,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!4 &667300535031682566 stripped

@@ -103,7 +103,7 @@ namespace RPG.Combat
             foreach(StatModifier modifier in statModifiers)
             {
                 if (modifier.stat == bonus && modifier.bonusType == type)
-                    return modifier.amount;
+                    return modifier.maxAmount;
             }
             return 0;
         }

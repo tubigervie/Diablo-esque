@@ -11,5 +11,6 @@ public class StatModifier
 {
     public Stat stat;
     public BonusType bonusType;
-    public float amount;
+    public float minAmount;
+    public float maxAmount;
 }
