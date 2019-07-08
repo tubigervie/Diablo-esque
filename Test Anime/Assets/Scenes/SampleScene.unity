@@ -690,12 +690,12 @@ PrefabInstance:
         type: 3}
       propertyPath: drops.Array.data[3].item
       value: 
-      objectReference: {fileID: 11400000, guid: ae6702b3a1d6cc8439b93c73986aadab,
+      objectReference: {fileID: 11400000, guid: 8794c6c09b3dddb4fb2c9abcf1e22b26,
         type: 2}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.data[3].dropPercentage
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5385881859849607544, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
@@ -994,12 +994,12 @@ PrefabInstance:
         type: 3}
       propertyPath: drops.Array.data[3].item
       value: 
-      objectReference: {fileID: 11400000, guid: ae6702b3a1d6cc8439b93c73986aadab,
+      objectReference: {fileID: 11400000, guid: 8794c6c09b3dddb4fb2c9abcf1e22b26,
         type: 2}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.data[3].dropPercentage
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
@@ -1612,11 +1612,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: fd137131-fe66-4072-ad4d-373723af6b59
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 848048684}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.size
@@ -1631,13 +1626,18 @@ PrefabInstance:
         type: 3}
       propertyPath: drops.Array.data[3].item
       value: 
-      objectReference: {fileID: 11400000, guid: ae6702b3a1d6cc8439b93c73986aadab,
+      objectReference: {fileID: 11400000, guid: 8794c6c09b3dddb4fb2c9abcf1e22b26,
         type: 2}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.data[3].dropPercentage
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 848048684}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!4 &610898532 stripped
@@ -2241,11 +2241,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: 7efbedde-5a60-43c4-a9d1-d9a4ac9fa8c3
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 3594118166325817565}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.size
@@ -2260,13 +2255,18 @@ PrefabInstance:
         type: 3}
       propertyPath: drops.Array.data[3].item
       value: 
-      objectReference: {fileID: 11400000, guid: ae6702b3a1d6cc8439b93c73986aadab,
+      objectReference: {fileID: 11400000, guid: 8794c6c09b3dddb4fb2c9abcf1e22b26,
         type: 2}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.data[3].dropPercentage
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 3594118166325817565}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!1001 &920859396
@@ -3245,11 +3245,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: a97abbee-f939-4edf-8f75-860ce8dbe042
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 1214399091}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.size
@@ -3264,13 +3259,18 @@ PrefabInstance:
         type: 3}
       propertyPath: drops.Array.data[3].item
       value: 
-      objectReference: {fileID: 11400000, guid: ae6702b3a1d6cc8439b93c73986aadab,
+      objectReference: {fileID: 11400000, guid: 8794c6c09b3dddb4fb2c9abcf1e22b26,
         type: 2}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.data[3].dropPercentage
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 1214399091}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!1 &1214399089
@@ -7983,11 +7983,6 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: ae390f26-6918-493a-9912-98d070109ebb
       objectReference: {fileID: 0}
-    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-        type: 3}
-      propertyPath: patrolPath
-      value: 
-      objectReference: {fileID: 353503760}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.size
@@ -8002,13 +7997,18 @@ PrefabInstance:
         type: 3}
       propertyPath: drops.Array.data[3].item
       value: 
-      objectReference: {fileID: 11400000, guid: ae6702b3a1d6cc8439b93c73986aadab,
+      objectReference: {fileID: 11400000, guid: 8794c6c09b3dddb4fb2c9abcf1e22b26,
         type: 2}
     - target: {fileID: 7672232736302461977, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: drops.Array.data[3].dropPercentage
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 353503760}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158024ce19ab2c4a8e10d83b31d6dd5, type: 3}
 --- !u!1 &1919511981

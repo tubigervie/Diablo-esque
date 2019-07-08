@@ -15,7 +15,7 @@ namespace RPG.Resource
         [SerializeField] float maxHealthPoints = -1f;
         [SerializeField] TextNumberSpawner textNumberSpawner;
         [SerializeField] bool isDead;
-
+        bool isRestored;
         public event Action onDie = delegate { };
 
     void Awake()
@@ -27,10 +27,10 @@ namespace RPG.Resource
         {
             if(maxHealthPoints < 0)
             {
-                float consBonus = GetComponent<BaseStats>().GetConstitutionHealthBonus();
-                maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) + consBonus;
-                currentHealthPoints = maxHealthPoints;
+                UpdateMaxHealth();
+                RegenerateHealth();
             }
+            isRestored = false;
         }
 
         private void OnEnable()
@@ -53,6 +53,13 @@ namespace RPG.Resource
         {
             float consBonus = GetComponent<BaseStats>().GetConstitutionHealthBonus();
             maxHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) + consBonus;
+            if(!isRestored)
+                currentHealthPoints = Mathf.Clamp(currentHealthPoints, currentHealthPoints, maxHealthPoints);
+            //Debug.Log("Setting current health for: " + this.gameObject.name + " at " + currentHealthPoints);
+        }
+
+        public void ClampCurrentHealth()
+        {
             currentHealthPoints = Mathf.Clamp(currentHealthPoints, currentHealthPoints, maxHealthPoints);
         }
 
@@ -73,6 +80,7 @@ namespace RPG.Resource
 
         public void RestoreState(object state)
         {
+            isRestored = true;
             currentHealthPoints = (float)state;
             if (currentHealthPoints == 0 && !isDead)
             {

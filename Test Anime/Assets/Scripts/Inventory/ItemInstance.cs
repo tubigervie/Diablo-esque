@@ -13,6 +13,9 @@ public struct ItemProperties
     public List<StatModifier> statModifiers;
     public string instanceID;
     public bool isWeapon;
+    //public bool isArmor;
+    //public bool isConsummable;
+    public float count;
 }
 
 
@@ -34,6 +37,7 @@ public class ItemInstance
 
          CreateStatModifiers(random, item);
         this.properties.instanceID = System.Guid.NewGuid().ToString();
+        this.properties.count = 1;
         this.itemID = item.itemID;
         this.itemBase = item;
     }
@@ -96,6 +100,7 @@ public class ItemInstance
         this.properties.statModifiers = properties.statModifiers;
         this.properties.instanceID = properties.instanceID;
         this.properties.isWeapon = properties.isWeapon;
+        this.properties.count = properties.count;
         this.itemID = item.itemID;
         this.itemBase = item;
     }

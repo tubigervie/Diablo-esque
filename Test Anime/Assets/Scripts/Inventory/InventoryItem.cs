@@ -35,6 +35,8 @@ public abstract class InventoryItem : ScriptableObject
     public string description { get { return _description; } }
     public Rarity[] possibleRarityValues { get { return _rarity; } }
     public bool isWeapon;
+    public bool isConsummable;
+    public bool isArmor;
 
     public ItemPickup SpawnPickup(Vector3 position)
     {

@@ -165,7 +165,16 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
     {
         for(int i = 0; i< inventorySlots.Length; i++)
         {
-            if(inventorySlots[i].item == null || inventorySlots[i].item.itemBase == null)
+            if(inventorySlots[i].item != null && inventorySlots[i].item.itemBase == item.itemBase && item.itemBase.isConsummable)
+            {
+                ConsummableInstance dropInstance = new ConsummableInstance(item.itemBase as ConsumableItem, item.properties);
+                ConsummableInstance invInstance = new ConsummableInstance(inventorySlots[i].item.itemBase as ConsumableItem, inventorySlots[i].item.properties);
+                invInstance.properties.count += dropInstance.properties.count;
+                inventorySlots[i].item = invInstance;
+                inventoryUpdated();
+                return true;
+            }
+            else if (inventorySlots[i].item == null || inventorySlots[i].item.itemBase == null)
             {
                 inventorySlots[i].item = item;
                 inventoryUpdated();

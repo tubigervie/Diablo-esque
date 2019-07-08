@@ -9,10 +9,10 @@ public interface IItemHolder
     ItemInstance item { get; set; }
 }
 
-public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
+public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler, IPointerClickHandler
 {
     [SerializeField] Image _iconImage;
-
+    public Text itemCount;
     public int index { get; set; }
 
     Inventory _inventory;
@@ -37,10 +37,18 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
         {
             _iconImage.enabled = true;
             _iconImage.sprite = item.itemBase.icon;
+            if (item.itemBase.isConsummable)
+            {
+                ConsummableInstance consum = new ConsummableInstance(item.itemBase as ConsumableItem, item.properties);
+                itemCount.text = consum.properties.count.ToString();
+            }
+            else
+                itemCount.text = "";
         }
         else
         {
             _iconImage.enabled = false;
+            itemCount.text = "";
         }
     }
 
@@ -48,6 +56,7 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
     {
         var invItem = eventData.pointerDrag.GetComponent<ItemInventoryUI>();
         var equipItem = eventData.pointerDrag.GetComponent<ItemEquippedUI>();
+        if (invItem == null && equipItem == null) return;
         if (invItem == null)
         {
             Debug.Log("Dropped from equipped into inv");
@@ -70,8 +79,19 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
             if (invItem.parentSlot.index == index) return;
 
             var sendingItem = _inventory.PopItemFromSlot(invItem.parentSlot.index);
+    
             var swappedItem = _inventory.ReplaceItemInSlot(sendingItem, index);
-            _inventory.ReplaceItemInSlot(swappedItem, invItem.parentSlot.index);
+            if(swappedItem != null && sendingItem.itemBase != null && swappedItem.itemBase != null && sendingItem.itemBase.isConsummable && swappedItem.itemBase == sendingItem.itemBase)
+            {
+                ConsummableInstance sendingConsum = new ConsummableInstance(sendingItem.itemBase as ConsumableItem, sendingItem.properties);
+                ConsummableInstance consum = new ConsummableInstance(swappedItem.itemBase as ConsumableItem, swappedItem.properties);
+                consum.properties.count += sendingConsum.properties.count;
+                _inventory.ReplaceItemInSlot(consum, index);
+                item = consum;
+                itemCount.text = consum.properties.count.ToString();
+            }
+            else
+                _inventory.ReplaceItemInSlot(swappedItem, invItem.parentSlot.index);
         }
         
     }
@@ -79,5 +99,23 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler
     public void DiscardItem()
     {
         _inventory.DropItem(index);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(item != null && item.itemBase != null && item.itemBase.isConsummable)
+        {
+            var player = GameObject.FindWithTag("Player");
+            ConsummableInstance consum = new ConsummableInstance(item.itemBase as ConsumableItem, item.properties);
+            consum.consumBase.Use(player);
+            consum.properties.count--;
+            _inventory.ReplaceItemInSlot(consum, index);
+            itemCount.text = consum.properties.count.ToString();
+            if (consum.properties.count <= 0)
+            {
+                _inventory.PopItemFromSlot(index);
+            }
+
+        }
     }
 }
