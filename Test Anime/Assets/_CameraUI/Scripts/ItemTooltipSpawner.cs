@@ -42,8 +42,14 @@ namespace RPG.CameraUI
                 WeaponInstance weap = new WeaponInstance(item.itemBase as Weapon, item.properties);
                 _tooltip.value = "DMG: " + (float)Math.Round(weap.GetDamageRange().min, 1) + " - " + (float)Math.Round(weap.GetDamageRange().max, 1);
             }
+            else if(item.itemBase.isArmor)
+            {
+                ArmorInstance arm = new ArmorInstance(item.itemBase as Armor, item.properties);
+                _tooltip.value = "DEF: " + arm.defenseValue;
+            }
             else
                 _tooltip.value = "";
+
             _tooltip.setRarity(item.properties.rarity);
 
             foreach(StatModifier modifier in item.properties.statModifiers)

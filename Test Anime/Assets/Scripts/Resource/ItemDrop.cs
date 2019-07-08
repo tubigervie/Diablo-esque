@@ -36,6 +36,7 @@ public class ItemDrop : MonoBehaviour
     {
         Drop highestThreshold = null;
         float rng = Random.Range(0f, 100f);
+        Debug.Log("rng: " + rng);
         for(int i = 0; i < drops.Length; i++)
         {
             if (drops[i].dropPercentage < rng) continue;
@@ -44,9 +45,10 @@ public class ItemDrop : MonoBehaviour
                 highestThreshold = drops[i];
                 continue;
             }
-            else if(rng < highestThreshold.dropPercentage)
+            else if(drops[i].dropPercentage < highestThreshold.dropPercentage)
             {
                 highestThreshold = drops[i];
+                Debug.Log(highestThreshold.item.displayName + " is now the thrshold");
                 continue;
             }
         }

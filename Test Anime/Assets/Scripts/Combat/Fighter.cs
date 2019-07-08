@@ -14,10 +14,10 @@ namespace RPG.Combat
         ActionScheduler actionScheduler;
         Health combatTarget;
         Mover mover;
-        Animator anim;
+        public Animator anim;
 
-        [SerializeField] Transform rightHandTransform = null;
-        [SerializeField] Transform leftHandTransform = null;
+        public Transform rightHandTransform = null;
+        public Transform leftHandTransform = null;
         [SerializeField] Weapon defaultWeapon;
 
         public float timeSinceLastAttack = Mathf.Infinity;
@@ -28,9 +28,13 @@ namespace RPG.Combat
         private void Start()
         {
             mover = GetComponent<Mover>();
-            anim = GetComponent<Animator>();
+            anim = GetComponent<Animator>(); 
             actionScheduler = GetComponent<ActionScheduler>();
-            if(currentWeapon == null)
+            if(rightHandTransform == null)
+                rightHandTransform = GameObject.FindGameObjectWithTag("PlayerRightHand").transform;
+            if(leftHandTransform == null)
+                leftHandTransform = GameObject.FindGameObjectWithTag("PlayerLeftHand").transform;
+            if (currentWeapon == null)
             {
                 WeaponInstance defaultInstance = new WeaponInstance(defaultWeapon, 1);
                 EquipWeapon(defaultInstance);
@@ -55,7 +59,9 @@ namespace RPG.Combat
             }
             timeSinceLastAttack = Mathf.Infinity;
             if(anim != null)
+            {
                 anim.SetBool("inBattle", false);
+            }
         }
 
 

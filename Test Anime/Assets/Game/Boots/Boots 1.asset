@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c52c0d2505c96a439bef7c0b727a83b, type: 3}
+  m_Name: Boots 1
+  m_EditorClassIdentifier: 
+  _itemID: fec204b0-e861-4c18-9bee-ac915162f7d2
+  statModifiers:
+  - stat: 5
+    bonusType: 0
+    minAmount: 6
+    maxAmount: 12
+  - stat: 6
+    bonusType: 0
+    minAmount: 5
+    maxAmount: 10
+  - stat: 7
+    bonusType: 0
+    minAmount: 7
+    maxAmount: 14
+  _baseCost: 0
+  _rarity: 000000000100000002000000
+  _level: 0
+  _displayName: Boots of Testing
+  _description: FAST AS FUCK BOIII
+  _icon: {fileID: 21300000, guid: 4c5bbb4bbdf88b54b81333f632481e52, type: 3}
+  _pickup: {fileID: 822367855222189990, guid: 68ba74ae2f8dcde428e37d0fcd457b99, type: 3}
+  isWeapon: 0
+  isConsummable: 0
+  isArmor: 1
+  _allowedEquipLocation: 4
+  defenseValue: 10

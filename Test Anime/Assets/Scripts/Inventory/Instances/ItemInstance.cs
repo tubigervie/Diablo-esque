@@ -12,9 +12,6 @@ public struct ItemProperties
     public int level;
     public List<StatModifier> statModifiers;
     public string instanceID;
-    public bool isWeapon;
-    //public bool isArmor;
-    //public bool isConsummable;
     public float count;
 }
 
@@ -32,7 +29,6 @@ public class ItemInstance
         this.properties.rarity = item.possibleRarityValues[random.Next(0, item.possibleRarityValues.Length)];
         this.properties.level = level;
         this.properties.statModifiers = new List<StatModifier>();
-        this.properties.isWeapon = false;
         //this.properties.statModifiers.AddRange(item.statModifiers);
 
          CreateStatModifiers(random, item);
@@ -99,7 +95,6 @@ public class ItemInstance
         this.properties.level = properties.level;
         this.properties.statModifiers = properties.statModifiers;
         this.properties.instanceID = properties.instanceID;
-        this.properties.isWeapon = properties.isWeapon;
         this.properties.count = properties.count;
         this.itemID = item.itemID;
         this.itemBase = item;

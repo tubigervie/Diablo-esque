@@ -11,8 +11,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
     int coins;
 
     [SerializeField] EquippableItem defaultWeaponBase;
-    [SerializeField] EquippableItem defaultAmuletBase;
-    [SerializeField] EquippableItem defaultGloveBase;
+    [SerializeField] EquippableItem defaultArmorBase;
 
     [SerializeField] AudioClip equipSFX;
     [SerializeField] InventoryItemList inventoryItemList;
@@ -21,6 +20,8 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
     EquipSlot weaponSlot;
     EquipSlot necklaceSlot;
     EquipSlot gloveSlot;
+    EquipSlot bootSlot;
+    EquipSlot armorSlot;
     List<ItemPickup> droppedItems = new List<ItemPickup>();
 
     [System.Serializable]
@@ -68,6 +69,16 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         return gloveSlot;
     }
 
+    public EquipSlot GetBootSlot()
+    {
+        return bootSlot;
+    }
+
+    public EquipSlot GetArmorSlot()
+    {
+        return armorSlot;
+    }
+
     public ItemInstance PopEquipSlot(EquippableItem.EquipLocation type)
     {
         switch (type)
@@ -77,11 +88,11 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             case EquippableItem.EquipLocation.Amulet:
                 return necklaceSlot.item;
             case EquippableItem.EquipLocation.Body:
-                return weaponSlot.item;
+                return armorSlot.item;
             case EquippableItem.EquipLocation.Gloves:
                 return gloveSlot.item;
             case EquippableItem.EquipLocation.Boots:
-                return weaponSlot.item;
+                return bootSlot.item;
             case EquippableItem.EquipLocation.Weapon:
                 return weaponSlot.item;
         }
@@ -98,11 +109,20 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 necklaceSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Body:
+                armorSlot.item = null;
+                ArmorInstance defaultArmorInstance = new ArmorInstance(defaultArmorBase as Armor, 1);
+                Appearance appearance = GetComponent<Appearance>();
+                if (appearance.isMale)
+                    appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
+                else
+                    appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
+                //Equip underwear
                 break;
             case EquippableItem.EquipLocation.Gloves:
                 gloveSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Boots:
+                bootSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Weapon:
                 WeaponInstance defaultWeaponInstance = new WeaponInstance(defaultWeaponBase as Weapon, 1);
@@ -126,6 +146,16 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 necklaceSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Body:
+                spawnLocation = transform.position;
+                SpawnPickup(armorSlot.item, spawnLocation);
+                armorSlot.item = null;
+                ArmorInstance defaultArmorInstance = new ArmorInstance(defaultArmorBase as Armor, 1);
+                Appearance appearance = GetComponent<Appearance>();
+                if (appearance.isMale)
+                    appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
+                else
+                    appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
+                //Equip underwear
                 break;
             case EquippableItem.EquipLocation.Gloves:
                 spawnLocation = transform.position;
@@ -133,6 +163,9 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 gloveSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Boots:
+                spawnLocation = transform.position;
+                SpawnPickup(bootSlot.item, spawnLocation);
+                bootSlot.item = null;
                 break;
             case EquippableItem.EquipLocation.Weapon:
                 spawnLocation = transform.position;
@@ -225,8 +258,15 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Body:
-                oldItem = necklaceSlot.item;
-                weaponSlot.item = item;
+                oldItem = armorSlot.item;
+                armorSlot.item = item;
+                ArmorInstance armInst = new ArmorInstance(item.equipBase as Armor, item.properties);
+                Appearance appearance = GetComponent<Appearance>();
+                if(appearance.isMale)
+                    appearance.StartCoroutine(appearance.EquipBody(armInst.armorBase.equippedMalePrefab));
+                else
+                    appearance.StartCoroutine(appearance.EquipBody(armInst.armorBase.equippedFemalePrefab));
+                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Gloves:
                 oldItem = gloveSlot.item;
@@ -234,8 +274,9 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Boots:
-                oldItem = necklaceSlot.item;
-                weaponSlot.item = item;
+                oldItem = bootSlot.item;
+                bootSlot.item = item;
+                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Weapon:
                 oldItem = weaponSlot.item;
@@ -333,11 +374,15 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         if (necklaceSlot.item != null)
             state["necklaceSlot"] = new KeyValuePair<string, ItemProperties>(necklaceSlot.item.itemID, necklaceSlot.item.properties);
         else
-            state["necklaceSlot"] = defaultAmuletBase.itemID;
+            state["necklaceSlot"] = "";
         if (gloveSlot.item != null)
             state["gloveSlot"] = new KeyValuePair<string, ItemProperties>(gloveSlot.item.itemID, gloveSlot.item.properties);
         else
-            state["gloveSlot"] = defaultGloveBase.itemID;
+            state["gloveSlot"] = "";
+        if (bootSlot.item != null)
+            state["bootSlot"] = new KeyValuePair<string, ItemProperties>(bootSlot.item.itemID, bootSlot.item.properties);
+        else
+            state["bootSlot"] = "";
 
         RemoveDestroyedDrops();
 
@@ -418,6 +463,20 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 gloveSlot.item = null;
             }
         }
+        if (stateDict["bootSlot"] != null)
+        {
+            try
+            {
+                KeyValuePair<string, ItemProperties> bootPair = (KeyValuePair<string, ItemProperties>)stateDict["bootSlot"];
+                Armor equipBase = inventoryItemList.GetFromID(bootPair.Key) as Armor;
+                EquipInstance boots = new EquipInstance(equipBase, bootPair.Value);
+                bootSlot.item = boots;
+            }
+            catch
+            {
+                gloveSlot.item = null;
+            }
+        }
 
         inventoryUpdated();
         DeleteAllDrops();
@@ -450,6 +509,34 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             {
                 if (modifier.stat == stat)
                     yield return gloveSlot.item.GetStatBonus(modifier.stat, BonusType.Flat);
+            }
+        }
+        if(armorSlot.item != null)
+        {
+
+            foreach (var modifier in armorSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return armorSlot.item.GetStatBonus(modifier.stat, BonusType.Flat);
+            }
+            if (stat == Stat.Defense)
+            {
+                ArmorInstance armorInst = new ArmorInstance(armorSlot.item.equipBase as Armor, armorSlot.item.properties);
+                yield return armorInst.defenseValue;
+            }
+        }
+        if (bootSlot.item != null)
+        {
+
+            foreach (var modifier in bootSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return bootSlot.item.GetStatBonus(modifier.stat, BonusType.Flat);
+            }
+            if (stat == Stat.Defense)
+            {
+                ArmorInstance armorInst = new ArmorInstance(bootSlot.item.equipBase as Armor, bootSlot.item.properties);
+                yield return armorInst.defenseValue;
             }
         }
 
