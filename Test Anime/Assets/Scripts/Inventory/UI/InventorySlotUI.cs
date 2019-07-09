@@ -12,13 +12,18 @@ public interface IItemHolder
 public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler, IPointerClickHandler
 {
     [SerializeField] Image _iconImage;
+    [SerializeField] GameObject useButton;
+    bool isActive = false;
+
     public Text itemCount;
     public int index { get; set; }
 
     Inventory _inventory;
     ItemInstance _item;
 
-    public Inventory inventory { set { _inventory = value; } }
+    public InventoryUI invUI;
+
+    public Inventory inventory { get { return _inventory; } set { _inventory = value; } }
 
     public ItemInstance item
     {
@@ -27,6 +32,11 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler, IPointe
         {
             SetItem(value);
         }
+    }
+
+    void Start()
+    {
+        this.useButton.GetComponent<UseEquipButton>().slotUI = this;
     }
 
     public void SetItem(ItemInstance item)
@@ -67,9 +77,22 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler, IPointe
                 _inventory.RemoveEquippedItem(equipItem.parentSlot.type);
             else
             {
-                Debug.Log("swapped Item or item base is not null");
+                EquipInstance sentInst = new EquipInstance(sendingItem.itemBase as EquippableItem, sendingItem.properties);
+
+                if (swappedItem.itemBase.isConsummable)
+                {
+                    _inventory.ReplaceEquipSlot(sentInst, equipItem.parentSlot.type, false);
+                    _inventory.ReplaceItemInSlot(swappedItem, index);
+                }
+
                 EquipInstance equipInst = new EquipInstance(swappedItem.itemBase as EquippableItem, swappedItem.properties);
-                _inventory.ReplaceEquipSlot(equipInst, equipItem.parentSlot.type);
+                if(equipInst.equipBase.allowedEquipLocation == sentInst.equipBase.allowedEquipLocation)
+                    _inventory.ReplaceEquipSlot(equipInst, equipItem.parentSlot.type);
+                else
+                {
+                    _inventory.ReplaceEquipSlot(sentInst, equipItem.parentSlot.type, false);
+                    _inventory.ReplaceItemInSlot(equipInst, index);
+                }
             }
             //_inventory.AddToFirstEmptySlot(swappedItem);
         }
@@ -101,21 +124,41 @@ public class InventorySlotUI : MonoBehaviour, IItemHolder, IDropHandler, IPointe
         _inventory.DropItem(index);
     }
 
+    public void DisableButton()
+    {
+        if(invUI.activeButton != null)
+        {
+            invUI.activeButton.SetActive(false);
+            isActive = false;
+        }
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(item != null && item.itemBase != null && item.itemBase.isConsummable)
+        if (invUI.activeButton != null && invUI.activeButton != this.useButton)
         {
-            var player = GameObject.FindWithTag("Player");
-            ConsummableInstance consum = new ConsummableInstance(item.itemBase as ConsumableItem, item.properties);
-            consum.consumBase.Use(player);
-            consum.properties.count--;
-            _inventory.ReplaceItemInSlot(consum, index);
-            itemCount.text = consum.properties.count.ToString();
-            if (consum.properties.count <= 0)
+            DisableButton();
+            invUI.activeButton = null;
+        }
+        if (item != null && item.itemBase != null)
+        {
+            if(invUI.activeButton == this.useButton && isActive)
             {
-                _inventory.PopItemFromSlot(index);
+                DisableButton();
             }
-
+            else
+            {
+                //if non usable put right here
+                if(item.itemBase.isConsummable)
+                    this.useButton.GetComponentInChildren<Text>().text = "Use";
+                else if(item.itemBase.isArmor || item.itemBase.isWeapon)
+                    this.useButton.GetComponentInChildren<Text>().text = "Equip";
+                else
+                    this.useButton.GetComponentInChildren<Text>().text = "Equip";
+                invUI.activeButton = this.useButton;
+                invUI.activeButton.SetActive(true);
+                isActive = true;
+            }
         }
     }
 }

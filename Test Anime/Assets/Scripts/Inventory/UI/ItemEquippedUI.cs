@@ -21,6 +21,7 @@ public class ItemEquippedUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        parentSlot.DisableButton();
         _startPosition = transform.position;
         _originalParent = transform.parent;
         transform.SetParent(_parentCanvas.transform, true);

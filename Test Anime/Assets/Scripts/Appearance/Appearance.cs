@@ -6,13 +6,15 @@ using UnityEngine;
 public class Appearance : MonoBehaviour
 {
     const string skin = "Skin";
+    const string headPiece = "Head";
+    const string hair = "Hair";
 
-    [SerializeField] GameObject headSlot; //NEED TO FIX THAT WAY THIS CAN BE FOUND IN CODE RATHER THAN VIA INSPECTOR
+    GameObject headSlot;
     [SerializeField] GameObject currentBodyPrefab = null;
     [SerializeField] GameObject currentHeadPrefab = null;
-    Material skinMat;
+    [SerializeField] GameObject hairPrefab = null;
 
-    [SerializeField] GameObject testBodyPrefab;
+    Material skinMat;
 
     public bool isMale;
 
@@ -34,11 +36,12 @@ public class Appearance : MonoBehaviour
 
     private void Init()
     {
+        headSlot = GameObject.FindGameObjectWithTag("PlayerHead");
         currentBodyPrefab = this.transform.GetChild(0).gameObject;
         GameObject skinGO = currentBodyPrefab.transform.Find(skin).gameObject;
         skinMat = skinGO.GetComponent<SkinnedMeshRenderer>().material;
         currentHeadPrefab = headSlot.transform.GetChild(0).gameObject;
-        headSlot = GameObject.FindGameObjectWithTag("PlayerHead");
+        hairPrefab = currentHeadPrefab.transform.Find(hair).gameObject;
     }
 
     public IEnumerator EquipBody(GameObject bodyPrefab)
@@ -72,14 +75,33 @@ public class Appearance : MonoBehaviour
         fighter.EquipWeapon(fighter.GetCurrentWeapon());
     }
 
-    private void Update()
+    public void EquipHead(GameObject headPrefab, bool enableHair)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (!currentHeadPrefab || !currentBodyPrefab)
         {
-            StopAllCoroutines();
-            StartCoroutine(EquipBody(testBodyPrefab));
+            Init();
+            fighter = GetComponent<Fighter>();
+            fighter.anim = GetComponent<Animator>();
         }
+        DestroyOldHead();
+        hairPrefab.SetActive(enableHair);
+        var newHead = Instantiate(headPrefab, currentHeadPrefab.transform);
+        newHead.gameObject.name = headPiece;
+        newHead.transform.localPosition = Vector3.zero;
+        newHead.transform.localEulerAngles = Vector3.zero;
     }
 
+    void DestroyOldHead()
+    {
+        Transform oldHead = currentHeadPrefab.transform.Find(headPiece);
+        if (oldHead == null) return;
+        oldHead.name = "DESTROYING";
+        Destroy(oldHead.gameObject);
+    }
 
+    public void RemoveHead()
+    {
+        DestroyOldHead();
+        hairPrefab.SetActive(true);
+    }
 }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c52c0d2505c96a439bef7c0b727a83b, type: 3}
+  m_Name: Helmet 1
+  m_EditorClassIdentifier: 
+  _itemID: 99d56b9a-8d1f-487a-8f8c-6dca2a1819c4
+  statModifiers:
+  - stat: 0
+    bonusType: 1
+    minAmount: 3
+    maxAmount: 7
+  - stat: 7
+    bonusType: 0
+    minAmount: 5
+    maxAmount: 8
+  _baseCost: 0
+  _rarity: 0000000001000000
+  _level: 0
+  _displayName: Knight Helm
+  _description: BUCKET ON YO HEAD.
+  _icon: {fileID: 21300000, guid: a81ae2e5d2c4e114bb52180d9ac548c2, type: 3}
+  _pickup: {fileID: 822367855222189990, guid: a0bc633cae93b2949897be91b8b42a03, type: 3}
+  isWeapon: 0
+  isConsummable: 0
+  isArmor: 1
+  _allowedEquipLocation: 0
+  defenseValue: 10
+  equippedMalePrefab: {fileID: 194576, guid: 1b951edb062fe554d98919f99c3c9b73, type: 3}
+  equippedFemalePrefab: {fileID: 194576, guid: 1b951edb062fe554d98919f99c3c9b73, type: 3}
+  enableHair: 0

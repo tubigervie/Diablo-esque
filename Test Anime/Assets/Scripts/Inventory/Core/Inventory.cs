@@ -14,14 +14,20 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
     [SerializeField] EquippableItem defaultArmorBase;
 
     [SerializeField] AudioClip equipSFX;
+    [SerializeField] AudioClip unequipSFX;
+    [SerializeField] AudioClip pickUpSFX;
+
     [SerializeField] InventoryItemList inventoryItemList;
     [SerializeField] int inventorySize;
+
     private InventorySlot[] inventorySlots;
     EquipSlot weaponSlot;
     EquipSlot necklaceSlot;
     EquipSlot gloveSlot;
     EquipSlot bootSlot;
     EquipSlot armorSlot;
+    EquipSlot headSlot;
+
     List<ItemPickup> droppedItems = new List<ItemPickup>();
 
     [System.Serializable]
@@ -39,17 +45,24 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
 
     private void Awake()
     {
-        //if(inventorySlots == null)
         inventorySlots = new InventorySlot[inventorySize];
         for(int i = 0; i < inventorySize; i++)
         {
             inventorySlots[i].item = null;
         }
-        //inventorySlots[0].item = inventoryItemList.GetFromID("82e243bc-95fb-4ed5-bc4a-db34bc4530ca");
     }
 
-    private void Start()
+    void Start()
     {
+        //Appearance appearance = GetComponent<Appearance>();
+        //if(armorSlot.item == null)
+        //{
+        //    ArmorInstance defaultArmorInstance = new ArmorInstance(defaultArmorBase as Armor, 1);
+        //    if (appearance.isMale)
+        //        appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
+        //    else
+        //        appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
+        //}
     }
 
     public event Action inventoryUpdated = delegate { };
@@ -79,12 +92,17 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         return armorSlot;
     }
 
+    public EquipSlot GetHeadSlot()
+    {
+        return headSlot;
+    }
+
     public ItemInstance PopEquipSlot(EquippableItem.EquipLocation type)
     {
         switch (type)
         {
             case EquippableItem.EquipLocation.Helmet:
-                return weaponSlot.item;
+                return headSlot.item;
             case EquippableItem.EquipLocation.Amulet:
                 return necklaceSlot.item;
             case EquippableItem.EquipLocation.Body:
@@ -96,7 +114,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             case EquippableItem.EquipLocation.Weapon:
                 return weaponSlot.item;
         }
-        return weaponSlot.item;
+        return null;
     }
 
     public void RemoveEquippedItem(EquippableItem.EquipLocation type)
@@ -104,6 +122,9 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         switch (type)
         {
             case EquippableItem.EquipLocation.Helmet:
+                headSlot.item = null;
+                Appearance headAppearance = GetComponent<Appearance>();
+                headAppearance.RemoveHead();
                 break;
             case EquippableItem.EquipLocation.Amulet:
                 necklaceSlot.item = null;
@@ -116,7 +137,6 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
                 else
                     appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
-                //Equip underwear
                 break;
             case EquippableItem.EquipLocation.Gloves:
                 gloveSlot.item = null;
@@ -130,6 +150,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 weaponSlot.item = null;
                 break;
         }
+        GetComponent<AudioSource>().PlayOneShot(unequipSFX);
         inventoryUpdated();
     }
 
@@ -139,6 +160,11 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         switch (type)
         {
             case EquippableItem.EquipLocation.Helmet:
+                spawnLocation = transform.position;
+                SpawnPickup(headSlot.item, spawnLocation);
+                headSlot.item = null;
+                Appearance headAppearance = GetComponent<Appearance>();
+                headAppearance.RemoveHead();
                 break;
             case EquippableItem.EquipLocation.Amulet:
                 spawnLocation = transform.position;
@@ -155,7 +181,6 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
                 else
                     appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
-                //Equip underwear
                 break;
             case EquippableItem.EquipLocation.Gloves:
                 spawnLocation = transform.position;
@@ -175,13 +200,22 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 weaponSlot.item = null;
                 break;
         }
+        GetComponent<AudioSource>().PlayOneShot(unequipSFX);
         inventoryUpdated();
     }
 
-    public void AddItemIntoInventory(ItemInstance weapon)
+    //For adding in items as quest reward
+    public void AddItemIntoInventory(ItemInstance item)
     {
-        inventoryItemList.AddToInventoryItemList(weapon.itemBase);
-        AddToFirstEmptySlot(weapon);
+        inventoryItemList.AddToInventoryItemList(item.itemBase);
+        AddToFirstEmptySlot(item);
+    }
+
+    public void PickUpItem(ItemInstance item)
+    {
+        inventoryItemList.AddToInventoryItemList(item.itemBase);
+        GetComponent<AudioSource>().PlayOneShot(pickUpSFX);
+        AddToFirstEmptySlot(item);
     }
 
     public void SetWeaponSlot(EquipInstance weapon)
@@ -225,7 +259,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
 
         var spawnLocation = transform.position;
         SpawnPickup(item, spawnLocation);
-
+        GetComponent<AudioSource>().PlayOneShot(unequipSFX);
         return true; 
     }
 
@@ -243,19 +277,20 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         return oldItem;
     }
 
-    public EquipInstance ReplaceEquipSlot(EquipInstance item, EquippableItem.EquipLocation type)
+    public EquipInstance ReplaceEquipSlot(EquipInstance item, EquippableItem.EquipLocation type, bool isReplacing = true)
     {
         EquipInstance oldItem;
         switch (type)
         {
             case EquippableItem.EquipLocation.Helmet:
-                oldItem = necklaceSlot.item;
-                weaponSlot.item = item;
+                oldItem =  headSlot.item;
+                headSlot.item = item;
+                ArmorInstance headInst = new ArmorInstance(item.equipBase as Armor, item.properties);
+                GetComponent<Appearance>().EquipHead(headInst.armorBase.equippedMalePrefab, headInst.armorBase.enableHair);
                 break;
             case EquippableItem.EquipLocation.Amulet:
                 oldItem = necklaceSlot.item;
                 necklaceSlot.item = item;
-                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Body:
                 oldItem = armorSlot.item;
@@ -266,29 +301,28 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     appearance.StartCoroutine(appearance.EquipBody(armInst.armorBase.equippedMalePrefab));
                 else
                     appearance.StartCoroutine(appearance.EquipBody(armInst.armorBase.equippedFemalePrefab));
-                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Gloves:
                 oldItem = gloveSlot.item;
                 gloveSlot.item = item;
-                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Boots:
                 oldItem = bootSlot.item;
                 bootSlot.item = item;
-                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             case EquippableItem.EquipLocation.Weapon:
                 oldItem = weaponSlot.item;
                 weaponSlot.item = item;
                 WeaponInstance weapInst = new WeaponInstance(item.equipBase as Weapon, item.properties);
                 GetComponent<Fighter>().EquipWeapon(weapInst);
-                GetComponent<AudioSource>().PlayOneShot(equipSFX);
                 break;
             default:
-                oldItem = weaponSlot.item;
+                oldItem = null;
                 break;
         }
+        if (isReplacing)
+            GetComponent<AudioSource>().PlayOneShot(equipSFX);
+
         inventoryUpdated();
         return oldItem;
     }
@@ -367,29 +401,40 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             }
         }
         state["inventorySlots"] = slotValues;
+
         if (weaponSlot.item != null)
             state["weaponSlot"] = new KeyValuePair<string, ItemProperties>(weaponSlot.item.itemID, weaponSlot.item.properties);
         else
             state["weaponSlot"] = defaultWeaponBase.itemID;
+
         if (necklaceSlot.item != null)
             state["necklaceSlot"] = new KeyValuePair<string, ItemProperties>(necklaceSlot.item.itemID, necklaceSlot.item.properties);
         else
             state["necklaceSlot"] = "";
+
         if (gloveSlot.item != null)
             state["gloveSlot"] = new KeyValuePair<string, ItemProperties>(gloveSlot.item.itemID, gloveSlot.item.properties);
         else
             state["gloveSlot"] = "";
+
         if (bootSlot.item != null)
             state["bootSlot"] = new KeyValuePair<string, ItemProperties>(bootSlot.item.itemID, bootSlot.item.properties);
         else
             state["bootSlot"] = "";
+
         if (armorSlot.item != null)
             state["armorSlot"] = new KeyValuePair<string, ItemProperties>(armorSlot.item.itemID, armorSlot.item.properties);
         else
             state["armorSlot"] = defaultArmorBase.itemID;
 
-        RemoveDestroyedDrops();
+        if (headSlot.item != null)
+            state["headSlot"] = new KeyValuePair<string, ItemProperties>(headSlot.item.itemID, headSlot.item.properties);
+        else
+            state["headSlot"] = "";
 
+        RemoveDestroyedDrops();
+        //ArmorInstance headInst = new ArmorInstance(item.equipBase as Armor, item.properties);
+        //GetComponent<Appearance>().EquipHead(headInst.armorBase.equippedMalePrefab, headInst.armorBase.hideHair);
         var droppedItemsList = new Dictionary<string, object>[droppedItems.Count];
 
         for (int i = 0; i < droppedItemsList.Length; i++)
@@ -462,6 +507,22 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
                 else
                     appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
+            }
+        }
+        if (stateDict["headSlot"] != null)
+        {
+            try
+            {
+                KeyValuePair<string, ItemProperties> headPair = (KeyValuePair<string, ItemProperties>)stateDict["headSlot"];
+                EquippableItem equipBase = inventoryItemList.GetFromID(headPair.Key) as EquippableItem;
+                ArmorInstance headInst = new ArmorInstance(equipBase as Armor, headPair.Value);
+                GetComponent<Appearance>().EquipHead(headInst.armorBase.equippedMalePrefab, headInst.armorBase.enableHair);
+                headSlot.item = headInst;
+            }
+            catch
+            {
+                headSlot.item = null;
+                GetComponent<Appearance>().RemoveHead();
             }
         }
         if (stateDict["necklaceSlot"] != null)
@@ -554,6 +615,20 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 yield return armorInst.defenseValue;
             }
         }
+        if (headSlot.item != null)
+        {
+
+            foreach (var modifier in headSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return headSlot.item.GetStatBonus(modifier.stat, BonusType.Flat);
+            }
+            if (stat == Stat.Defense)
+            {
+                ArmorInstance headInst = new ArmorInstance(headSlot.item.equipBase as Armor, headSlot.item.properties);
+                yield return headInst.defenseValue;
+            }
+        }
         if (bootSlot.item != null)
         {
 
@@ -599,5 +674,22 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             }
 
         }
+        if (bootSlot.item != null)
+        {
+            foreach (var modifier in bootSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return bootSlot.item.GetStatBonus(modifier.stat, BonusType.Percentage);
+            }
+        }
+        if (headSlot.item != null)
+        {
+            foreach (var modifier in headSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return headSlot.item.GetStatBonus(modifier.stat, BonusType.Percentage);
+            }
+        }
+
     }
 }

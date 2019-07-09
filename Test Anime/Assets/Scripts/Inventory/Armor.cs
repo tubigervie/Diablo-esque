@@ -8,4 +8,5 @@ public class Armor : EquippableItem
     public float defenseValue;
     public GameObject equippedMalePrefab = null;
     public GameObject equippedFemalePrefab = null;
+    public bool enableHair;
 }

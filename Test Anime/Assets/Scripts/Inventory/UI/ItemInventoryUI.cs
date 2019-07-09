@@ -21,6 +21,7 @@ public class ItemInventoryUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        parentSlot.DisableButton();
         _startPosition = transform.position;
         _originalParent = transform.parent;
         transform.SetParent(_parentCanvas.transform, true);

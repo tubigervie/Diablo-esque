@@ -87,7 +87,7 @@ namespace RPG.Control
                     if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
                         Inventory inv = GetComponent<Inventory>();
-                        inv.AddItemIntoInventory(target.itemInstance);
+                        inv.PickUpItem(target.itemInstance);
                         if (target.wasFromInventory)
                         {
                             inv.RemoveDroppedItem(target);
@@ -117,7 +117,7 @@ namespace RPG.Control
             mover.Cancel();
             yield return new WaitForSeconds(.1f);
             Inventory inv = GetComponent<Inventory>();
-            inv.AddItemIntoInventory(target.itemInstance);
+            inv.PickUpItem(target.itemInstance);
             if (target.wasFromInventory)
             {
                 inv.RemoveDroppedItem(target);
