@@ -20,10 +20,19 @@ public class Appearance : MonoBehaviour
 
     private void Awake()
     {
-        fighter = GetComponent<Fighter>();
     }
 
     private void Start()
+    {
+        if (!currentHeadPrefab || !currentBodyPrefab)
+        {
+            Init();
+            fighter = GetComponent<Fighter>();
+            fighter.anim = GetComponent<Animator>();
+        }
+    }
+
+    private void Init()
     {
         currentBodyPrefab = this.transform.GetChild(0).gameObject;
         GameObject skinGO = currentBodyPrefab.transform.Find(skin).gameObject;
@@ -34,6 +43,12 @@ public class Appearance : MonoBehaviour
 
     public IEnumerator EquipBody(GameObject bodyPrefab)
     {
+        if(!currentHeadPrefab || !currentBodyPrefab)
+        {
+            Init();
+            fighter = GetComponent<Fighter>();
+            fighter.anim = GetComponent<Animator>();
+        }
         Vector3 oldHeadTransform = currentHeadPrefab.transform.localPosition;
         currentHeadPrefab.transform.parent = null;
         headSlot = null;

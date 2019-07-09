@@ -383,6 +383,10 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             state["bootSlot"] = new KeyValuePair<string, ItemProperties>(bootSlot.item.itemID, bootSlot.item.properties);
         else
             state["bootSlot"] = "";
+        if (armorSlot.item != null)
+            state["armorSlot"] = new KeyValuePair<string, ItemProperties>(armorSlot.item.itemID, armorSlot.item.properties);
+        else
+            state["armorSlot"] = defaultArmorBase.itemID;
 
         RemoveDestroyedDrops();
 
@@ -435,6 +439,31 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                 weaponSlot.item = null;
             }
         }
+        if (stateDict["armorSlot"] != null)
+        {
+            try
+            {
+                KeyValuePair<string, ItemProperties> armorPair = (KeyValuePair<string, ItemProperties>)stateDict["armorSlot"];
+                EquippableItem equipBase = inventoryItemList.GetFromID(armorPair.Key) as EquippableItem;
+                ArmorInstance armInst = new ArmorInstance(equipBase as Armor, armorPair.Value);
+                Appearance appearance = GetComponent<Appearance>();
+                if (appearance.isMale)
+                    appearance.StartCoroutine(appearance.EquipBody(armInst.armorBase.equippedMalePrefab));
+                else
+                    appearance.StartCoroutine(appearance.EquipBody(armInst.armorBase.equippedFemalePrefab));
+                armorSlot.item = armInst;
+            }
+            catch
+            {
+                armorSlot.item = null;
+                ArmorInstance defaultArmorInstance = new ArmorInstance(defaultArmorBase as Armor, 1);
+                Appearance appearance = GetComponent<Appearance>();
+                if (appearance.isMale)
+                    appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
+                else
+                    appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
+            }
+        }
         if (stateDict["necklaceSlot"] != null)
         {
             try
@@ -474,7 +503,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
             }
             catch
             {
-                gloveSlot.item = null;
+                bootSlot.item = null;
             }
         }
 
@@ -560,6 +589,15 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
                     yield return gloveSlot.item.GetStatBonus(modifier.stat, BonusType.Percentage);
             }
         }
+        if (armorSlot.item != null)
+        {
 
+            foreach (var modifier in armorSlot.item.properties.statModifiers)
+            {
+                if (modifier.stat == stat)
+                    yield return armorSlot.item.GetStatBonus(modifier.stat, BonusType.Percentage);
+            }
+
+        }
     }
 }

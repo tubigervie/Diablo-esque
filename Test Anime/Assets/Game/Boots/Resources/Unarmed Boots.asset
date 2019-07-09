@@ -26,3 +26,5 @@ MonoBehaviour:
   isArmor: 0
   _allowedEquipLocation: 4
   defenseValue: 0
+  equippedMalePrefab: {fileID: 0}
+  equippedFemalePrefab: {fileID: 0}
