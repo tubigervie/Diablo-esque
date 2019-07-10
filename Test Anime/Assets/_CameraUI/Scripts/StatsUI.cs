@@ -11,6 +11,7 @@ namespace RPG.CameraUI
         [SerializeField] InventoryUI invUI;
         [SerializeField] GameObject inventoryTab;
         [SerializeField] GameObject statsTab;
+        [SerializeField] GameObject abilitiesTab;
 
         GameObject player;
         // Start is called before the first frame update
@@ -18,6 +19,7 @@ namespace RPG.CameraUI
         {
             uiContainer.SetActive(false);
             player = GameObject.FindGameObjectWithTag("Player");
+            DisableAllTabs();
         }
 
         // Update is called once per frame
@@ -25,8 +27,13 @@ namespace RPG.CameraUI
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
+                if (statsTab.activeSelf || abilitiesTab.activeSelf)
+                {
+                    SwitchToInventory();
+                    return;
+                }
                 DisableAllTabs();
-                inventoryTab.SetActive(true);
+                inventoryTab.SetActive(!uiContainer.activeSelf);
                 uiContainer.SetActive(!uiContainer.activeSelf);
                 if(!uiContainer.activeSelf)
                 {
@@ -36,9 +43,38 @@ namespace RPG.CameraUI
             }
             if(Input.GetKeyDown(KeyCode.C))
             {
+                if(inventoryTab.activeSelf || abilitiesTab.activeSelf)
+                {
+                    SwitchToStats();
+                    return;
+                }
                 DisableAllTabs();
-                statsTab.SetActive(true);
+                statsTab.SetActive(!uiContainer.activeSelf);
                 uiContainer.SetActive(!uiContainer.activeSelf);
+                if(!uiContainer.activeSelf)
+                {
+                    invUI.DisableActiveButton();
+                    var parentCanvas = GetComponentInParent<Canvas>();
+                    StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
+                    if(statTip != null)
+                        Destroy(statTip.gameObject);
+                }
+                player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
+            }
+            if(Input.GetKeyDown(KeyCode.K))
+            {
+                if (statsTab.activeSelf || inventoryTab.activeSelf)
+                {
+                    SwitchToAbilities();
+                    return;
+                }
+                DisableAllTabs();
+                abilitiesTab.SetActive(!uiContainer.activeSelf);
+                uiContainer.SetActive(!uiContainer.activeSelf);
+                if (!uiContainer.activeSelf)
+                {
+                    invUI.DisableActiveButton();
+                }
                 player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
             }
         }
@@ -47,6 +83,7 @@ namespace RPG.CameraUI
         {
             inventoryTab.SetActive(false);
             statsTab.SetActive(false);
+            abilitiesTab.SetActive(false);
         }
 
         public void ToggleUI()
@@ -54,7 +91,12 @@ namespace RPG.CameraUI
             uiContainer.SetActive(!uiContainer.activeSelf);
             if (!uiContainer.activeSelf)
             {
+                DisableAllTabs();
                 invUI.DisableActiveButton();
+                var parentCanvas = GetComponentInParent<Canvas>();
+                StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
+                if (statTip != null)
+                    Destroy(statTip.gameObject);
             }
             player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
         }
@@ -69,6 +111,12 @@ namespace RPG.CameraUI
         {
             DisableAllTabs();
             inventoryTab.SetActive(true);
+        }
+
+        public void SwitchToAbilities()
+        {
+            DisableAllTabs();
+            abilitiesTab.SetActive(true);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RPG.Saving;
 using RPG.Stats;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace RPG.Combat
     {
         [SerializeField] AbilityConfig[] abilities;
         [SerializeField] Image energyBar;
+        [SerializeField] Text energyText;
         [SerializeField] float maxEnergyPoints = -1f;
         [SerializeField] float regenPointsPerSecond = 1f;
         [SerializeField] AudioClip outOfEnergy;
@@ -260,6 +262,7 @@ namespace RPG.Combat
             if (energyBar)
             {
                 energyBar.fillAmount = energyAsPercent;
+                energyText.text = "EP: " + Mathf.Round(currentEnergyPoints) + " / " + Mathf.Round(maxEnergyPoints);
             }
         }
 

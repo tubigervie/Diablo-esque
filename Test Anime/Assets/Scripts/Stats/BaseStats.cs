@@ -38,7 +38,7 @@ namespace RPG.Stats
         [SerializeField] float damageBonusPerStrengthPoint = .5f;
         [SerializeField] float criticalHitChancePerDexterityPoint = .2f;
         [SerializeField] float defenseBonusPerConstitutionPoint = .5f;
-        [SerializeField] float healthBonusPerConstitutionPoint = 2f;
+        [SerializeField] float healthBonusPerConstitutionPoint = 10f;
 
         public event Action onLevelUp;
 
@@ -157,8 +157,8 @@ namespace RPG.Stats
             {
                 currentLevel = CalculateLevel();
                 GetComponent<Resource.Health>().UpdateMaxHealth();
-                if(characterClass != CharacterClass.Player)
-                    GetComponent<Resource.Health>().RegenerateHealth();
+                //if(characterClass != CharacterClass.Player)
+                //    GetComponent<Resource.Health>().RegenerateHealth();
             }
             return currentLevel;
         }

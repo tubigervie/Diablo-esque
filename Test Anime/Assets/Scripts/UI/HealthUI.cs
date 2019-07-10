@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RPG.Resource;
+using System;
 
 namespace RPG.UI
 {
@@ -11,6 +12,7 @@ namespace RPG.UI
     {
         [SerializeField] Image healthSlider;
         [SerializeField] Health healthComponent;
+        [SerializeField] Text healthText;
 
         private void Awake()
         {
@@ -24,7 +26,10 @@ namespace RPG.UI
 
         private void Update()
         {
-            healthSlider.fillAmount = healthComponent.GetCurrentHealth() / healthComponent.GetTotalHealth();
+            float current = healthComponent.GetCurrentHealth();
+            float total = healthComponent.GetTotalHealth();
+            healthSlider.fillAmount = current / total;
+            healthText.text = "HP: " + Mathf.Round(current) + " / " + Mathf.Round(total);
         }
 
     }

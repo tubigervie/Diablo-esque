@@ -71,6 +71,7 @@ namespace RPG.SceneManagement
             ToggleSaveUI();
             if(saveSystem.CheckForSave(autoSaveFile))
             {
+                Debug.Log("shouldn't be going here");
                 GetComponent<SavingSystem>().Save(defaultSaveFile);
                 saveSystem.SwitchAutoToSave(autoSaveFile, defaultSaveFile);
             }

@@ -1,4 +1,5 @@
-﻿using RPG.Combat;
+﻿using RPG.CameraUI;
+using RPG.Combat;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,10 @@ public class UseEquipButton : MonoBehaviour
             slotUI.inventory.ReplaceItemInSlot(oldItem, slotUI.index);
         }
         slotUI.DisableButton();
+        var parentCanvas = GetComponentInParent<Canvas>();
+        ItemTooltip itemToolTip = parentCanvas.GetComponentInChildren<ItemTooltip>();
+        if (itemToolTip != null)
+            Destroy(itemToolTip.gameObject);
     }
 
     public void RemoveEquip()
@@ -53,6 +58,10 @@ public class UseEquipButton : MonoBehaviour
         slotUI.inventory.RemoveEquippedItem(slotUI.type);
         slotUI.inventory.AddToFirstEmptySlot(equip);
         slotUI.DisableButton();
+        var parentCanvas = GetComponentInParent<Canvas>();
+        ItemTooltip itemToolTip = parentCanvas.GetComponentInChildren<ItemTooltip>();
+        if (itemToolTip != null)
+            Destroy(itemToolTip.gameObject);
     }
 
     public void DisableButton()
