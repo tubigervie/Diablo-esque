@@ -1,24 +1,31 @@
-﻿using RPG.Control;
-using RPG.Resource;
-using RPG.Stats;
+﻿using RPG.Resource;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class SpinAttackBehaviour : AbilityBehaviour
+    public class FrontalPillarBehaviour : AbilityBehaviour
     {
         GameObject particleObject;
 
         public override void Use(GameObject target = null)
         {
-            if(!inUse)
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, 100))
             {
+                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            }
+
+            if (!inUse)
+            {
+                Debug.Log("should not be here");
                 GetComponent<Fighter>().Cancel();
                 PlayAbilitySound();
-                StartCoroutine("AttackOverTime");
                 PlayParticleEffect();
+                StartCoroutine("AttackOverTime");
                 PlayAbilityAnimation();
                 inUse = true;
             }
@@ -29,12 +36,18 @@ namespace RPG.Combat
             var particlePrefab = config.GetParticlePrefab();
             if (particlePrefab == null) return;
             Vector3 target = transform.position;
-            target.y += 1f;
+            target.y = 1f;
+            target.x = .23f;
+            target.z = .68f;
             particleObject = Instantiate(
                 particlePrefab,
-                target,
-                particlePrefab.transform.rotation
+                transform.position,
+                transform.rotation, transform
             );
+            particleObject.transform.localPosition = target;
+            particleObject.GetComponent<FrontalPillarCollider>().config = config;
+            particleObject.GetComponent<FrontalPillarCollider>().player = this.gameObject;
+            particleObject.GetComponent<FrontalPillarCollider>().attackPerSecond = 1 / (config as FrontalPillarConfig).GetHitsPerSecond();
             particleObject.transform.parent = transform; // set world space in prefab if required
             particleObject.GetComponent<ParticleSystem>().Play();
         }
@@ -46,6 +59,7 @@ namespace RPG.Combat
             GetComponent<Animator>().SetBool("abilityLoop", false);
             GetComponent<Fighter>().timeSinceLastAttack = 0;
             GetComponent<Animator>().SetBool("inBattle", true);
+            DisableDamageCollider();
         }
 
         protected override void PlayAbilityAnimation()
@@ -61,8 +75,8 @@ namespace RPG.Combat
             currentOverrideController.GetOverrides(clipOverrides);
 
             clipOverrides[DEFAULT_LOOP_START] = config.GetAbilityAnimation();
-            clipOverrides[DEFAULT_LOOP] = (config as SpinAttackConfig).GetAbilityLoop();
-            clipOverrides[DEFAULT_LOOP_END] = (config as SpinAttackConfig).GetAbilityEnd();
+            clipOverrides[DEFAULT_LOOP] = (config as FrontalPillarConfig).GetAbilityLoop();
+            clipOverrides[DEFAULT_LOOP_END] = (config as FrontalPillarConfig).GetAbilityEnd();
             animatorOverrideController.ApplyOverrides(clipOverrides);
 
             animator.SetBool("abilityLoop", true);
@@ -75,9 +89,8 @@ namespace RPG.Combat
             AudioSource audioSource = GetComponent<AudioSource>();
             while (true)
             {
-                audioSource.PlayOneShot((config as SpinAttackConfig).GetRandomAbilitySound());
-                DealRadialDamage();
-                yield return new WaitForSeconds(1 / (config as SpinAttackConfig).GetHitsPerSecond());
+                EnableDamageCollider();
+                yield return null;
             }
         }
 
@@ -86,33 +99,14 @@ namespace RPG.Combat
             StopAllCoroutines();
         }
 
-        private void DealRadialDamage()
+        private void EnableDamageCollider()
         {
-            // Static sphere cast for targets
-            
-            RaycastHit[] hits = Physics.SphereCastAll(
-                transform.position,
-                (config as SpinAttackConfig).GetRadius(),
-                Vector3.up,
-                (config as SpinAttackConfig).GetRadius()
-            );
-            bool hasHit = false;
-            foreach (RaycastHit hit in hits)
-            {
-                var damageable = hit.collider.gameObject.GetComponent<Health>();
-                bool hitPlayer = hit.collider.gameObject.GetComponent<PlayerController>();
-                if (damageable != null && !hitPlayer)
-                {
-                    hasHit = true;
-                    float damageToDeal = (config as SpinAttackConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetDamage()) - hit.collider.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
-                    bool shouldCrit = GetComponent<Fighter>().ShouldCrit();
-                    if (shouldCrit)
-                        damageToDeal *= 1.5f;
-                    damageable.TakeDamage(this.gameObject, damageToDeal, shouldCrit);
-                }
-            }
-            if(hasHit)
-                GetComponent<AudioSource>().PlayOneShot((config as SpinAttackConfig).GetAttackClip());
+            particleObject.GetComponent<FrontalPillarCollider>().enabled = true;
+        }
+
+        private void DisableDamageCollider()
+        {
+            particleObject.GetComponent<FrontalPillarCollider>().enabled = false;
         }
     }
 }
