@@ -13,7 +13,7 @@ public class FrontalPillarCollider : MonoBehaviour
     public float attackPerSecond;
 
 
-    List<Dictionary<Collider, float>> colliderTimer = new List<Dictionary<Collider, float>>();
+    List<CustomKeyValuePair<Collider, float>> colliderTimer = new List<CustomKeyValuePair<Collider, float>>();
 
     private void OnTriggerStay(Collider other)
     {
@@ -22,33 +22,32 @@ public class FrontalPillarCollider : MonoBehaviour
         if (damageable != null && !hitPlayer)
         {
             bool foundinList = false;
-            foreach(Dictionary<Collider, float> colliderPair in colliderTimer)
+            foreach(CustomKeyValuePair<Collider, float> colliderPair in colliderTimer)
             {
-                if(colliderPair.ContainsKey(other))
+                if(colliderPair.key == other)
                 {
                     foundinList = true;
-                    if(colliderPair[other] <= 0)
+                    if (colliderPair.value <= 0)
                     {
-                        float damageToDeal = (config as FrontalPillarConfig).GetDamageToEachTarget(player.GetComponent<Fighter>().GetDamage()) - other.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
+                        float damageToDeal = (config as FrontalPillarConfig).GetDamageToEachTarget(player.GetComponent<Fighter>().GetDamage()) - colliderPair.key.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
                         bool shouldCrit = player.GetComponent<Fighter>().ShouldCrit();
                         if (shouldCrit)
                             damageToDeal *= 1.5f;
-                        damageable.TakeDamage(this.gameObject, damageToDeal, shouldCrit);
-                        colliderPair[other] = attackPerSecond;
+                        damageable.TakeDamage(player, damageToDeal, shouldCrit);
+                        colliderPair.value = attackPerSecond;
                     }
                     break;
                 }
             }
             if(!foundinList)
             {
-                Dictionary<Collider, float> newColliderPair = new Dictionary<Collider, float>();
-                newColliderPair[other] = 0;
+                CustomKeyValuePair<Collider, float> newColliderPair = new CustomKeyValuePair<Collider, float>(other, 0);
                 float damageToDeal = (config as FrontalPillarConfig).GetDamageToEachTarget(player.GetComponent<Fighter>().GetDamage()) - other.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
                 bool shouldCrit = player.GetComponent<Fighter>().ShouldCrit();
                 if (shouldCrit)
                     damageToDeal *= 1.5f;
-                damageable.TakeDamage(this.gameObject, damageToDeal, shouldCrit);
-                newColliderPair[other] = attackPerSecond;
+                damageable.TakeDamage(player, damageToDeal, shouldCrit);
+                newColliderPair.value = attackPerSecond;
                 colliderTimer.Add(newColliderPair);
             }
             
@@ -57,9 +56,9 @@ public class FrontalPillarCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        foreach (Dictionary<Collider, float> colliderPair in colliderTimer)
+        foreach (CustomKeyValuePair<Collider, float> colliderPair in colliderTimer)
         {
-            if (colliderPair.ContainsKey(other))
+            if (other == colliderPair.key)
             {
                 colliderTimer.Remove(colliderPair);
                 break;
@@ -67,20 +66,20 @@ public class FrontalPillarCollider : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        List<Dictionary<Collider, float>> currentList = colliderTimer;
-        for(int i = 0; i < currentList.Count; i++)
+        List<CustomKeyValuePair<Collider, float>> current = new List<CustomKeyValuePair<Collider, float>>();
+        for(int i = 0; i < colliderTimer.Count; i++)
         {
-            List<Collider> colliders = new List<Collider>();
-            foreach(Collider collider in currentList[i].Keys)
-            {
-                colliders.Add(collider);
-            }
-            for(int x = 0; x < colliders.Count; i++)
-            {
-                currentList[i][colliders[x]] -= Time.fixedDeltaTime;
-            }
+            if(colliderTimer[i].key != null)
+                current.Add(colliderTimer[i]);
+        }
+        if (current.Count < 1) return;
+        foreach (CustomKeyValuePair<Collider, float> colliderPairs in current)
+        {
+
+            colliderPairs.value -= Time.deltaTime;
+            
         }
     }
 }

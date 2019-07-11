@@ -15,7 +15,7 @@ MonoBehaviour:
   energyCost: 20
   coolDownTime: 3
   particlePrefab: {fileID: 134572, guid: 7c1b627e705f998448adac9689c44505, type: 3}
-  abilityAnimation: {fileID: 7400000, guid: b825a56aacb9490449b35124afe6b549, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: 5ee035681fa3d0e40b9dfb7c37b5bc5c, type: 2}
   audioClips:
   - {fileID: 8300000, guid: e6a98853d644e4a4a9e7fa364be5d6ac, type: 3}
   clipSpeed: 1
@@ -23,9 +23,9 @@ MonoBehaviour:
   isLooping: 1
   skillIcon: {fileID: 21300000, guid: 119d206dfa7063a47a33b6f54c365dbb, type: 3}
   behaviour: {fileID: 0}
-  abilityLoopAnimation: {fileID: 7400002, guid: b825a56aacb9490449b35124afe6b549,
-    type: 3}
-  abilityEndAnimation: {fileID: 7400004, guid: b825a56aacb9490449b35124afe6b549, type: 3}
+  abilityLoopAnimation: {fileID: 7400000, guid: 053f9b26498bc6445a0328205823cca4,
+    type: 2}
+  abilityEndAnimation: {fileID: 7400000, guid: 44025d2afe025a7408544b666b7948f8, type: 2}
   percentageDamage: 30
   hitsPerSecond: 5
-  attackSoundEffect: {fileID: 8300000, guid: e6a98853d644e4a4a9e7fa364be5d6ac, type: 3}
+  attackSoundEffect: {fileID: 8300000, guid: c17ca81fdcb24af4289b2d86bfe8a4dd, type: 3}

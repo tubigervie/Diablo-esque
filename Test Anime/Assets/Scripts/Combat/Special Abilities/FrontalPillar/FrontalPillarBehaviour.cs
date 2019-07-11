@@ -11,13 +11,37 @@ namespace RPG.Combat
 
         public override void Use(GameObject target = null)
         {
-            RaycastHit hit;
+            //RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, 100))
+            RaycastHit[] hits = Physics.RaycastAll(ray, 100);
+            float shortesttYPos = Mathf.Infinity;
+            RaycastHit shortestHit = new RaycastHit();
+            foreach (RaycastHit hit in hits)
             {
-                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+                if (hit.collider.gameObject.layer == 8)
+                {
+                    float hitYPos = hit.collider.gameObject.transform.position.y;
+                    if (shortestHit.collider == null)
+                    {
+                        shortestHit = hit;
+                        shortesttYPos = hitYPos;
+                    }
+                    else if (hitYPos > shortesttYPos)
+                    {
+                        shortestHit = hit;
+                        shortesttYPos = hitYPos;
+                    }
+                }
             }
+            if (shortestHit.collider != null)
+            {
+                transform.LookAt(new Vector3(shortestHit.point.x, transform.position.y, shortestHit.point.z));
+            }
+            //if (Physics.Raycast(ray, out hit, 100))
+            //{
+            //    transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            //}
 
             if (!inUse)
             {
@@ -56,8 +80,11 @@ namespace RPG.Combat
         {
             inUse = false;
             Destroy(particleObject);
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.loop = false;
+            audioSource.clip = null;
             GetComponent<Animator>().SetBool("abilityLoop", false);
-            GetComponent<Fighter>().timeSinceLastAttack = 0;
+            //GetComponent<Fighter>().timeSinceLastAttack = 0;
             GetComponent<Animator>().SetBool("inBattle", true);
             DisableDamageCollider();
         }
@@ -87,10 +114,13 @@ namespace RPG.Combat
         IEnumerator AttackOverTime()
         {
             AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.clip = (config as FrontalPillarConfig).GetAttackClip();
+            audioSource.Play();
+            audioSource.loop = true;
             while (true)
             {
                 EnableDamageCollider();
-                yield return null;
+                yield return new WaitForSeconds(1f);
             }
         }
 

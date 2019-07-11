@@ -698,6 +698,16 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -1007,6 +1017,16 @@ PrefabInstance:
         type: 3}
       propertyPath: healthPoints
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -1646,6 +1666,16 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -2281,6 +2311,16 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -2907,7 +2947,12 @@ PrefabInstance:
     - target: {fileID: 5243265142736133908, guid: 082357039ef57b649901cdd67d24c083,
         type: 3}
       propertyPath: currentHealthPoints
-      value: 125
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: 082357039ef57b649901cdd67d24c083,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: 082357039ef57b649901cdd67d24c083,
         type: 3}
@@ -3296,6 +3341,16 @@ PrefabInstance:
         type: 3}
       propertyPath: healthPoints
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
@@ -7363,7 +7418,12 @@ PrefabInstance:
     - target: {fileID: 810389096741326770, guid: e54f8c39ce7fee44c82721b68f670a5e,
         type: 3}
       propertyPath: currentHealthPoints
-      value: 30
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 810389096741326770, guid: e54f8c39ce7fee44c82721b68f670a5e,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2992072745867158719, guid: e54f8c39ce7fee44c82721b68f670a5e,
         type: 3}
@@ -8057,6 +8117,16 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: maxHealthPoints
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
+        type: 3}
+      propertyPath: currentHealthPoints
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 8403578612980942455, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -8615,17 +8685,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3021314855430939498, guid: c8d343d8fdf7b4d47ba518e97407867e,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 80
+    - target: {fileID: 1873351034, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
+      propertyPath: m_Text
+      value: 'Lv 1: 0/50'
       objectReference: {fileID: 0}
-    - target: {fileID: 1869809027841948924, guid: c8d343d8fdf7b4d47ba518e97407867e,
-        type: 3}
-      propertyPath: abilities.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: bb8627f1e1fbd3c41ae21a2a83841e83,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
 --- !u!4 &3594118166325817564

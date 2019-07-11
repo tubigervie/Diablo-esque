@@ -54,15 +54,15 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
 
     void Start()
     {
-        //Appearance appearance = GetComponent<Appearance>();
-        //if(armorSlot.item == null)
-        //{
-        //    ArmorInstance defaultArmorInstance = new ArmorInstance(defaultArmorBase as Armor, 1);
-        //    if (appearance.isMale)
-        //        appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
-        //    else
-        //        appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
-        //}
+        Appearance appearance = GetComponent<Appearance>();
+        if (armorSlot.item == null && appearance.currentBodyPrefab == null)
+        {
+            ArmorInstance defaultArmorInstance = new ArmorInstance(defaultArmorBase as Armor, 1);
+            if (appearance.isMale)
+                appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedMalePrefab));
+            else
+                appearance.StartCoroutine(appearance.EquipBody(defaultArmorInstance.armorBase.equippedFemalePrefab));
+        }
     }
 
     public event Action inventoryUpdated = delegate { };

@@ -20,7 +20,6 @@ public class SkillBehaviour : StateMachineBehaviour
         animator.SetBool("abilityOneShot", false);
         if (animator.gameObject.GetComponent<SpecialAbilities>().GetDisableMove())
         {
-            animator.gameObject.GetComponent<SpecialAbilities>().SetDisableMove(false);
             animator.gameObject.GetComponent<PlayerController>().ToggleMovement();
         }
     }

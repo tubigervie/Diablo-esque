@@ -44,7 +44,7 @@ namespace RPG.Combat
             inUse = false;
             Destroy(particleObject);
             GetComponent<Animator>().SetBool("abilityLoop", false);
-            GetComponent<Fighter>().timeSinceLastAttack = 0;
+            //GetComponent<Fighter>().timeSinceLastAttack = 0;
             GetComponent<Animator>().SetBool("inBattle", true);
         }
 
@@ -66,7 +66,7 @@ namespace RPG.Combat
             animatorOverrideController.ApplyOverrides(clipOverrides);
 
             animator.SetBool("abilityLoop", true);
-            GetComponent<Fighter>().timeSinceLastAttack = 0;
+            //GetComponent<Fighter>().timeSinceLastAttack = 0;
             animator.SetBool("inBattle", true);
         }
 

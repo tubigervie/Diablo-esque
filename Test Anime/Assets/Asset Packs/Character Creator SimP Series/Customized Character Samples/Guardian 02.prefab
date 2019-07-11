@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 411002}
   m_Layer: 0
   m_Name: Dummy L Prop
-  m_TagString: Untagged
+  m_TagString: PlayerLeftHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5470,7 +5470,7 @@ GameObject:
   - component: {fileID: 487172}
   m_Layer: 0
   m_Name: Dummy R Prop
-  m_TagString: Untagged
+  m_TagString: PlayerRightHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

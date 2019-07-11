@@ -26,7 +26,7 @@ namespace RPG.Combat
 
             animator.SetBool(ABILITY_TRIGGER, false);
             animator.SetBool(ABILITY_TRIGGER, true);
-            GetComponent<Fighter>().timeSinceLastAttack = 0;
+            //GetComponent<Fighter>().timeSinceLastAttack = 0;
             animator.SetBool("inBattle", true);
         }
 

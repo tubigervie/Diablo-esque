@@ -22,8 +22,10 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _pickup: {fileID: 0}
   isWeapon: 1
+  isConsummable: 0
+  isArmor: 0
   _allowedEquipLocation: 0
-  animatorOverride: {fileID: 22100000, guid: 4ad00eaa3301a164cb437e361cd6a2d9, type: 2}
+  animatorOverride: {fileID: 22100000, guid: a80654df6bc9bcd47a8b19feb2a88a45, type: 2}
   equippedPrefab: {fileID: 1580528733340496614, guid: 5e61616c610e679409e6f8fb1d28aab2,
     type: 3}
   weaponDamage:

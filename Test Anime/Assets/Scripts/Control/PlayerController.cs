@@ -32,6 +32,7 @@ namespace RPG.Control
         bool skill1WasDown;
         bool skill2WasDown;
         bool skill3WasDown;
+        bool skill4WasDown;
         //bool skill4InputDown;
         //bool skill5InputDown;
 
@@ -62,7 +63,10 @@ namespace RPG.Control
         void Update()
         {
             if (health.IsDead())
+            {
+                abilities.CancelLoops();
                 return;
+            }
             if (InteractWithCombat())
                 return;
             if (InteractWithItems())
@@ -74,6 +78,8 @@ namespace RPG.Control
 
         private bool InteractWithItems()
         {
+            if (!canMove)
+                return false;
             bool clickInput = Input.GetMouseButtonDown(0);
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach (RaycastHit hit in hits)
@@ -86,6 +92,7 @@ namespace RPG.Control
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
+                        this.StopAllCoroutines();
                         Inventory inv = GetComponent<Inventory>();
                         inv.PickUpItem(target.itemInstance);
                         if (target.wasFromInventory)
@@ -135,11 +142,13 @@ namespace RPG.Control
             bool key1Down = Input.GetKeyDown(KeyCode.Alpha1);
             bool key2Down = Input.GetKeyDown(KeyCode.Alpha2);
             bool key3Down = Input.GetKeyDown(KeyCode.Alpha3);
+            bool key4Down = Input.GetKeyDown(KeyCode.Alpha4);
             bool key1Up = Input.GetKeyUp(KeyCode.Alpha1);
             bool key2Up = Input.GetKeyUp(KeyCode.Alpha2);
             bool key3Up = Input.GetKeyUp(KeyCode.Alpha3);
+            bool key4Up = Input.GetKeyUp(KeyCode.Alpha4);
 
-            if(key1Up)
+            if (key1Up)
             {
                 abilities.CancelAbility(0);
                 skill1WasDown = false;
@@ -154,6 +163,11 @@ namespace RPG.Control
                 abilities.CancelAbility(2);
                 skill3WasDown = false;
             }
+            if(key4Up)
+            {
+                abilities.CancelAbility(3);
+                skill4WasDown = false;
+            }
 
             if (key1Down)
             {
@@ -162,6 +176,7 @@ namespace RPG.Control
                     skill1WasDown = true;
                     skill2WasDown = false;
                     skill3WasDown = false;
+                    skill4WasDown = false;
                     abilities.CancelLoops();
                     return abilities.AttemptSpecialAbility(0);
                 }
@@ -175,6 +190,7 @@ namespace RPG.Control
                     skill2WasDown = true;
                     skill1WasDown = false;
                     skill3WasDown = false;
+                    skill4WasDown = false;
                     abilities.CancelLoops();
                     return abilities.AttemptSpecialAbility(1);
                 }
@@ -188,8 +204,23 @@ namespace RPG.Control
                     skill3WasDown = true;
                     skill2WasDown = false;
                     skill1WasDown = false;
+                    skill4WasDown = false;
                     abilities.CancelLoops();
                     return abilities.AttemptSpecialAbility(2);
+                }
+                else
+                    abilities.PlayOutOfEnergy();
+            }
+            else if(key4Down)
+            {
+                if(abilities.HasEnoughEnergy(3))
+                {
+                    skill4WasDown = true;
+                    skill3WasDown = false;
+                    skill2WasDown = false;
+                    skill1WasDown = false;
+                    abilities.CancelLoops();
+                    return abilities.AttemptSpecialAbility(3);
                 }
                 else
                     abilities.PlayOutOfEnergy();
@@ -266,6 +297,30 @@ namespace RPG.Control
                     abilities.PlayOutOfEnergy();
                 }
             }
+            else if(skill4WasDown && abilities.OffCooldown(3))
+            {
+                if (abilities.IsLooping(3))
+                {
+                    if (abilities.ContinueLoop(3))
+                        return false;
+                    else
+                    {
+                        skill4WasDown = false;
+                        abilities.PlayOutOfEnergy();
+                    }
+                }
+                else if (abilities.HasEnoughEnergy(3))
+                {
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    return abilities.AttemptSpecialAbility(3);
+                }
+                else
+                {
+                    skill4WasDown = false;
+                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    abilities.PlayOutOfEnergy();
+                }
+            }
             else
             {
                 //abilities.CancelLoops();
@@ -308,7 +363,7 @@ namespace RPG.Control
         private bool InteractWithMovement()
         {
             if (!canMove)
-                return true;
+                return false;
             //RaycastHit hit;
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             float shortesttYPos = Mathf.Infinity;
@@ -358,6 +413,17 @@ namespace RPG.Control
             {
                 mover.Cancel();
             }
+        }
+
+        public void AllowMovement()
+        {
+            canMove = true;
+        }
+
+        public void DisableMovement()
+        {
+            canMove = false;
+            mover.Cancel();
         }
 
         private void SetCursor(CursorType type)

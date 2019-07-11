@@ -189,6 +189,7 @@ namespace RPG.Combat
             if (abilities[abilityIndex].IsLooping())
             {
                 ConsumeEnergy(energyCost);
+                disableMove = abilities[abilityIndex].GetDisableMovement();
                 abilities[abilityIndex].Use(target);
             }
             else

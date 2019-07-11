@@ -10,7 +10,7 @@ public class Appearance : MonoBehaviour
     const string hair = "Hair";
 
     GameObject headSlot;
-    [SerializeField] GameObject currentBodyPrefab = null;
+    public GameObject currentBodyPrefab = null;
     [SerializeField] GameObject currentHeadPrefab = null;
     [SerializeField] GameObject hairPrefab = null;
 
