@@ -22,6 +22,10 @@ MonoBehaviour:
   disableMovement: 1
   isLooping: 1
   skillIcon: {fileID: 21300000, guid: 119d206dfa7063a47a33b6f54c365dbb, type: 3}
+  abilityName: Flamethrower
+  abilityQuote: '"DO YOU LIKE TO PLAY WITH FFFFFFFIRE????" '
+  abilityDescription: 'Delivers 5 hits per second with each hit dealing 20% of Total
+    Damage. Costs 20 energy per second. Cooldown: 3 seconds.'
   behaviour: {fileID: 0}
   abilityLoopAnimation: {fileID: 7400000, guid: 053f9b26498bc6445a0328205823cca4,
     type: 2}

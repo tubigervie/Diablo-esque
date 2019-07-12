@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd86b0bb462ca3d40b8e8d834a4d4da5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPrefab: {fileID: 7714388781936237654, guid: f1983af072ca6bf469321cb9f83a7f6c,
+  tooltipPrefab: {fileID: 666228650749844407, guid: f1983af072ca6bf469321cb9f83a7f6c,
     type: 3}
 --- !u!1 &8748416932003575411
 GameObject:

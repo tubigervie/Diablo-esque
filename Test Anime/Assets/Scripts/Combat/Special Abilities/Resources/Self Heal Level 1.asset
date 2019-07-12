@@ -22,5 +22,8 @@ MonoBehaviour:
   disableMovement: 1
   isLooping: 0
   skillIcon: {fileID: 21300000, guid: 3c6e15d1ed6857b4ebbda524506c5370, type: 3}
+  abilityName: Self Care
+  abilityQuote: '"Call upon the power of the forest spirits to heal your wounds." '
+  abilityDescription: 'Restores 100 health points. Costs 75 energy. Cooldown: 10 seconds'
   behaviour: {fileID: 0}
   extraHealth: 100

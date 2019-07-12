@@ -17,6 +17,9 @@ namespace RPG.Combat
         [SerializeField] bool disableMovement = true;
         [SerializeField] bool isLooping = false;
         [SerializeField] Sprite skillIcon;
+        [SerializeField] string abilityName;
+        [SerializeField] string abilityQuote;
+        [SerializeField] string abilityDescription;
         [HideInInspector] public AbilityBehaviour behaviour;
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
@@ -28,6 +31,12 @@ namespace RPG.Combat
             behaviour = behaviourComponent;
         }
 
+        public void RemoveAbilityBehavior()
+        {
+            Destroy(behaviour);
+            behaviour = null;
+        }
+
         public void Use(GameObject target)
         {
             behaviour.Use(target);
@@ -36,6 +45,21 @@ namespace RPG.Combat
         public float GetEnergyCost()
         {
             return (isLooping) ? energyCost * Time.deltaTime : energyCost;
+        }
+
+        public string GetAbilityName()
+        {
+            return abilityName;
+        }
+
+        public string GetAbilityDescription()
+        {
+            return abilityDescription;
+        }
+
+        public string GetAbilityQuote()
+        {
+            return abilityQuote;
         }
 
         public GameObject GetParticlePrefab()

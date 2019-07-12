@@ -23,6 +23,10 @@ MonoBehaviour:
   disableMovement: 1
   isLooping: 0
   skillIcon: {fileID: 21300000, guid: 1e9e6bf562823e4408890e8a1b604b0e, type: 3}
+  abilityName: Flame Explosion
+  abilityQuote: '"BASIC ASS AOE ABILITY BLAH BLAH BLAH."'
+  abilityDescription: 'Deals 200% of Total Damage. Costs 50 energy. Cooldown: 1.2
+    seconds'
   behaviour: {fileID: 0}
   radius: 3
   percentageDamage: 200

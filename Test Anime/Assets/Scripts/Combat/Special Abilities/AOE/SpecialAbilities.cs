@@ -10,6 +10,8 @@ namespace RPG.Combat
 {
     public class SpecialAbilities : MonoBehaviour, ISaveable
     {
+        public SpecialAbilityList abilityIndex;
+        [SerializeField] AudioClip abilitySwap;
         [SerializeField] AbilityConfig[] abilities;
         [SerializeField] Image energyBar;
         [SerializeField] Text energyText;
@@ -22,9 +24,9 @@ namespace RPG.Combat
         float[] coolDownTimers;
         [SerializeField] float currentEnergyPoints;
         AudioSource audioSource;
-        string[] abilityNames;
+        string[] abilityNames = null;
         bool disableMove = false;
-        [SerializeField] int skillCount = 5;
+        [SerializeField] int skillCount = 4;
         float energyAsPercent { get { return currentEnergyPoints / maxEnergyPoints; } }
 
         // Use this for initialization
@@ -35,13 +37,13 @@ namespace RPG.Combat
             {
                 maxEnergyPoints = GetComponent<BaseStats>().GetStat(Stat.Energy);
             }
-
-            if(abilityNames == null)
-            {                    
-                abilityNames = new string[abilities.Length];
+            Debug.Log("here atleast?");
+            if (abilityNames == null)
+            {
+                abilityNames = new string[skillCount];
                 AttachInitialAbilities();
-                currentAbilityTimes = new float[abilities.Length];
-                coolDownTimers = new float[abilities.Length];
+                currentAbilityTimes = new float[skillCount];
+                coolDownTimers = new float[skillCount];
             }
 
             UpdateEnergyBar();
@@ -97,15 +99,92 @@ namespace RPG.Combat
             UpdateEnergyBar();
         }
 
-        void AttachInitialAbilities()
+        void AttachInitialAbilities(bool isRestoringState = false)
         {
+            if(!isRestoringState)
+            {
+                Debug.Log("atleast be in here");
+                abilities = new AbilityConfig[skillCount];
+                for(int i = 0; i < skillCount; i++)
+                {
+                    abilities[i] = null;
+                }
+            }
             for (int abilityIndex = 0; abilityIndex < skillCount; abilityIndex++)
             {
-                if (abilities[abilityIndex] == null) continue;
+                if (abilities[abilityIndex] == null)
+                {
+                    Debug.Log("is empty");
+                    abilityImages[abilityIndex].sprite = null;
+                    abilityNames[abilityIndex] = "";
+                    abilityImages[abilityIndex].color = Color.black;
+                    continue;
+                }
                 abilityImages[abilityIndex].sprite = abilities[abilityIndex].GetIcon();
                 abilities[abilityIndex].AttachAbilityTo(gameObject);
                 abilityNames[abilityIndex] = abilities[abilityIndex].name;
+                abilityImages[abilityIndex].color = Color.white;
             }
+        }
+
+        public void SwitchAbilityAtIndex(AbilityConfig newAbility, int index)
+        {
+            if (abilities[index] == newAbility) return;
+            for(int i = 0; i < abilities.Length; i++)
+            {
+                if(abilities[i] == newAbility)
+                {
+                    AbilityConfig abilityAtIndex = abilities[index];
+                    float abilityAtIndexTimer = coolDownTimers[index];
+
+                    float abilityFoundTimer = coolDownTimers[i];
+
+                    abilities[index] = newAbility;
+                    abilityImages[index].sprite = abilities[index].GetIcon();
+                    abilityImages[index].color = Color.white;
+                    abilityNames[index] = abilities[index].name;
+                    currentAbilityTimes[index] = abilities[index].GetCooldownTime();
+                    coolDownTimers[index] = abilityFoundTimer;
+                    abilityCooldowns[index].fillAmount = coolDownTimers[index] / currentAbilityTimes[index];
+
+                    abilities[i] = abilityAtIndex;
+                    if(abilities[i] != null)
+                    {
+                        abilityNames[i] = abilities[i].name;
+                        abilityImages[i].sprite = abilities[i].GetIcon();
+                        currentAbilityTimes[i] = abilities[i].GetCooldownTime();
+                        coolDownTimers[i] = abilityAtIndexTimer;
+                        abilityCooldowns[i].fillAmount = coolDownTimers[i] / currentAbilityTimes[i];
+                    }
+                    else
+                    {
+                        abilityNames[i] = "";
+                        abilityImages[i].sprite = null;
+                        abilityImages[i].color = Color.black;
+                        currentAbilityTimes[i] = 0;
+                        coolDownTimers[i] = 0;
+                        abilityCooldowns[i].fillAmount = 0;
+                    }
+                    GetComponent<AudioSource>().PlayOneShot(abilitySwap);
+                    return;
+                }
+            }
+            if(abilities[index] != null)
+                abilities[index].RemoveAbilityBehavior();
+            abilities[index] = newAbility;
+            abilityImages[index].sprite = abilities[index].GetIcon();
+            abilityImages[index].color = Color.white;
+            abilities[index].AttachAbilityTo(gameObject);
+            abilityNames[index] = abilities[index].name;
+            currentAbilityTimes[index] = abilities[index].GetCooldownTime();
+            coolDownTimers[index] = coolDownTimers[index];
+            abilityCooldowns[index].fillAmount = coolDownTimers[index] / currentAbilityTimes[index];
+            GetComponent<AudioSource>().PlayOneShot(abilitySwap);
+        }
+
+        public AbilityConfig GetAbilityAt(int index)
+        {
+            return abilities[index];
         }
 
         public void SetDisableMove(bool setter)
@@ -277,16 +356,15 @@ namespace RPG.Combat
             KeyValuePair<string[], float> values = (KeyValuePair<string[], float>) state;
             currentEnergyPoints = values.Value;
             abilityNames = values.Key;
+            Debug.Log("abilityName count: " + abilityNames.Length);
             abilities = new AbilityConfig[skillCount];
             for(int i = 0; i < skillCount; i++)
             {
-                if (i >= abilityNames.Length)
-                    abilities[i] = null;
                 abilities[i] = Resources.Load<AbilityConfig>(abilityNames[i]);
                 currentAbilityTimes = new float[abilities.Length];
                 coolDownTimers = new float[abilities.Length];
             }
-            AttachInitialAbilities();
+            AttachInitialAbilities(true);
         }
     }
 

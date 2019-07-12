@@ -29,6 +29,15 @@ namespace RPG.CameraUI
             {
                 if (statsTab.activeSelf || abilitiesTab.activeSelf)
                 {
+                    var parentCanvas = GetComponentInParent<Canvas>();
+                    StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
+                    if (statTip != null)
+                        Destroy(statTip.gameObject);
+                    AbilityTooltip abilityTooltip = parentCanvas.GetComponentInChildren<AbilityTooltip>();
+                    if (abilityTooltip != null)
+                        Destroy(abilityTooltip.gameObject);
+                    var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
+                    abilityUI.DisableAbilitySetter();
                     SwitchToInventory();
                     return;
                 }
@@ -45,6 +54,12 @@ namespace RPG.CameraUI
             {
                 if(inventoryTab.activeSelf || abilitiesTab.activeSelf)
                 {
+                    var parentCanvas = GetComponentInParent<Canvas>();
+                    AbilityTooltip abilityTooltip = parentCanvas.GetComponentInChildren<AbilityTooltip>();
+                    if (abilityTooltip != null)
+                        Destroy(abilityTooltip.gameObject);
+                    var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
+                    abilityUI.DisableAbilitySetter();
                     SwitchToStats();
                     return;
                 }
@@ -65,6 +80,10 @@ namespace RPG.CameraUI
             {
                 if (statsTab.activeSelf || inventoryTab.activeSelf)
                 {
+                    var parentCanvas = GetComponentInParent<Canvas>();
+                    StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
+                    if (statTip != null)
+                        Destroy(statTip.gameObject);
                     SwitchToAbilities();
                     return;
                 }
@@ -74,6 +93,12 @@ namespace RPG.CameraUI
                 if (!uiContainer.activeSelf)
                 {
                     invUI.DisableActiveButton();
+                    var parentCanvas = GetComponentInParent<Canvas>();
+                    AbilityTooltip abilityTooltip = parentCanvas.GetComponentInChildren<AbilityTooltip>();
+                    if (abilityTooltip != null)
+                        Destroy(abilityTooltip.gameObject);
+                    var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
+                    abilityUI.DisableAbilitySetter();
                 }
                 player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
             }
@@ -97,6 +122,11 @@ namespace RPG.CameraUI
                 StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
                 if (statTip != null)
                     Destroy(statTip.gameObject);
+                AbilityTooltip abilityTooltip = parentCanvas.GetComponentInChildren<AbilityTooltip>();
+                if (abilityTooltip != null)
+                    Destroy(abilityTooltip.gameObject);
+                var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
+                abilityUI.DisableAbilitySetter();
             }
             player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
         }

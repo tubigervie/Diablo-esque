@@ -171,7 +171,7 @@ namespace RPG.Control
 
             if (key1Down)
             {
-                if (abilities.HasEnoughEnergy(0))
+                if (abilities.GetAbilityAt(0) != null && abilities.HasEnoughEnergy(0))
                 {
                     skill1WasDown = true;
                     skill2WasDown = false;
@@ -185,7 +185,7 @@ namespace RPG.Control
             }
             else if (key2Down)
             {
-                if (abilities.HasEnoughEnergy(1))
+                if (abilities.GetAbilityAt(1) != null && abilities.HasEnoughEnergy(1))
                 {
                     skill2WasDown = true;
                     skill1WasDown = false;
@@ -199,7 +199,7 @@ namespace RPG.Control
             }
             else if(key3Down)
             {
-                if (abilities.HasEnoughEnergy(2))
+                if (abilities.GetAbilityAt(2) != null && abilities.HasEnoughEnergy(2))
                 {
                     skill3WasDown = true;
                     skill2WasDown = false;
@@ -213,7 +213,7 @@ namespace RPG.Control
             }
             else if(key4Down)
             {
-                if(abilities.HasEnoughEnergy(3))
+                if(abilities.GetAbilityAt(3) != null && abilities.HasEnoughEnergy(3))
                 {
                     skill4WasDown = true;
                     skill3WasDown = false;
