@@ -69,9 +69,9 @@ namespace RPG.Control
             }
             if (InteractWithCombat())
                 return;
-            if (InteractWithItems())
-                return;
             if (InteractWithMovement())
+                return;
+            if (InteractWithItems())
                 return;
             SetCursor(CursorType.None);
         }

@@ -56,7 +56,7 @@ namespace RPG.SceneManagement
             savingWrapper.loadAuto();
             UpdatePlayer(otherPortal);
 
-            savingWrapper.AutoSave();
+            //savingWrapper.AutoSave();
 
             yield return new WaitForSeconds(fadeWaitTime);
 

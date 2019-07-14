@@ -29,6 +29,13 @@ namespace RPG.Saving
             }
         }
 
+        public void ClearSaveFile(string saveFile)
+        {
+            string savePath = GetPathFromSaveFile(saveFile);
+            if (File.Exists(savePath))
+                File.Delete(savePath);
+        }
+
         private void CaptureState(Dictionary<string, object> state)
         {
             foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
@@ -36,6 +43,39 @@ namespace RPG.Saving
                 state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
             }
             state["currentSceneBuildIndex"] = SceneManager.GetActiveScene().name;
+        }
+
+        public string[] GetSaveFileList()
+        {
+            var filePaths = new string[3] { "save", "save2", "save3" };
+            return filePaths;
+        }
+
+        public string GetLastSaveFile()
+        {
+            var saveFiles = GetSaveFileList();
+            string lastSaveFile = null;
+            DateTime lastSaveFileWriteTime = DateTime.MinValue;
+            foreach(var saveFile in saveFiles)
+            {
+                var writeTime = File.GetLastWriteTime(GetPathFromSaveFile(saveFile));
+                if(writeTime > lastSaveFileWriteTime)
+                {
+                    lastSaveFileWriteTime = writeTime;
+                    lastSaveFile = saveFile;
+                }
+            }
+            return lastSaveFile;
+        }
+
+        public string GetSaveWriteTime(string saveFile)
+        {
+            if(CheckForSave(saveFile))
+            {
+                var writeTime = File.GetLastWriteTime(GetPathFromSaveFile(saveFile));
+                return writeTime.ToString("yyyy-MM-dd HH.mm.ss");
+            }
+            return "";
         }
 
         public void Load(string saveFile)

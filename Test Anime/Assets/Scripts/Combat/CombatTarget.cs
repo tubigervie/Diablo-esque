@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Core;
 using RPG.Resource;
+using RPG.Control;
 
 namespace RPG.Combat
 {
@@ -10,16 +11,6 @@ namespace RPG.Combat
     public class CombatTarget : MonoBehaviour
     {
         public string displayID;
-        // Start is called before the first frame update
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
