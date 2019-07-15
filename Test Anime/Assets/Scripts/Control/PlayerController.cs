@@ -7,6 +7,8 @@ using RPG.Core;
 using RPG.UI;
 using RPG.Resource;
 using System;
+using RPG.Dialogue;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -17,7 +19,8 @@ namespace RPG.Control
             None,
             Movement,
             Combat,
-            Loot
+            Loot,
+            Talk
         }
 
         [System.Serializable]
@@ -27,6 +30,8 @@ namespace RPG.Control
             public Texture2D texture;
             public Vector2 hotspot;
         }
+        [SerializeField] float maxNavMeshProjectionDistance = 1f;
+        [SerializeField] float maxNavPathLength = 40f;
 
         [SerializeField] CursorMapping[] cursorMappings = null;
         bool skill1WasDown;
@@ -73,7 +78,51 @@ namespace RPG.Control
                 return;
             if (InteractWithItems())
                 return;
+            if (InteractWithDialogue())
+                return;
             SetCursor(CursorType.None);
+        }
+
+        private bool InteractWithDialogue()
+        {
+            if (!canMove)
+                return false;
+            bool clickInput = Input.GetMouseButtonDown(0);
+            RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
+            foreach (RaycastHit hit in hits)
+            {
+                Voice target = hit.collider.gameObject.GetComponent<Voice>();
+                if (target == null)
+                    continue;
+                SetCursor(CursorType.Talk);
+                if (clickInput)
+                {
+                    if (Vector3.Distance(transform.position, target.transform.position) < 2f)
+                    {
+                        this.StopAllCoroutines();
+                        target.ShowDialog();
+                    }
+                    else
+                    {
+                        this.StopAllCoroutines();
+                        StartCoroutine(MoveAndTalk(target));
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private IEnumerator MoveAndTalk(Voice target)
+        {
+            mover.MoveTo(target.transform.position, 1f);
+            while (Vector3.Distance(transform.position, target.transform.position) > 2f)
+            {
+                yield return null;
+            }
+            mover.Cancel();
+            yield return new WaitForSeconds(.1f);
+            target.ShowDialog();
         }
 
         private bool InteractWithItems()
@@ -340,10 +389,11 @@ namespace RPG.Control
                     continue;
                 if (!GetComponent<Fighter>().CanAttack(target.gameObject))
                     continue;
-                SetCursor(CursorType.Combat);
+                if (Vector3.Distance(transform.position, target.transform.position) < 15)
+                    SetCursor(CursorType.Combat);
                 if (clickInput && (!targetHealth.IsActive() || targetHealth.target != target.gameObject.GetComponent<Health>()))
                 {
-                    if (Vector3.Distance(transform.position, target.transform.position) < 20)
+                    if (Vector3.Distance(transform.position, target.transform.position) < 15)
                         targetHealth.OnEnabled(target.gameObject.GetComponent<Health>(), target.displayID);
                 }
                 else if (clickInput)
@@ -364,35 +414,41 @@ namespace RPG.Control
         {
             if (!canMove)
                 return false;
-            //RaycastHit hit;
-            RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
-            float shortesttYPos = Mathf.Infinity;
-            RaycastHit shortestHit = new RaycastHit();
-            foreach(RaycastHit hit in hits)
+            ////RaycastHit hit;
+            //RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
+            //float shortesttYPos = Mathf.Infinity;
+            //RaycastHit shortestHit = new RaycastHit();
+            //foreach(RaycastHit hit in hits)
+            //{
+            //    if(hit.collider.gameObject.layer == 8)
+            //    {
+            //        float hitYPos = hit.collider.gameObject.transform.position.y;
+            //        if (shortestHit.collider == null)
+            //        {
+            //            shortestHit = hit;
+            //            shortesttYPos = hitYPos;
+            //        }
+            //        else if(hitYPos > shortesttYPos)
+            //        {
+            //            shortestHit = hit;
+            //            shortesttYPos = hitYPos;
+            //        }
+            //    }
+            //}
+            //if (shortestHit.collider == null) return false;
+            Vector3 target;
+            bool hasHit = RaycastNavMesh(out target);
+            if(hasHit)
             {
-                if(hit.collider.gameObject.layer == 8)
+                if (Input.GetMouseButton(1)/* && !shortestHit.collider.CompareTag("Player") && Vector3.Distance(transform.position, shortestHit.point) > .5f*/)
                 {
-                    float hitYPos = hit.collider.gameObject.transform.position.y;
-                    if (shortestHit.collider == null)
-                    {
-                        shortestHit = hit;
-                        shortesttYPos = hitYPos;
-                    }
-                    else if(hitYPos > shortesttYPos)
-                    {
-                        shortestHit = hit;
-                        shortesttYPos = hitYPos;
-                    }
+                    this.StopAllCoroutines();
+                    mover.StartMoveAction(target, 1f);
+                    SetCursor(CursorType.Movement);
+                    return true;
                 }
             }
-            if (shortestHit.collider == null) return false;
-            if (Input.GetMouseButton(1) && !shortestHit.collider.CompareTag("Player") && Vector3.Distance(transform.position, shortestHit.point) > .5f)
-            {
-                this.StopAllCoroutines();
-                mover.StartMoveAction(shortestHit.point, 1f);
-                SetCursor(CursorType.Movement);
-                return true;
-            }
+
             return false;
             //bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
             //if (hasHit)
@@ -413,6 +469,41 @@ namespace RPG.Control
             {
                 mover.Cancel();
             }
+        }
+
+        private bool RaycastNavMesh(out Vector3 target)
+        {
+            target = new Vector3();
+
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+            if (!hasHit) return false;
+            NavMeshHit navMeshHit;
+            bool hasCastToNavMesh = NavMesh.SamplePosition(hit.point, out navMeshHit, maxNavMeshProjectionDistance, NavMesh.AllAreas);
+            if (!hasCastToNavMesh) return false;
+
+            target = navMeshHit.position;
+
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetPathLength(path) > maxNavPathLength) return false;
+
+            return true;
+        }
+
+        private float GetPathLength(NavMeshPath path)
+        {
+            float total = 0;
+            if (path.corners.Length < 2) return total;
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                total += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+
+            return total;
         }
 
         public void AllowMovement()

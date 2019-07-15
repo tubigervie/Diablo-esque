@@ -45,7 +45,6 @@ namespace RPG.Combat
 
             if (!inUse)
             {
-                Debug.Log("should not be here");
                 GetComponent<Fighter>().Cancel();
                 PlayAbilitySound();
                 PlayParticleEffect();

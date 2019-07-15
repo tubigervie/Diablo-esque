@@ -3052,7 +3052,7 @@ PrefabInstance:
     - target: {fileID: 3048105747710007816, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
       propertyPath: cursorMappings.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3048105747710007816, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
@@ -3089,6 +3089,16 @@ PrefabInstance:
       propertyPath: cursorMappings.Array.data[3].texture
       value: 
       objectReference: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    - target: {fileID: 3048105747710007816, guid: 7e325077345883d41841e65f6e8d9ba2,
+        type: 3}
+      propertyPath: cursorMappings.Array.data[4].type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048105747710007816, guid: 7e325077345883d41841e65f6e8d9ba2,
+        type: 3}
+      propertyPath: cursorMappings.Array.data[4].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 96d4bfdb0d6d8c042bf8fccf6524d239, type: 3}
     - target: {fileID: 5203078757660016243, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
       propertyPath: enemyName
@@ -3125,6 +3135,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a276931967c9221439832ce54fd7f07c,
         type: 2}
+    - target: {fileID: 5718227515760546824, guid: 7e325077345883d41841e65f6e8d9ba2,
+        type: 3}
+      propertyPath: basicAttackCooldown
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7478001934209103745, guid: 7e325077345883d41841e65f6e8d9ba2,
         type: 3}
       propertyPath: waypointMarker

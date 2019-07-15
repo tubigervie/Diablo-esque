@@ -40,7 +40,7 @@ namespace RPG.UI
             if (healthUI.activeInHierarchy && target != null)
             {
                 healthSlider.fillAmount = target.GetCurrentHealth() / target.GetTotalHealth();
-                if (target.IsDead() || Vector3.Distance(transform.position, target.transform.position) > 20)
+                if (target.IsDead() || Vector3.Distance(transform.position, target.transform.position) > 15)
                 {
                     Disable();
                 }

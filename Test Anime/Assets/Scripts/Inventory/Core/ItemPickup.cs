@@ -95,7 +95,7 @@ public class ItemPickup : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         pivot.transform.LookAt(_camera.transform.position);
     }

@@ -6,6 +6,7 @@ using RPG.Core;
 using RPG.Saving;
 using RPG.Resource;
 using RPG.Stats;
+using UnityEngine.UI;
 
 namespace RPG.Combat
 {
@@ -22,6 +23,7 @@ namespace RPG.Combat
 
         public float timeSinceLastAttack = Mathf.Infinity;
         [SerializeField] WeaponInstance currentWeapon = null;
+
         bool attackLock = false;
         bool clickInput = false;
 
@@ -68,6 +70,7 @@ namespace RPG.Combat
         private void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
+
             if (timeSinceLastAttack > 5)
                 anim.SetBool("inBattle", false);
             if (combatTarget == null)

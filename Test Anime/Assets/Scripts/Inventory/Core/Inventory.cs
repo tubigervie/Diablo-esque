@@ -461,6 +461,7 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         {
             if(!String.IsNullOrEmpty(slotStrings[i].Key))
             {
+                Debug.Log(slotStrings[i].Key);
                 InventoryItem itemBase = inventoryItemList.GetFromID(slotStrings[i].Key);
                 inventorySlots[i].item = new ItemInstance(itemBase, slotStrings[i].Value);
             }

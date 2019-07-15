@@ -5795,7 +5795,7 @@ PrefabInstance:
     - target: {fileID: 4761224670759172484, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -570.7501
+      value: -566.2864
       objectReference: {fileID: 0}
     - target: {fileID: 4761224670759172484, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
         type: 3}
@@ -6282,6 +6282,51 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: equipSlot
+      value: 
+      objectReference: {fileID: 5451315237530687962}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: damageText
+      value: 
+      objectReference: {fileID: 6573528975829324748}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: defenseText
+      value: 
+      objectReference: {fileID: 5212869239788650289}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: necklaceSlot
+      value: 
+      objectReference: {fileID: 5525064302261318052}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 5451315237530687962}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: gloveSlot
+      value: 
+      objectReference: {fileID: 2106529303521571656}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: bootSlot
+      value: 
+      objectReference: {fileID: 2290713603168627349}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: armorSlot
+      value: 
+      objectReference: {fileID: 5352364739595685885}
+    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
+        type: 3}
+      propertyPath: headSlot
+      value: 
+      objectReference: {fileID: 2409048116954475560}
     - target: {fileID: 4760881575404306190, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -6335,7 +6380,7 @@ PrefabInstance:
     - target: {fileID: 4655522953391929268, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
         type: 3}
       propertyPath: m_Size
-      value: 0.94257903
+      value: 0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 4654996678077510544, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
         type: 3}
@@ -6367,51 +6412,6 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.7490196
       objectReference: {fileID: 0}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: equipSlot
-      value: 
-      objectReference: {fileID: 5451315237530687962}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: damageText
-      value: 
-      objectReference: {fileID: 6573528975829324748}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: defenseText
-      value: 
-      objectReference: {fileID: 5212869239788650289}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: necklaceSlot
-      value: 
-      objectReference: {fileID: 5525064302261318052}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 5451315237530687962}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: gloveSlot
-      value: 
-      objectReference: {fileID: 2106529303521571656}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: bootSlot
-      value: 
-      objectReference: {fileID: 2290713603168627349}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: armorSlot
-      value: 
-      objectReference: {fileID: 5352364739595685885}
-    - target: {fileID: 7357193349545946188, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
-        type: 3}
-      propertyPath: headSlot
-      value: 
-      objectReference: {fileID: 2409048116954475560}
     - target: {fileID: 4655402621789350112, guid: 9f83b4029f4b8bf48933ffe33ed0dd3e,
         type: 3}
       propertyPath: m_Color.r
