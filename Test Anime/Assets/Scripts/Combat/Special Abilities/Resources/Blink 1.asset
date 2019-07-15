@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b321e8cb1bc5cfc419d12c287abb2c5c, type: 3}
+  m_Name: Blink 1
+  m_EditorClassIdentifier: 
+  energyCost: 10
+  coolDownTime: 1.4
+  particlePrefab: {fileID: 156048, guid: 56444d1aef63b664caefd0998460ef03, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: ae71a4ecac879d246a8a1962baf559bf, type: 2}
+  audioClips:
+  - {fileID: 8300000, guid: b6d29ceacf6dbe24a90693c80ca012c1, type: 3}
+  clipSpeed: 1
+  disableMovement: 0
+  isLooping: 0
+  skillIcon: {fileID: 21300000, guid: b3ee66640eccd5b4e95a408aca2f9e23, type: 3}
+  abilityName: Combat Blink
+  abilityQuote: blah bkah
+  abilityDescription: nasdisaidn
+  behaviour: {fileID: 0}
+  range: 6

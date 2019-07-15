@@ -21,3 +21,5 @@ MonoBehaviour:
     config: {fileID: 11400000, guid: 8fe6d0a3c983b254b91aeccbe241e6c3, type: 2}
   - level: 5
     config: {fileID: 11400000, guid: bb8627f1e1fbd3c41ae21a2a83841e83, type: 2}
+  - level: 5
+    config: {fileID: 11400000, guid: a339e84df7ae78e4bab526205bb94fc1, type: 2}
