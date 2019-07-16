@@ -414,28 +414,7 @@ namespace RPG.Control
         {
             if (!canMove)
                 return false;
-            ////RaycastHit hit;
-            //RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
-            //float shortesttYPos = Mathf.Infinity;
-            //RaycastHit shortestHit = new RaycastHit();
-            //foreach(RaycastHit hit in hits)
-            //{
-            //    if(hit.collider.gameObject.layer == 8)
-            //    {
-            //        float hitYPos = hit.collider.gameObject.transform.position.y;
-            //        if (shortestHit.collider == null)
-            //        {
-            //            shortestHit = hit;
-            //            shortesttYPos = hitYPos;
-            //        }
-            //        else if(hitYPos > shortesttYPos)
-            //        {
-            //            shortestHit = hit;
-            //            shortesttYPos = hitYPos;
-            //        }
-            //    }
-            //}
-            //if (shortestHit.collider == null) return false;
+
             Vector3 target;
             bool hasHit = RaycastNavMesh(out target);
             if(hasHit)
@@ -450,16 +429,6 @@ namespace RPG.Control
             }
 
             return false;
-            //bool hasHit = Physics.Raycast((Ray)GetMouseRay(), out hit);
-            //if (hasHit)
-            //{
-            //    if (Input.GetMouseButton(1) && !hit.collider.CompareTag("Player") && Vector3.Distance(transform.position, hit.point) > .5f)
-            //    {
-            //        mover.StartMoveAction(hit.point, 1f);
-            //    }
-            //    return true;
-            //}
-            //return false;
         }
 
         public void ToggleMovement()
@@ -475,11 +444,32 @@ namespace RPG.Control
         {
             target = new Vector3();
 
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
-            if (!hasHit) return false;
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+
+            //RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
+            float shortesttYPos = Mathf.Infinity;
+            RaycastHit shortestHit = new RaycastHit();
+            foreach (RaycastHit hitz in hits)
+            {
+                if (hitz.collider.gameObject.layer == 8)
+                {
+                    float hitYPos = hitz.collider.gameObject.transform.position.y;
+                    if (shortestHit.collider == null)
+                    {
+                        shortestHit = hitz;
+                        shortesttYPos = hitYPos;
+                    }
+                    else if (hitYPos > shortesttYPos)
+                    {
+                        shortestHit = hitz;
+                        shortesttYPos = hitYPos;
+                    }
+                }
+            }
+            if (shortestHit.collider == null) return false;
+
             NavMeshHit navMeshHit;
-            bool hasCastToNavMesh = NavMesh.SamplePosition(hit.point, out navMeshHit, maxNavMeshProjectionDistance, NavMesh.AllAreas);
+            bool hasCastToNavMesh = NavMesh.SamplePosition(shortestHit.point, out navMeshHit, maxNavMeshProjectionDistance, NavMesh.AllAreas);
             if (!hasCastToNavMesh) return false;
 
             target = navMeshHit.position;

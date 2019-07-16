@@ -12,15 +12,17 @@ public class SkillBehaviour : StateMachineBehaviour
     {
         if(animator.gameObject.GetComponent<SpecialAbilities>().GetDisableMove())
         {
-            animator.gameObject.GetComponent<PlayerController>().ToggleMovement();
+            animator.gameObject.GetComponent<PlayerController>().DisableMovement();
         }
+        else
+            animator.gameObject.GetComponent<PlayerController>().AllowMovement();
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("abilityOneShot", false);
         if (animator.gameObject.GetComponent<SpecialAbilities>().GetDisableMove())
         {
-            animator.gameObject.GetComponent<PlayerController>().ToggleMovement();
+            animator.gameObject.GetComponent<PlayerController>().AllowMovement();
         }
     }
 }

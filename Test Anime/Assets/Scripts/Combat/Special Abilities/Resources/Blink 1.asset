@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b321e8cb1bc5cfc419d12c287abb2c5c, type: 3}
   m_Name: Blink 1
   m_EditorClassIdentifier: 
-  energyCost: 10
-  coolDownTime: 1.4
+  energyCost: 40
+  coolDownTime: 5
   particlePrefab: {fileID: 156048, guid: 56444d1aef63b664caefd0998460ef03, type: 3}
   abilityAnimation: {fileID: 7400000, guid: ae71a4ecac879d246a8a1962baf559bf, type: 2}
   audioClips:
@@ -23,7 +23,10 @@ MonoBehaviour:
   isLooping: 0
   skillIcon: {fileID: 21300000, guid: b3ee66640eccd5b4e95a408aca2f9e23, type: 3}
   abilityName: Combat Blink
-  abilityQuote: blah bkah
-  abilityDescription: nasdisaidn
+  abilityQuote: '*teleports behind you* Nothing personal, kid.'
+  abilityDescription: Teleports the player towards the position of the mouse cursor
+    with a maximum distance of 6 meters. Any attempts to teleport to an unnavigable
+    spot will result in the player teleporting in place. Costs 40 energy and has a
+    cooldown of 5 seconds.
   behaviour: {fileID: 0}
   range: 6
