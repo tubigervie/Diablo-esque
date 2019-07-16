@@ -10,7 +10,7 @@ namespace RPG.Editor.Dialogue
     public class Node
     {
         private GUIStyle style = new GUIStyle();
-        private Vector2 size = new Vector2(300, 100);
+        private Vector2 size = new Vector2(300, 115);
         private ConversationNode nodeModel;
         private Conversation conversationModel;
         private DialogueEditor editor;
@@ -43,7 +43,10 @@ namespace RPG.Editor.Dialogue
             GUILayout.BeginArea(GetRect(), style);
             var textStyle = new GUIStyle(EditorStyles.textArea);
             textStyle.wordWrap = true;
+
+            EditorGUILayout.LabelField("Dialogue Line:", EditorStyles.whiteBoldLabel);
             nodeModel.text = EditorGUILayout.TextArea(nodeModel.text, textStyle);
+            EditorGUILayout.LabelField("Action to trigger:", EditorStyles.whiteBoldLabel);
             nodeModel.actionToTrigger = EditorGUILayout.TextArea(nodeModel.actionToTrigger, textStyle);
             GUILayout.EndArea();
         }

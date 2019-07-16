@@ -90,7 +90,7 @@ namespace RPG.Editor.Dialogue
             nodeViews.Clear();
 
             if (!currentSelection) return;
-
+            if (currentSelection.nodes == null) return;
             foreach (var node in currentSelection.nodes)
                 nodeViews.Add(new Node(node, currentSelection, this));
         }

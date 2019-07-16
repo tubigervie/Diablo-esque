@@ -24,9 +24,9 @@ MonoBehaviour:
   skillIcon: {fileID: 21300000, guid: b3ee66640eccd5b4e95a408aca2f9e23, type: 3}
   abilityName: Combat Blink
   abilityQuote: '*teleports behind you* Nothing personal, kid.'
-  abilityDescription: Teleports the player towards the position of the mouse cursor
+  abilityDescription: 'Teleports the player towards the position of the mouse cursor
     with a maximum distance of 6 meters. Any attempts to teleport to an unnavigable
-    spot will result in the player teleporting in place. Costs 40 energy and has a
-    cooldown of 5 seconds.
+    spot will result in the player teleporting in place. Costs 40 energy. Cooldown:
+    5 seconds.'
   behaviour: {fileID: 0}
   range: 6

@@ -26,6 +26,7 @@ namespace RPG.Dialogue
 
             var node = new ConversationNode();
             node.position = posittion;
+            node.UUID = System.Guid.NewGuid().ToString();
             nodes.Add(node);
 
             OnValidate();
