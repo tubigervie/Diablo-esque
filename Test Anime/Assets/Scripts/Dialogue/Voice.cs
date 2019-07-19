@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG.Questing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +53,20 @@ namespace RPG.Dialogue
 
         public void TriggerQuestIfAny()
         {
-           
+            if (questID == null) return;
+            var journal = FindObjectOfType<Journal>();
+            var quest = journal.GetQuestById(questID);
+            if (quest == null) return;
+            journal.AddQuest(quest);
+        }
+
+        public void CompleteQuestIfAny()
+        {
+            if (questID == null) return;
+            var journal = FindObjectOfType<Journal>();
+            var quest = journal.GetQuestById(questID);
+            if (quest == null) return;
+            journal.CompleteQuest(quest);
         }
 
         public void ShowDialog() //set in player controller

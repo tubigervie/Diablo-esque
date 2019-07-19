@@ -5,11 +5,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour, ISaveable, IModifier
 {
-    int coins;
-
+    [SerializeField ] int coins;
+    [SerializeField] Text coinText;
     [SerializeField] EquippableItem defaultWeaponBase;
     [SerializeField] EquippableItem defaultArmorBase;
 
@@ -373,7 +374,18 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
 
     public void AddCoin(int amount)
     {
+        int initial = coins;
         coins += amount;
+        StartCoroutine(ChangeCoinText(initial, coins));
+    }
+
+    IEnumerator ChangeCoinText(int initial, int final)
+    {
+        for(int i = initial; i <= final; i++)
+        {
+            coinText.text = i.ToString();
+            yield return null;
+        }
     }
 
     public int GetCoinAmount()

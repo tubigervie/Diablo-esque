@@ -14,38 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nodes:
   - UUID: a3c152c1-e0f6-4e5f-9c0b-5d22fa62bca9
-    position: {x: 367, y: 26}
+    position: {x: 369, y: 36}
     text: Hello! My name is Ervs!
     children:
     - f19203c8-d561-4d15-82d8-52fd3b3dc2e0
     - aa4a46dd-03a7-41e7-9e1b-5a9b03c9ed59
     actionToTrigger: 
   - UUID: f19203c8-d561-4d15-82d8-52fd3b3dc2e0
-    position: {x: 106, y: 199}
+    position: {x: 67, y: 184}
     text: Nice to meet you!
     children:
     - f1deba32-fd44-4d66-9299-0899dab01014
     actionToTrigger: 
   - UUID: f1deba32-fd44-4d66-9299-0899dab01014
-    position: {x: 121, y: 355}
+    position: {x: 88, y: 358}
     text: Nice to meet you too!
     children:
     - 5f76d471-33e7-4cb5-a19e-419bf422f6dd
     actionToTrigger: 
   - UUID: 13eca479-0901-4c3d-af17-44f1f1ae3f86
-    position: {x: 632, y: 347}
+    position: {x: 783, y: 353}
     text: '*starts crying uncontrollably*'
     children:
     - 5f76d471-33e7-4cb5-a19e-419bf422f6dd
     actionToTrigger: 
   - UUID: aa4a46dd-03a7-41e7-9e1b-5a9b03c9ed59
-    position: {x: 636, y: 191}
+    position: {x: 769, y: 184}
     text: Who cares????
     children:
     - 13eca479-0901-4c3d-af17-44f1f1ae3f86
     actionToTrigger: 
   - UUID: 5f76d471-33e7-4cb5-a19e-419bf422f6dd
-    position: {x: 395, y: 504}
+    position: {x: 423, y: 497}
     text: Bye.
     children: []
     actionToTrigger: 

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d81ba043efb05d445bb4045a94c92317, type: 3}
+  m_Name: Quest List
+  m_EditorClassIdentifier: 
+  quests:
+  - uniqueName: kill
+    displayName: Orc Troubles
+    questDescription: Kill the big baddie orc terrorizing the village.
+    rewardCoin: 300
+    rewardXP: 100
+    itemReward: {fileID: 0}
