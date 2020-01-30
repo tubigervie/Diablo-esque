@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 839460270105b5c4b8f69c664875ce6b, type: 3}
-  m_Name: OrcQuest
+  m_Name: OrcQuestStart
   m_EditorClassIdentifier: 
   _nodes:
   - UUID: 456813ed-ea12-4e09-a6f9-143652d1499a

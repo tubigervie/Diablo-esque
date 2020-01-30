@@ -30,16 +30,17 @@ namespace RPG.Combat
         public const string DEFAULT_LOOP = "Spin Loop";
         public const string DEFAULT_LOOP_END = "Spin End";
         public bool inUse = false;
-
+        public bool enemyAbility;
         const float PARTICLE_CLEAN_UP_DELAY = 20f;
 
         public abstract void Use(GameObject target = null);
 
         public abstract void Cancel();
 
-        public void SetConfig(AbilityConfig configToSet)
+        public void SetConfig(AbilityConfig configToSet, bool isEnemy = false)
         {
             config = configToSet;
+            enemyAbility = isEnemy;
         }
 
         protected abstract void PlayParticleEffect();

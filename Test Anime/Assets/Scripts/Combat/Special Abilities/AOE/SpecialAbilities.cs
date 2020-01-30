@@ -29,6 +29,8 @@ namespace RPG.Combat
         [SerializeField] int skillCount = 4;
         float energyAsPercent { get { return currentEnergyPoints / maxEnergyPoints; } }
 
+        AbilityBehaviour[] abilityBehaviours;
+
         // Use this for initialization
         void Start()
         {
@@ -101,6 +103,7 @@ namespace RPG.Combat
 
         void AttachInitialAbilities(bool isRestoringState = false)
         {
+            abilityBehaviours = new AbilityBehaviour[skillCount];
             if(!isRestoringState)
             {
                 Debug.Log("atleast be in here");
@@ -108,6 +111,7 @@ namespace RPG.Combat
                 for(int i = 0; i < skillCount; i++)
                 {
                     abilities[i] = null;
+                    abilityBehaviours[i] = null;
                 }
             }
             for (int abilityIndex = 0; abilityIndex < skillCount; abilityIndex++)
@@ -121,7 +125,7 @@ namespace RPG.Combat
                     continue;
                 }
                 abilityImages[abilityIndex].sprite = abilities[abilityIndex].GetIcon();
-                abilities[abilityIndex].AttachAbilityTo(gameObject);
+                abilityBehaviours[abilityIndex] = abilities[abilityIndex].AttachAbilityTo(gameObject);
                 abilityNames[abilityIndex] = abilities[abilityIndex].name;
                 abilityImages[abilityIndex].color = Color.white;
             }
@@ -269,12 +273,12 @@ namespace RPG.Combat
             {
                 ConsumeEnergy(energyCost);
                 disableMove = abilities[abilityIndex].GetDisableMovement();
-                abilities[abilityIndex].Use(target);
+                abilityBehaviours[abilityIndex].Use(target);
             }
             else
             {
                 ConsumeEnergy(energyCost);
-                abilities[abilityIndex].Use(target);
+                abilityBehaviours[abilityIndex].Use(target);
                 disableMove = abilities[abilityIndex].GetDisableMovement();
                 coolDownTimers[abilityIndex] = abilities[abilityIndex].GetCooldownTime();
                 currentAbilityTimes[abilityIndex] = coolDownTimers[abilityIndex];

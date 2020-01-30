@@ -12,6 +12,9 @@ namespace RPG.Control
 {
     public class AIController : MonoBehaviour, ISaveable
     {
+        public bool disableMove;
+
+        [SerializeField] AIActionDatabase aiDatabase;
         [SerializeField] float detectDistance = 5f;
         [SerializeField] float chaseDistance = 10f;
         [SerializeField] float suspicionTime = 5f;
@@ -20,6 +23,9 @@ namespace RPG.Control
         [Range(0,1)]
         [SerializeField] float patrolSpeedFraction = .2f;
         [SerializeField] float wayPointTime = 5f;
+        [SerializeField] List<AbilityConfig> abilities = new List<AbilityConfig>();
+        AbilityBehaviour[] abilityBehaviours;
+
 
         Fighter fighter;
         GameObject player;
@@ -30,7 +36,8 @@ namespace RPG.Control
         float timeSinceLastSawPlayer = Mathf.Infinity;
         int currentWaypointIndex = 0;
         float timeSinceLastWaypoint = Mathf.Infinity;
-        [SerializeField] float currentAggro = 0;
+        float currentAggro = 0;
+        float actionTimer = 0;
 
         private void Awake()
         {
@@ -42,6 +49,11 @@ namespace RPG.Control
 
         private void Start()
         {
+            abilityBehaviours = new AbilityBehaviour[abilities.Count];
+            for(int i = 0; i < abilities.Count; i++)
+            {
+                abilityBehaviours[i] = abilities[i].AttachAbilityTo(this.gameObject, true);
+            }
             guardPosition = transform.position;
         }
 
@@ -83,6 +95,7 @@ namespace RPG.Control
         {
             timeSinceLastSawPlayer += Time.deltaTime;
             timeSinceLastWaypoint += Time.deltaTime;
+            actionTimer += Time.deltaTime;
             currentAggro -= Time.deltaTime;
             if (currentAggro < 0)
                 currentAggro = 0;
@@ -127,7 +140,17 @@ namespace RPG.Control
 
         private void AttackBehavior()
         {
-            fighter.Attack(player);
+            ActionCondition nextAction = GetMostViableAction();
+            if(nextAction != null)
+            {
+                GetComponent<ActionScheduler>().CancelCurrentAction();
+                abilityBehaviours[abilities.IndexOf(nextAction.abilityConfig)].Use();
+                disableMove = nextAction.abilityConfig.GetDisableMovement();
+                actionTimer = 0;
+                fighter.timeSinceLastAttack = 0;
+            }
+            else
+                fighter.Attack(player);
         }
 
         private bool InAttackRange()
@@ -147,6 +170,41 @@ namespace RPG.Control
             currentAggro += Mathf.Clamp(damage, 0, 10);
             if (currentAggro > 100)
                 currentAggro = 100;
+        }
+
+        private bool CheckActionConditon(ActionCondition action)
+        {
+            return (CheckActionDistance(action) && CheckHealthCondition(action) && CheckActionTimer(action));
+        }
+
+        private ActionCondition GetMostViableAction()
+        {
+            if (aiDatabase == null) return null;
+            List<ActionCondition> list = new List<ActionCondition>();
+            foreach(ActionCondition action in aiDatabase.ActionConditions)
+            {
+                if (CheckActionConditon(action))
+                    list.Add(action);
+            }
+            return (list.Count <= 0) ? null : list[UnityEngine.Random.Range(0, list.Count)];
+        }
+
+        private bool CheckActionDistance(ActionCondition action)
+        {
+            float distanceFromTarget = Vector3.Distance(player.transform.position, base.transform.position);
+            return (distanceFromTarget >= action.minDistance && distanceFromTarget <= action.maxDistance);
+        }
+
+        private bool CheckHealthCondition(ActionCondition action)
+        {
+            Health health = GetComponent<Health>();
+            float currentHealthPercent = (health.GetCurrentHealth() / health.GetTotalHealth()) * 100;
+            return (currentHealthPercent >= action.minHealthPercent && currentHealthPercent <= action.maxHealthPercent);
+        }
+
+        private bool CheckActionTimer(ActionCondition action)
+        {
+            return actionTimer >= action.actionWaitTimeRange.x;
         }
     }
 }

@@ -24,11 +24,12 @@ namespace RPG.Combat
 
         public abstract AbilityBehaviour GetBehaviourComponent(GameObject objectToAttachTo);
 
-        public void AttachAbilityTo(GameObject objectToattachTo)
+        public AbilityBehaviour AttachAbilityTo(GameObject objectToattachTo, bool isEnemy = false)
         {
             AbilityBehaviour behaviourComponent = GetBehaviourComponent(objectToattachTo);
-            behaviourComponent.SetConfig(this);
+            behaviourComponent.SetConfig(this, isEnemy);
             behaviour = behaviourComponent;
+            return behaviourComponent;
         }
 
         public void RemoveAbilityBehavior()

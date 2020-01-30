@@ -3021,6 +3021,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e82f9abe25797744d92a4b037334bbf9,
         type: 2}
+    - target: {fileID: 4763089687135310355, guid: 082357039ef57b649901cdd67d24c083,
+        type: 3}
+      propertyPath: abilities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763089687135310355, guid: 082357039ef57b649901cdd67d24c083,
+        type: 3}
+      propertyPath: abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f7a6a6bd288211408caec7524c46431,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 082357039ef57b649901cdd67d24c083, type: 3}
 --- !u!1 &1057377832
@@ -4047,6 +4058,86 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: conversation
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d2174df956047c43bbf7f43cf999dd4,
+        type: 2}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: npcID
+      value: Ervs
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_TypeName
+      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].name
+      value: Start Quest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 521443266}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: questID
+      value: kill
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TriggerQuestIfAny
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: defaultConversation
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d2174df956047c43bbf7f43cf999dd4,
+        type: 2}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: afterStartConversation
+      value: 
+      objectReference: {fileID: 11400000, guid: 0618c66c1fc41eb4d87a61cd563a5efd,
+        type: 2}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: afterCompleteConversation
+      value: 
+      objectReference: {fileID: 11400000, guid: e3abe5d1adbe740428e3796e655916fd,
+        type: 2}
     - target: {fileID: 6491352452136734062, guid: 625c9ce9b2342a842bcc9c81f4871526,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4111,68 +4202,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: conversation
-      value: 
-      objectReference: {fileID: 11400000, guid: 3d2174df956047c43bbf7f43cf999dd4,
-        type: 2}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: npcID
-      value: Ervs
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_TypeName
-      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].name
-      value: Start Quest
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 521443266}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: questID
-      value: kill
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TriggerQuestIfAny
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8645496535148830903, guid: 625c9ce9b2342a842bcc9c81f4871526,
         type: 3}

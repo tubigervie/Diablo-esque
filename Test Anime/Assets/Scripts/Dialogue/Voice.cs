@@ -9,19 +9,23 @@ namespace RPG.Dialogue
     public class Voice : MonoBehaviour
     {
         [SerializeField] string npcID;
-        [SerializeField] Conversation conversation;
+        [SerializeField] Conversation defaultConversation;
+        [SerializeField] Conversation afterStartConversation;
+        [SerializeField] Conversation afterCompleteConversation;
+
         [SerializeField] [Tooltip("Optional")] string questID;
         [Space(15)]
         [SerializeField] Transform canvas;
         [SerializeField] GameObject speechBubblePrefab;
+
         DialogueDisplay dialogueDisplay;
         GameObject speechBubble;
-
+        Conversation currentConversation;
         public List<DialogueEventBinding> dialogueEventBindings;
 
         public Conversation GetConversation()
         {
-            return conversation;
+            return currentConversation;
         }
 
         public string GetNPCName()
@@ -41,12 +45,10 @@ namespace RPG.Dialogue
             }
         }
 
-
-
-
         // Start is called before the first frame update
         void Start()
         {
+            currentConversation = defaultConversation;
             speechBubble = Instantiate(speechBubblePrefab, canvas);
             dialogueDisplay = FindObjectOfType<DialogueDisplay>();
         }
@@ -57,7 +59,13 @@ namespace RPG.Dialogue
             var journal = FindObjectOfType<Journal>();
             var quest = journal.GetQuestById(questID);
             if (quest == null) return;
-            journal.AddQuest(quest);
+            journal.AddQuest(quest, this);
+            currentConversation = afterStartConversation;
+        }
+
+        public void UpdateDialogueComplete()
+        {
+            currentConversation = afterCompleteConversation;
         }
 
         public void CompleteQuestIfAny()
