@@ -93,12 +93,15 @@ public class DialogueDisplay : MonoBehaviour
     private void CreateResponsesForNode(ConversationNode node)
     {
         int choiceIndex = 1;
-
+        bool multipleChoices = node.children.Count > 1;
         foreach(var child in node.children)
         {
             var responseObject = Instantiate(responsePrefab, responseHolder);
             var childNode = activeVoice.GetConversation().GetNodeByUUID(child);
-            responseObject.GetComponent<Text>().text = "Choice " + choiceIndex.ToString() + ": " + childNode.text;
+            if(multipleChoices)
+                responseObject.GetComponent<Text>().text = "Choice " + choiceIndex.ToString() + ": " + childNode.text;
+            else
+                responseObject.GetComponent<Text>().text = childNode.text;
             choiceIndex++;
             responseObject.GetComponent<Button>().onClick.AddListener(() => { ChooseResponse(childNode); });
         }

@@ -8,7 +8,7 @@ namespace RPG.Dialogue
     [CreateAssetMenu(menuName = ("RPG/Conversation"))]
     public class Conversation : ScriptableObject
     {
-        [SerializeField] List<ConversationNode> _nodes = new List<ConversationNode>();
+        [SerializeField] List<ConversationNode> _nodes;
         public delegate void ValidateDelegate();
         public event ValidateDelegate onValidated;
 

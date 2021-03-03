@@ -19,6 +19,3 @@ MonoBehaviour:
     rewardCoin: 300
     rewardXP: 100
     itemReward: {fileID: 0}
-    questObjectives:
-    - type: 0
-    - type: 0
