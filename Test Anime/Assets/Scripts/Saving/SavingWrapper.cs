@@ -38,6 +38,10 @@ namespace RPG.SceneManagement
         private void Start()
         {
             Debug.Log("Last save file: " + savingSystem.GetLastSaveFile());
+            if (!savingSystem.CheckForSave(loadedAutoSaveFile))
+            {
+                savingSystem.Save(loadedAutoSaveFile);
+            }
         }
 
         private void Update()
@@ -98,6 +102,7 @@ namespace RPG.SceneManagement
         IEnumerator LoadLastScene()
         {
             string lastSave = savingSystem.GetLastSaveFile();
+            Debug.Log("last save: " + lastSave);
             yield return savingSystem.LoadLastScene(lastSave);
 
             switch (lastSave)

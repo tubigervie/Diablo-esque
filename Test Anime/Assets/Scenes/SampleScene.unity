@@ -4047,6 +4047,68 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: conversation
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d2174df956047c43bbf7f43cf999dd4,
+        type: 2}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: npcID
+      value: Ervs
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_TypeName
+      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].name
+      value: Start Quest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 521443266}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: questID
+      value: kill
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TriggerQuestIfAny
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6491352452136734062, guid: 625c9ce9b2342a842bcc9c81f4871526,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4112,72 +4174,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: conversation
-      value: 
-      objectReference: {fileID: 11400000, guid: 3d2174df956047c43bbf7f43cf999dd4,
-        type: 2}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: npcID
-      value: Ervs
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_TypeName
-      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].name
-      value: Start Quest
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 521443266}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: questID
-      value: kill
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TriggerQuestIfAny
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321500991711094559, guid: 625c9ce9b2342a842bcc9c81f4871526,
-        type: 3}
-      propertyPath: dialogueEventBindings.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8645496535148830903, guid: 625c9ce9b2342a842bcc9c81f4871526,
         type: 3}
       propertyPath: currentHealthPoints
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645496535148830903, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: isDamageable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645496535148830903, guid: 625c9ce9b2342a842bcc9c81f4871526,
+        type: 3}
+      propertyPath: isInvulnerable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 625c9ce9b2342a842bcc9c81f4871526, type: 3}

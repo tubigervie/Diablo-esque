@@ -1,0 +1,15 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace RPG.Dialogue2
+{
+    [System.Serializable]
+    public class DialogueNode
+    {
+        public string uniqueID;
+        public string text;
+        public List<string> children = new List<string>();
+        public Rect rect = new Rect(10, 10, 200, 100); //editor node window
+    }
+}

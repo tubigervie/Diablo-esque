@@ -101,8 +101,10 @@ namespace RPG.Combat
             {
                 var damageable = hit.collider.gameObject.GetComponent<Health>();
                 bool hitPlayer = hit.collider.gameObject.GetComponent<PlayerController>();
+                bool hitAI = hit.collider.gameObject.GetComponent<AIController>();
                 if (damageable != null && !hitPlayer)
                 {
+                    if (damageable.IsInvulnerable()) continue;
                     hasHit = true;
                     float damageToDeal = (config as SpinAttackConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetDamage()) - hit.collider.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
                     bool shouldCrit = GetComponent<Fighter>().ShouldCrit();

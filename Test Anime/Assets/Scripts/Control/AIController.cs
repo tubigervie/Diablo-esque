@@ -99,9 +99,9 @@ namespace RPG.Control
                     timeSinceLastWaypoint = 0;
                 }
                 nextPosition = GetCurrentWaypoint();
+                if (timeSinceLastWaypoint > wayPointTime)
+                    mover.StartMoveAction(nextPosition, patrolSpeedFraction);
             }
-            if(timeSinceLastWaypoint > wayPointTime)
-                mover.StartMoveAction(nextPosition, patrolSpeedFraction);
         }
 
         private Vector3 GetCurrentWaypoint()

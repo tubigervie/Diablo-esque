@@ -9,6 +9,7 @@ using RPG.Resource;
 using System;
 using RPG.Dialogue;
 using UnityEngine.AI;
+using RPG.CameraUI;
 
 namespace RPG.Control
 {
@@ -46,6 +47,8 @@ namespace RPG.Control
         Health health;
         EnemyHealthUI targetHealth;
         SpecialAbilities abilities;
+        StatsUI statsUI;
+
         public bool canMove = true;
         bool firstFrameOnly = false;
 
@@ -196,6 +199,22 @@ namespace RPG.Control
             bool key2Up = Input.GetKeyUp(KeyCode.Alpha2);
             bool key3Up = Input.GetKeyUp(KeyCode.Alpha3);
             bool key4Up = Input.GetKeyUp(KeyCode.Alpha4);
+            bool keyIDown = Input.GetKeyDown(KeyCode.I);
+            bool keyCDown = Input.GetKeyDown(KeyCode.C);
+            bool keyKDown = Input.GetKeyDown(KeyCode.K);
+
+            if (keyIDown)
+            {
+                statsUI.ToggleInventoryUI();
+            }
+            else if (keyCDown)
+            {
+                statsUI.ToggleCharacterStatsUI();
+            }
+            else if (keyKDown)
+            {
+                statsUI.ToggleSkillsUI();
+            }
 
             if (key1Up)
             {
@@ -505,6 +524,11 @@ namespace RPG.Control
         {
             canMove = false;
             mover.Cancel();
+        }
+
+        public void SetStatsUI(StatsUI stat)
+        {
+            statsUI = stat;
         }
 
         private void SetCursor(CursorType type)

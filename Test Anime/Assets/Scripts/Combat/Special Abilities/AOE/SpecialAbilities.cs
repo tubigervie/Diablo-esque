@@ -37,7 +37,6 @@ namespace RPG.Combat
             {
                 maxEnergyPoints = GetComponent<BaseStats>().GetStat(Stat.Energy);
             }
-            Debug.Log("here atleast?");
             if (abilityNames == null)
             {
                 abilityNames = new string[skillCount];
@@ -130,6 +129,7 @@ namespace RPG.Combat
         public void SwitchAbilityAtIndex(AbilityConfig newAbility, int index)
         {
             if (abilities[index] == newAbility) return;
+            CancelLoops();
             for(int i = 0; i < abilities.Length; i++)
             {
                 if(abilities[i] == newAbility)

@@ -15,6 +15,7 @@ namespace RPG.Resource
         [SerializeField] float maxHealthPoints = -1f;
         [SerializeField] TextNumberSpawner textNumberSpawner;
         [SerializeField] bool isDead;
+        [SerializeField] bool isInvulnerable;
         bool isRestored;
         public event Action onDie = delegate { };
 
@@ -61,6 +62,11 @@ namespace RPG.Resource
         public void ClampCurrentHealth()
         {
             currentHealthPoints = Mathf.Clamp(currentHealthPoints, currentHealthPoints, maxHealthPoints);
+        }
+
+        public bool IsInvulnerable()
+        {
+            return isInvulnerable;
         }
 
         public object CaptureState()

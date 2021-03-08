@@ -24,6 +24,7 @@ public class FrontalPillarCollider : MonoBehaviour
             bool foundinList = false;
             foreach(CustomKeyValuePair<Collider, float> colliderPair in colliderTimer)
             {
+                if (damageable.IsInvulnerable()) continue;
                 if(colliderPair.key == other)
                 {
                     foundinList = true;
@@ -41,6 +42,7 @@ public class FrontalPillarCollider : MonoBehaviour
             }
             if(!foundinList)
             {
+                if (damageable.IsInvulnerable()) return;
                 CustomKeyValuePair<Collider, float> newColliderPair = new CustomKeyValuePair<Collider, float>(other, 0);
                 float damageToDeal = (config as FrontalPillarConfig).GetDamageToEachTarget(player.GetComponent<Fighter>().GetDamage()) - other.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in
                 bool shouldCrit = player.GetComponent<Fighter>().ShouldCrit();
