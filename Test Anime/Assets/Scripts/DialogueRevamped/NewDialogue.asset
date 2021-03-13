@@ -13,32 +13,95 @@ MonoBehaviour:
   m_Name: NewDialogue
   m_EditorClassIdentifier: 
   nodes:
-  - uniqueID: a
-    text: Yes
-    children:
-    - b
-    - c
-    rect:
-      serializedVersion: 2
-      x: 109
-      y: 246
-      width: 200
-      height: 150
-  - uniqueID: b
-    text: fuck yea
-    children: []
-    rect:
-      serializedVersion: 2
-      x: 393
-      y: 91
-      width: 200
-      height: 100
-  - uniqueID: c
-    text: Frick off
-    children: []
-    rect:
-      serializedVersion: 2
-      x: 91
-      y: 127
-      width: 200
-      height: 100
+  - {fileID: 114608816071537424}
+  - {fileID: 114323482418895250}
+  - {fileID: 114377763301360348}
+  - {fileID: 114064455895768386}
+  newNodeOffset: {x: 250, y: 0}
+--- !u!114 &114064455895768386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: c77c05da-979b-463a-9a4c-ed91791f2ee0
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Here's your reward.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 696
+    y: 210
+    width: 200
+    height: 100
+--- !u!114 &114323482418895250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: 6ce2e5c9-0180-4667-9cc3-e7d1843e4043
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: No, not yet.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 399
+    y: 64
+    width: 200
+    height: 100
+--- !u!114 &114377763301360348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: 45d7f353-1dfb-479c-addf-bb346bf71a63
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Oh, it looks like you did well done!
+  children:
+  - c77c05da-979b-463a-9a4c-ed91791f2ee0
+  rect:
+    serializedVersion: 2
+    x: 411
+    y: 194
+    width: 200
+    height: 100
+--- !u!114 &114608816071537424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: bd362665-ff41-430c-aacc-75c2d1d89482
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Hello! Did you get what I asked?
+  children:
+  - 6ce2e5c9-0180-4667-9cc3-e7d1843e4043
+  - 45d7f353-1dfb-479c-addf-bb346bf71a63
+  rect:
+    serializedVersion: 2
+    x: 31
+    y: 85
+    width: 200
+    height: 100
