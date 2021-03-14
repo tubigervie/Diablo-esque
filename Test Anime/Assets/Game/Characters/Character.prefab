@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7576510656486455543}
   - component: {fileID: 7775609111109616585}
   - component: {fileID: 7178815650440805407}
+  - component: {fileID: 7144602171067919232}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -122,11 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c0a706ab3e7c64dba72ade9d0e0b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   rightHandTransform: {fileID: 0}
   leftHandTransform: {fileID: 0}
   defaultWeapon: {fileID: 0}
   timeSinceLastAttack: Infinity
-  currentWeapon: {fileID: 0}
 --- !u!114 &6604524915324169364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealthPoints: 0
+  maxHealthPoints: -1
   textNumberSpawner: {fileID: 0}
+  isDead: 0
+  isInvulnerable: 0
 --- !u!114 &6111248935525959342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,3 +305,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7144602171067919232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321590226341363358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdbe881f72810094685623775e70b591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentDialogue: {fileID: 11400000, guid: a2c471d0377b18c46929444ebf0cfd2d, type: 2}

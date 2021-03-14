@@ -17,6 +17,8 @@ MonoBehaviour:
   - {fileID: 114323482418895250}
   - {fileID: 114377763301360348}
   - {fileID: 114064455895768386}
+  - {fileID: 114130469810378014}
+  - {fileID: 114991530885223514}
   newNodeOffset: {x: 250, y: 0}
 --- !u!114 &114064455895768386
 MonoBehaviour:
@@ -32,10 +34,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
   text: Here's your reward.
-  children: []
+  children:
+  - b7b76343-6cd3-44d3-aadb-f0fd1ff4e8e7
   rect:
     serializedVersion: 2
-    x: 696
+    x: 689
+    y: 281
+    width: 200
+    height: 100
+--- !u!114 &114130469810378014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: b7b76343-6cd3-44d3-aadb-f0fd1ff4e8e7
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Thanks. See you later.
+  children:
+  - 2871158d-6144-4187-814d-b5a17e350d9c
+  rect:
+    serializedVersion: 2
+    x: 946
     y: 210
     width: 200
     height: 100
@@ -56,8 +81,8 @@ MonoBehaviour:
   children: []
   rect:
     serializedVersion: 2
-    x: 399
-    y: 64
+    x: 397
+    y: 61
     width: 200
     height: 100
 --- !u!114 &114377763301360348
@@ -73,13 +98,13 @@ MonoBehaviour:
   m_Name: 45d7f353-1dfb-479c-addf-bb346bf71a63
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: Oh, it looks like you did well done!
+  text: Oh, it looks like you did! Well done!
   children:
   - c77c05da-979b-463a-9a4c-ed91791f2ee0
   rect:
     serializedVersion: 2
-    x: 411
-    y: 194
+    x: 384
+    y: 244
     width: 200
     height: 100
 --- !u!114 &114608816071537424
@@ -103,5 +128,26 @@ MonoBehaviour:
     serializedVersion: 2
     x: 31
     y: 85
+    width: 200
+    height: 100
+--- !u!114 &114991530885223514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: 2871158d-6144-4187-814d-b5a17e350d9c
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: L8r.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1196
+    y: 210
     width: 200
     height: 100
