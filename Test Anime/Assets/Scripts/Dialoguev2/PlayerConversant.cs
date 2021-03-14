@@ -28,6 +28,8 @@ namespace RPG.Dialogue2
             currentDialogue = newDialogue;
             if(currentDialogue != null)
             {
+                this.transform.LookAt(newConversant.transform);
+                newConversant.transform.LookAt(this.transform);
                 currentNode = currentDialogue.GetRootNode();
                 onConversationUpdated();
             }

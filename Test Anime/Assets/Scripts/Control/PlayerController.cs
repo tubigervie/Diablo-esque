@@ -444,6 +444,7 @@ namespace RPG.Control
                 }
                 else if (clickInput)
                 {
+                    if (skill1WasDown || skill2WasDown || skill3WasDown || skill4WasDown) return false;
                     fighter.Attack(target.gameObject);
                 }
                 return true;

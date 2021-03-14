@@ -11,6 +11,7 @@ public class AIConversant : MonoBehaviour, IRaycastable
 
     public bool HandleRaycast(PlayerController callingController)
     {
+        if (dialogue == null) return false;
         return callingController.InteractWithDialogue();
     }
 
