@@ -7,7 +7,7 @@ using RPG.Core;
 using RPG.UI;
 using RPG.Resource;
 using System;
-using RPG.Dialogue;
+using RPG.Dialogue2;
 using UnityEngine.AI;
 using RPG.CameraUI;
 
@@ -15,14 +15,6 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
-        enum CursorType
-        {
-            None,
-            Movement,
-            Combat,
-            Loot,
-            Talk
-        }
 
         [System.Serializable]
         struct CursorMapping
@@ -33,6 +25,7 @@ namespace RPG.Control
         }
         [SerializeField] float maxNavMeshProjectionDistance = 1f;
         [SerializeField] float maxNavPathLength = 40f;
+        [SerializeField] float raycastRadius = 1f;
 
         [SerializeField] CursorMapping[] cursorMappings = null;
         bool skill1WasDown;
@@ -75,18 +68,45 @@ namespace RPG.Control
                 abilities.CancelLoops();
                 return;
             }
-            if (InteractWithCombat())
+            InteractWithCombat();
+            if (InteractWithComponent())
                 return;
             if (InteractWithMovement())
-                return;
-            if (InteractWithItems())
-                return;
-            if (InteractWithDialogue())
                 return;
             SetCursor(CursorType.None);
         }
 
-        private bool InteractWithDialogue()
+        private bool InteractWithComponent()
+        {
+            RaycastHit[] hits = RaycastAllSorted();
+            foreach (RaycastHit hit in hits)
+            {
+                IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
+                foreach (IRaycastable raycastable in raycastables)
+                {
+                    if (raycastable.HandleRaycast(this))
+                    {
+                        SetCursor(raycastable.GetCursorType());
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        RaycastHit[] RaycastAllSorted()
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(GetMouseRay(), raycastRadius);
+            float[] distances = new float[hits.Length];
+            for (int i = 0; i < hits.Length; i++)
+            {
+                distances[i] = hits[i].distance;
+            }
+            Array.Sort(distances, hits);
+            return hits;
+        }
+
+        public bool InteractWithDialogue()
         {
             if (!canMove)
                 return false;
@@ -94,16 +114,16 @@ namespace RPG.Control
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
-                Voice target = hit.collider.gameObject.GetComponent<Voice>();
+                AIConversant target = hit.collider.gameObject.GetComponent<AIConversant>();
                 if (target == null)
                     continue;
-                SetCursor(CursorType.Talk);
                 if (clickInput)
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
                         this.StopAllCoroutines();
-                        target.ShowDialog();
+                        mover.DisableMarker();
+                        GetComponent<PlayerConversant>().StartDialogue(target, target.dialogue);
                     }
                     else
                     {
@@ -116,19 +136,20 @@ namespace RPG.Control
             return false;
         }
 
-        private IEnumerator MoveAndTalk(Voice target)
+        private IEnumerator MoveAndTalk(AIConversant target)
         {
             mover.MoveTo(target.transform.position, 1f);
+            mover.DisableMarker();
             while (Vector3.Distance(transform.position, target.transform.position) > 2f)
             {
                 yield return null;
             }
             mover.Cancel();
             yield return new WaitForSeconds(.1f);
-            target.ShowDialog();
+            GetComponent<PlayerConversant>().StartDialogue(target, target.dialogue);
         }
 
-        private bool InteractWithItems()
+        public bool InteractWithItems()
         {
             if (!canMove)
                 return false;
@@ -139,7 +160,6 @@ namespace RPG.Control
                 ItemPickup target = hit.collider.gameObject.GetComponent<ItemPickup>();
                 if (target == null)
                     continue;
-                SetCursor(CursorType.Loot);
                 if (clickInput)
                 {
                     if (Vector3.Distance(transform.position, target.transform.position) < 2f)
@@ -169,6 +189,7 @@ namespace RPG.Control
             //Vector3 directionOfTravel = (transform.position - target.transform.position).normalized;
             //Vector3 targetPosition = target.transform.position + (directionOfTravel * 3); 
             mover.MoveTo(target.transform.position, 1f);
+            mover.DisableMarker();
             while(Vector3.Distance(transform.position, target.transform.position) > 2f)
             {
                 yield return null;
@@ -189,7 +210,7 @@ namespace RPG.Control
             SetCursor(CursorType.None);
         }
 
-        private bool InteractWithCombat()
+        public void InteractWithCombat()
         {
             bool key1Down = Input.GetKeyDown(KeyCode.Alpha1);
             bool key2Down = Input.GetKeyDown(KeyCode.Alpha2);
@@ -246,7 +267,8 @@ namespace RPG.Control
                     skill3WasDown = false;
                     skill4WasDown = false;
                     abilities.CancelLoops();
-                    return abilities.AttemptSpecialAbility(0);
+                    abilities.AttemptSpecialAbility(0);
+                    return;
                 }
                 else
                     abilities.PlayOutOfEnergy();
@@ -260,7 +282,8 @@ namespace RPG.Control
                     skill3WasDown = false;
                     skill4WasDown = false;
                     abilities.CancelLoops();
-                    return abilities.AttemptSpecialAbility(1);
+                    abilities.AttemptSpecialAbility(1);
+                    return;
                 }
                 else
                     abilities.PlayOutOfEnergy();
@@ -274,7 +297,8 @@ namespace RPG.Control
                     skill1WasDown = false;
                     skill4WasDown = false;
                     abilities.CancelLoops();
-                    return abilities.AttemptSpecialAbility(2);
+                    abilities.AttemptSpecialAbility(2);
+                    return;
                 }
                 else
                     abilities.PlayOutOfEnergy();
@@ -288,7 +312,8 @@ namespace RPG.Control
                     skill2WasDown = false;
                     skill1WasDown = false;
                     abilities.CancelLoops();
-                    return abilities.AttemptSpecialAbility(3);
+                    abilities.AttemptSpecialAbility(3);
+                    return;
                 }
                 else
                     abilities.PlayOutOfEnergy();
@@ -298,7 +323,7 @@ namespace RPG.Control
                 if (abilities.IsLooping(0))
                 {
                     if (abilities.ContinueLoop(0))
-                        return false;
+                        return;
                     else
                     {
                         skill1WasDown = false;
@@ -307,13 +332,14 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(0))
                 {
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
-                    return abilities.AttemptSpecialAbility(0);
+                    if (abilities.AbilityInUse()) return;
+                    abilities.AttemptSpecialAbility(0);
+                    return;
                 }
                 else
                 {
                     skill1WasDown = false;
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    if (abilities.AbilityInUse()) return;
                     abilities.PlayOutOfEnergy();
                 }
             }
@@ -322,7 +348,7 @@ namespace RPG.Control
                 if (abilities.IsLooping(1))
                 {
                     if (abilities.ContinueLoop(1))
-                        return false;
+                        return;
                     else
                     {
                         skill2WasDown = false;
@@ -331,13 +357,14 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(1))
                 {
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
-                    return abilities.AttemptSpecialAbility(1);
+                    if (abilities.AbilityInUse()) return;
+                    abilities.AttemptSpecialAbility(1);
+                    return;
                 }
                 else
                 {
                     skill2WasDown = false;
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    if (abilities.AbilityInUse());
                     abilities.PlayOutOfEnergy();
                 }
             }
@@ -346,7 +373,7 @@ namespace RPG.Control
                 if (abilities.IsLooping(2))
                 {
                     if (abilities.ContinueLoop(2))
-                        return false;
+                        return;
                     else
                     {
                         skill3WasDown = false;
@@ -355,13 +382,14 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(2))
                 {
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
-                    return abilities.AttemptSpecialAbility(2);
+                    if (abilities.AbilityInUse()) return;
+                    abilities.AttemptSpecialAbility(2);
+                    return;
                 }
                 else
                 {
                     skill3WasDown = false;
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    if (abilities.AbilityInUse());
                     abilities.PlayOutOfEnergy();
                 }
             }
@@ -370,7 +398,7 @@ namespace RPG.Control
                 if (abilities.IsLooping(3))
                 {
                     if (abilities.ContinueLoop(3))
-                        return false;
+                        return;
                     else
                     {
                         skill4WasDown = false;
@@ -379,13 +407,14 @@ namespace RPG.Control
                 }
                 else if (abilities.HasEnoughEnergy(3))
                 {
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
-                    return abilities.AttemptSpecialAbility(3);
+                    if (abilities.AbilityInUse()) return;
+                    abilities.AttemptSpecialAbility(3);
+                    return;
                 }
                 else
                 {
                     skill4WasDown = false;
-                    if (abilities.AbilityInUse()) return InteractWithBasicAttacks();
+                    if (abilities.AbilityInUse()) return;
                     abilities.PlayOutOfEnergy();
                 }
             }
@@ -393,13 +422,11 @@ namespace RPG.Control
             {
                 //abilities.CancelLoops();
             }
-
-            return InteractWithBasicAttacks();
         }
 
-        private bool InteractWithBasicAttacks()
+        public bool InteractWithBasicAttacks()
         {
-            bool clickInput = Input.GetMouseButtonDown(0);
+            bool clickInput = Input.GetMouseButton(0);
             RaycastHit[] hits = Physics.RaycastAll((Ray)GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
@@ -534,8 +561,7 @@ namespace RPG.Control
         private void SetCursor(CursorType type)
         {
             CursorMapping mapping = GetCursorMapping(type);
-            if (type == CursorType.Loot)
-                Debug.Log("cursor being set");
+            Debug.Log(type);
             Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
         }
 

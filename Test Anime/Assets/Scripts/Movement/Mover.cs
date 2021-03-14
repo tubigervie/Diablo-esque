@@ -79,6 +79,12 @@ namespace RPG.Movement
                 waypointMarker.SetActive(false);
         }
 
+        public void DisableMarker()
+        {
+            if (waypointMarker != null)
+                waypointMarker.SetActive(false);
+        }
+
         public object CaptureState()
         {
             SerializableVector3 pos = new SerializableVector3(transform.position);

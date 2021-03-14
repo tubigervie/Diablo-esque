@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using RPG.Control;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemPickup : MonoBehaviour
+public class ItemPickup : MonoBehaviour, IRaycastable
 {
     Canvas canvas;
     [SerializeField] protected GameObject pivot;
@@ -124,5 +125,15 @@ public class ItemPickup : MonoBehaviour
     public void UpdatePosition()
     {
         transform.position = transform.position;
+    }
+
+    public bool HandleRaycast(PlayerController callingController)
+    {
+        return callingController.InteractWithItems();
+    }
+
+    public CursorType GetCursorType()
+    {
+        return CursorType.Loot;
     }
 }

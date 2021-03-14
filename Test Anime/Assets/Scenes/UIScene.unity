@@ -410,7 +410,7 @@ PrefabInstance:
     - target: {fileID: 224338124537362198, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -570.75006
+      value: -570.7482
       objectReference: {fileID: 0}
     - target: {fileID: 224338124537362198, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
@@ -1999,8 +1999,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIText: {fileID: 1637915190}
+  nameText: {fileID: 725953693}
   nextButton: {fileID: 1311031984}
   quitButton: {fileID: 1583128225}
+  AIResponse: {fileID: 1677878659}
   choiceRoot: {fileID: 509783621}
   choicePrefab: {fileID: 2794772196443509979, guid: 8043b0a252187534b9ca4e1bbae27dcc,
     type: 3}

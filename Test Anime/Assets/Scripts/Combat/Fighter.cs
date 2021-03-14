@@ -82,6 +82,7 @@ namespace RPG.Combat
 
             if (combatTarget != null && !GetIsInRange() && !attackLock && clickInput)
             {
+                mover.DisableMarker();
                 mover.MoveTo(combatTarget.transform.position, 1f);
             }
             else if(clickInput)
