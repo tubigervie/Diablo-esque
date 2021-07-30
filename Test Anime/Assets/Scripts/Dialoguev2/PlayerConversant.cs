@@ -31,6 +31,7 @@ namespace RPG.Dialogue2
                 this.transform.LookAt(newConversant.transform);
                 newConversant.transform.LookAt(this.transform);
                 currentNode = currentDialogue.GetRootNode();
+                TriggerEnterActions();
                 onConversationUpdated();
             }
         }
@@ -38,7 +39,9 @@ namespace RPG.Dialogue2
         public void Quit()
         {
             currentDialogue = null;
+            TriggerExitActions();
             currentNode = null;
+            currentConversant = null;
             isChoosing = false;
             onConversationUpdated();
         }
@@ -69,6 +72,7 @@ namespace RPG.Dialogue2
         public void SelectChoice(DialogueNode chosenNode)
         {
             currentNode = chosenNode;
+            TriggerEnterActions();
             isChoosing = false;
             Next();
         }
@@ -79,6 +83,7 @@ namespace RPG.Dialogue2
             if(numPlayerResponses > 0)
             {
                 isChoosing = true;
+                TriggerExitActions();
                 onConversationUpdated();
                 return;
             }
@@ -86,7 +91,9 @@ namespace RPG.Dialogue2
             DialogueNode[] children = currentDialogue.GetAIChildren(currentNode).ToArray();
             if(children.Length > 0)
             {
+                TriggerExitActions();
                 currentNode = children[UnityEngine.Random.Range(0, children.Count())];
+                TriggerEnterActions();
                 onConversationUpdated();
             }
             else
@@ -107,5 +114,36 @@ namespace RPG.Dialogue2
         //        ifnode.
         //    }
         //}
+
+        private void TriggerEnterActions()
+        {
+            if(currentNode != null && currentNode.GetOnEnterActions().Count != 0)
+            {
+                foreach (string enterAction in currentNode.GetOnEnterActions())
+                {
+                    TriggerAction(enterAction);
+                } 
+            }
+        }
+
+        private void TriggerExitActions()
+        {
+            if (currentNode != null && currentNode.GetOnExitActions().Count != 0)
+            {
+                foreach (string exitAction in currentNode.GetOnExitActions())
+                {
+                    TriggerAction(exitAction);
+                }
+            }
+        }
+
+        private void TriggerAction(string action)
+        {
+            if (action == "") return;
+            foreach(DialogueTrigger trigger in currentConversant.GetComponents<DialogueTrigger>())
+            {
+                trigger.Trigger(action);
+            }
+        }
     }
 }

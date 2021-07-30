@@ -71,7 +71,7 @@ namespace RPG.Combat
             {
                 var damageable = hit.collider.gameObject.GetComponent<Health>();
                 bool hitPlayer = hit.collider.gameObject.GetComponent<PlayerController>();
-                if (damageable != null && !hitPlayer)
+                if (damageable != null && damageable.enabled && !hitPlayer)
                 {
                     if (damageable.IsInvulnerable()) continue;
                     float damageToDeal = (config as AreaEffectConfig).GetDamageToEachTarget(GetComponent<Fighter>().GetDamage()) - hit.collider.gameObject.GetComponent<BaseStats>().GetDefense(); //replace with just GetStat once weapons stats are in

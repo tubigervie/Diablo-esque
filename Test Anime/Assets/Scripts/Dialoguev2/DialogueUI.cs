@@ -53,6 +53,7 @@ namespace RPG.UI
             {
                 AIText.text = playerConversant.GetText();
                 nameText.text = playerConversant.GetCurrentConversantName();
+
                 nextButton.gameObject.SetActive(playerConversant.HasNext());
             }
         }

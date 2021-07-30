@@ -562,7 +562,6 @@ namespace RPG.Control
         private void SetCursor(CursorType type)
         {
             CursorMapping mapping = GetCursorMapping(type);
-            Debug.Log(type);
             Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
         }
 

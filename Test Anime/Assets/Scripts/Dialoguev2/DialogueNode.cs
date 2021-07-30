@@ -17,6 +17,10 @@ namespace RPG.Dialogue2
         private List<string> children = new List<string>();
         [SerializeField]
         private Rect rect = new Rect(10, 10, 200, 100); //editor node window
+        [SerializeField]
+        private List<string> onEnterActions = new List<string>();
+        [SerializeField]
+        private List<string> onExitActions = new List<string>();
 
         public string GetText()
         {
@@ -35,6 +39,16 @@ namespace RPG.Dialogue2
         public bool IsPlayerSpeaking()
         {
             return isPlayerSpeaking;
+        }
+
+        public List<string> GetOnEnterActions()
+        {
+            return onEnterActions;
+        }
+
+        public List<string> GetOnExitActions()
+        {
+            return onExitActions;
         }
 
 #if UNITY_EDITOR
