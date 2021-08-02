@@ -12,6 +12,7 @@ namespace RPG.CameraUI
         [SerializeField] GameObject inventoryTab;
         [SerializeField] GameObject statsTab;
         [SerializeField] GameObject abilitiesTab;
+        [SerializeField] GameObject questsTab;
 
         GameObject player;
         // Start is called before the first frame update
@@ -51,7 +52,7 @@ namespace RPG.CameraUI
 
         public void ToggleCharacterStatsUI()
         {
-            if (inventoryTab.activeSelf || abilitiesTab.activeSelf)
+            if (inventoryTab.activeSelf || abilitiesTab.activeSelf || questsTab.activeSelf)
             {
                 var parentCanvas = GetComponentInParent<Canvas>();
                 AbilityTooltip abilityTooltip = parentCanvas.GetComponentInChildren<AbilityTooltip>();
@@ -76,9 +77,36 @@ namespace RPG.CameraUI
             //player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
         }
 
+        public void ToggleQuestsUI()
+        {
+            if (inventoryTab.activeSelf || abilitiesTab.activeSelf || statsTab.activeSelf)
+            {
+                var parentCanvas = GetComponentInParent<Canvas>();
+                AbilityTooltip abilityTooltip = parentCanvas.GetComponentInChildren<AbilityTooltip>();
+                if (abilityTooltip != null)
+                    Destroy(abilityTooltip.gameObject);
+                var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
+                abilityUI.DisableAbilitySetter();
+                SwitchToQuests();
+                return;
+            }
+            DisableAllTabs();
+            questsTab.SetActive(!uiContainer.activeSelf);
+            uiContainer.SetActive(!uiContainer.activeSelf);
+            if (!uiContainer.activeSelf)
+            {
+                invUI.DisableActiveButton();
+                var parentCanvas = GetComponentInParent<Canvas>();
+                StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
+                if (statTip != null)
+                    Destroy(statTip.gameObject);
+            }
+            //player.GetComponent<PlayerController>().enabled = !uiContainer.activeSelf;
+        }
+
         public void ToggleSkillsUI()
         {
-            if (statsTab.activeSelf || inventoryTab.activeSelf)
+            if (statsTab.activeSelf || inventoryTab.activeSelf || questsTab.activeSelf)
             {
                 var parentCanvas = GetComponentInParent<Canvas>();
                 StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
@@ -113,6 +141,7 @@ namespace RPG.CameraUI
             inventoryTab.SetActive(false);
             statsTab.SetActive(false);
             abilitiesTab.SetActive(false);
+            questsTab.SetActive(false);
         }
 
         public void ToggleUI()
@@ -151,6 +180,12 @@ namespace RPG.CameraUI
         {
             DisableAllTabs();
             abilitiesTab.SetActive(true);
+        }
+
+        public void SwitchToQuests()
+        {
+            DisableAllTabs();
+            questsTab.SetActive(true);
         }
     }
 }

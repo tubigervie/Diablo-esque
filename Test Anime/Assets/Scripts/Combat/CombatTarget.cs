@@ -19,9 +19,8 @@ namespace RPG.Combat
 
         public bool HandleRaycast(PlayerController callingController)
         {
-            if (!GetComponent<Health>().enabled)
+            if (!enabled)
             {
-                Debug.Log("should be here");
                 return false;
             }
             return callingController.InteractWithBasicAttacks();
