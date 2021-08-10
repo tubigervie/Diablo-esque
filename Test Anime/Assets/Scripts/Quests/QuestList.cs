@@ -1,22 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Questing
 {
-    [CreateAssetMenu(menuName = ("RPG/Quest List"))]
-    public class QuestList : ScriptableObject
+    public class QuestList : MonoBehaviour
     {
-        [SerializeField] Quest[] quests;
+        List<QuestStatus> statuses = new List<QuestStatus>();
 
-        public Quest GetQuestByID(string id)
+        public event Action onUpdate;
+
+        public IEnumerable<QuestStatus> GetStatuses()
         {
-            foreach(var quest in quests)
+            return statuses;
+        }
+
+        public void AddQuest(Quest quest)
+        {
+            if (HasQuest(quest)) return;
+            QuestStatus newStatus = new QuestStatus(quest);
+            statuses.Add(newStatus);
+            if (onUpdate != null)
+                onUpdate();
+        }
+
+        public bool HasQuest(Quest quest)
+        {
+            foreach(QuestStatus status in statuses)
             {
-                if (quest.uniqueName == id)
-                    return quest;
+                if (status.GetQuest() == quest)
+                    return true;
             }
-            return null;
+            return false;
         }
     }
 }

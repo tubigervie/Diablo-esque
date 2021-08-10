@@ -26,7 +26,7 @@ namespace RPG.CameraUI
 
         public void ToggleInventoryUI()
         {
-            if (statsTab.activeSelf || abilitiesTab.activeSelf)
+            if (statsTab.activeSelf || abilitiesTab.activeSelf || questsTab.activeSelf)
             {
                 var parentCanvas = GetComponentInParent<Canvas>();
                 StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
@@ -37,6 +37,9 @@ namespace RPG.CameraUI
                     Destroy(abilityTooltip.gameObject);
                 var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
                 abilityUI.DisableAbilitySetter();
+                QuestDetailsUI questDetails = FindObjectOfType<QuestDetailsUI>();
+                if (questDetails != null)
+                    questDetails.gameObject.SetActive(false);
                 SwitchToInventory();
                 return;
             }
@@ -60,6 +63,9 @@ namespace RPG.CameraUI
                     Destroy(abilityTooltip.gameObject);
                 var abilityUI = abilitiesTab.GetComponentInChildren<AbilityUI>();
                 abilityUI.DisableAbilitySetter();
+                QuestDetailsUI questDetails = FindObjectOfType<QuestDetailsUI>();
+                if (questDetails != null)
+                    questDetails.ToggleOff();
                 SwitchToStats();
                 return;
             }
@@ -90,11 +96,15 @@ namespace RPG.CameraUI
                 SwitchToQuests();
                 return;
             }
+            QuestDetailsUI questDetails = FindObjectOfType<QuestDetailsUI>();
+            if (questDetails != null)
+                questDetails.ToggleOff();
             DisableAllTabs();
             questsTab.SetActive(!uiContainer.activeSelf);
             uiContainer.SetActive(!uiContainer.activeSelf);
             if (!uiContainer.activeSelf)
             {
+                Debug.Log("being turned off");
                 invUI.DisableActiveButton();
                 var parentCanvas = GetComponentInParent<Canvas>();
                 StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
@@ -112,6 +122,9 @@ namespace RPG.CameraUI
                 StatTooltip statTip = parentCanvas.GetComponentInChildren<StatTooltip>();
                 if (statTip != null)
                     Destroy(statTip.gameObject);
+                QuestDetailsUI questDetails = FindObjectOfType<QuestDetailsUI>();
+                if (questDetails != null)
+                    questDetails.ToggleOff();
                 SwitchToAbilities();
                 return;
             }
@@ -149,6 +162,9 @@ namespace RPG.CameraUI
             uiContainer.SetActive(!uiContainer.activeSelf);
             if (!uiContainer.activeSelf)
             {
+                QuestDetailsUI questDetails = FindObjectOfType<QuestDetailsUI>();
+                if (questDetails != null)
+                    questDetails.ToggleOff();
                 DisableAllTabs();
                 invUI.DisableActiveButton();
                 var parentCanvas = GetComponentInParent<Canvas>();

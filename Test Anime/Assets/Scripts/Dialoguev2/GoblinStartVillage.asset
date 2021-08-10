@@ -85,13 +85,14 @@ MonoBehaviour:
   children: []
   rect:
     serializedVersion: 2
-    x: 648
+    x: 649
     y: 133
     width: 200
     height: 100
   onEnterActions: []
   onExitActions:
   - Attack
+  - GiveQuest
 --- !u!114 &114784713871815364
 MonoBehaviour:
   m_ObjectHideFlags: 0

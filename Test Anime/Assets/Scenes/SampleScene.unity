@@ -508,30 +508,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 168761568}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &168761571 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4763089687135310355, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-    type: 3}
-  m_PrefabInstance: {fileID: 168761568}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168761570}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c44e33fc99913bb4787ef407eeceac6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &168761572 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5243265142736133908, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
-    type: 3}
-  m_PrefabInstance: {fileID: 168761568}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168761570}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2522c1d909c0f1a4ea94022a82f342a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &168761573 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3904950655937826333, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
@@ -558,57 +534,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 11400000, guid: 89be412ba152c184394c38e6b63d994e, type: 2}
   conversantName: Grunt 1
---- !u!114 &168761575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168761570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6227bc3b2f6014d981842866ccc5b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  action: Attack
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 168761573}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 168761572}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 168761571}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &168933953 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1993223078316785223, guid: b158024ce19ab2c4a8e10d83b31d6dd5,
@@ -741,19 +666,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1040904156}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &181568375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181568374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 661eb52a4ef6ccc45b58602c2f6bcfcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questIdToComplete: kill
 --- !u!114 &181568376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4505,7 +4417,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356385033}
-  m_LocalRotation: {x: 0.2174111, y: -0.5579283, z: 0.15434676, w: 0.78589153}
+  m_LocalRotation: {x: 0.2174111, y: -0.5579284, z: 0.15434678, w: 0.7858915}
   m_LocalPosition: {x: -4.891342, y: 5.5371246, z: -14.571481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9614,6 +9526,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 11400000, guid: 89be412ba152c184394c38e6b63d994e, type: 2}
   conversantName: Grunt 1
+--- !u!114 &2054488963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054488959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d41ef91c5d9974ca62ecc0ed393379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest: {fileID: 11400000, guid: 87b37bada27f3a44c8282fc35ca2f2eb, type: 2}
+--- !u!114 &2054488964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054488959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6227bc3b2f6014d981842866ccc5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: GiveQuest
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2054488963}
+        m_MethodName: GiveQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &2068900928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10113,7 +10067,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 380b9c8c7cfb87f46861e60cb2933401,
         type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.data[0].completedObjectives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.data[1].completedObjectives.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.data[0].quest
+      value: 
+      objectReference: {fileID: 11400000, guid: 060e32514ba8d414fa6b6841af98e85d,
+        type: 2}
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.data[1].quest
+      value: 
+      objectReference: {fileID: 11400000, guid: d997383bf8a9c204b878466ede0a4b83,
+        type: 2}
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.data[0].completedObjectives.Array.data[0]
+      value: Talk to the child.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580774736063197393, guid: c8d343d8fdf7b4d47ba518e97407867e,
+        type: 3}
+      propertyPath: statuses.Array.data[1].completedObjectives.Array.data[0]
+      value: asds
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 753900867, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c8d343d8fdf7b4d47ba518e97407867e, type: 3}
 --- !u!4 &3594118166325817564
 Transform:

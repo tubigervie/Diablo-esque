@@ -223,6 +223,7 @@ namespace RPG.Control
             bool keyIDown = Input.GetKeyDown(KeyCode.I);
             bool keyCDown = Input.GetKeyDown(KeyCode.C);
             bool keyKDown = Input.GetKeyDown(KeyCode.K);
+            bool keyJDown = Input.GetKeyDown(KeyCode.J);
 
             if (keyIDown)
             {
@@ -235,6 +236,10 @@ namespace RPG.Control
             else if (keyKDown)
             {
                 statsUI.ToggleSkillsUI();
+            }
+            else if (keyJDown)
+            {
+                statsUI.ToggleQuestsUI();
             }
 
             if (key1Up)

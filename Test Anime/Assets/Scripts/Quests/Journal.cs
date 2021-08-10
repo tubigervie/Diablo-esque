@@ -32,7 +32,7 @@ namespace RPG.Questing
 
         public Quest GetQuestById(string questID)
         {
-            return questList.GetQuestByID(questID);
+            return null;
         }
     }
 }
