@@ -264,6 +264,16 @@ public class Inventory : MonoBehaviour, ISaveable, IModifier
         return true; 
     }
 
+    public bool DropItem(ItemInstance item)
+    {
+        if (item == null) return false;
+
+        var spawnLocation = transform.position;
+        SpawnPickup(item, spawnLocation);
+        GetComponent<AudioSource>().PlayOneShot(unequipSFX);
+        return true;
+    }
+
     private void SpawnPickup(ItemInstance item, Vector3 spawnLocation)
     {
         var pickup = item.itemBase.SpawnPickup(spawnLocation, item);

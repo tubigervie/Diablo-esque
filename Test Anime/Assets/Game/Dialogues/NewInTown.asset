@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7ee9abeaa68c9b4aa03f6770aae4987, type: 3}
-  m_Name: DecisionTreeTest
+  m_Name: NewInTown
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 114200296041693100}
-  - {fileID: 114337192291983296}
-  - {fileID: 114186558088303830}
-  - {fileID: 114875216700422092}
-  - {fileID: 114755211785168008}
-  - {fileID: 114379533040985796}
-  - {fileID: 114277271404887836}
-  - {fileID: 114192199039608028}
-  - {fileID: 114356987577308812}
+  - {fileID: 114420693817656990}
+  - {fileID: 114332564990446926}
+  - {fileID: 114803921760208986}
+  - {fileID: 114346024994135660}
+  - {fileID: 114567545625201204}
+  - {fileID: 114920899888484850}
+  - {fileID: 114472610502361876}
   newNodeOffset: {x: 250, y: 0}
---- !u!114 &114186558088303830
+--- !u!114 &114332564990446926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33,22 +31,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 3e9aa306-c5c2-4834-96cf-675a4eec316a
+  m_Name: d6c9119a-afa7-4bf4-b4c3-80e88cb9cc36
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 1
-  text: ??? I've lived here all my life!
+  text: Sure thing.
   children:
-  - 31ba5c10-a4ae-496c-a204-93016d5320ce
+  - c9d7af44-0fe1-43a7-b551-4ebda11c08a6
   rect:
     serializedVersion: 2
-    x: 313
-    y: 52
+    x: 260
+    y: 10
     width: 200
     height: 100
-  onEnterActions:
-  - TestSelectDialogue
+  onEnterActions: []
   onExitActions: []
---- !u!114 &114192199039608028
+--- !u!114 &114346024994135660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,118 +55,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: b5dccca4-e300-44e2-8a6f-318ffdb24493
+  m_Name: c9d7af44-0fe1-43a7-b551-4ebda11c08a6
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: Vada Vada, eh? Don't care.
+  text: He's at the edge of town! Hurry!
   children: []
   rect:
     serializedVersion: 2
-    x: 584
-    y: 297
-    width: 200
-    height: 100
-  onEnterActions: []
-  onExitActions: []
---- !u!114 &114200296041693100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 3faad572-a4ab-4076-9909-12a6e63f1c26
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: You don't look like you're from around here.
-  children:
-  - 9d8ddec6-dafc-4149-a7e5-b496002d0723
-  - 3e9aa306-c5c2-4834-96cf-675a4eec316a
-  rect:
-    serializedVersion: 2
-    x: 62
-    y: 162
-    width: 200
-    height: 100
-  onEnterActions:
-  - TestEnterDialogue
-  onExitActions: []
---- !u!114 &114277271404887836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 9194c3a2-5f61-4c85-bbdc-21d26a9d6c81
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: DUMBASS YOU FELL FOR THE OLDEST TRICK IN THE BOOK. YURI TARDED BITCH!!!
-  children:
-  - 63571431-c49c-46d6-b53e-06960ec76106
-  rect:
-    serializedVersion: 2
-    x: 1155
-    y: 117
-    width: 200
-    height: 100
-  onEnterActions: []
-  onExitActions: []
---- !u!114 &114337192291983296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 9d8ddec6-dafc-4149-a7e5-b496002d0723
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Yeah, I came in from Vada Vada.
-  children:
-  - b5dccca4-e300-44e2-8a6f-318ffdb24493
-  rect:
-    serializedVersion: 2
-    x: 306
-    y: 204
-    width: 200
-    height: 100
-  onEnterActions: []
-  onExitActions: []
---- !u!114 &114356987577308812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 63571431-c49c-46d6-b53e-06960ec76106
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: Now, GET OUT OF HERE.
-  children: []
-  rect:
-    serializedVersion: 2
-    x: 1405
-    y: 117
+    x: 510
+    y: 9
     width: 200
     height: 100
   onEnterActions: []
   onExitActions:
-  - TestExitDialogue
---- !u!114 &114379533040985796
+  - GiveQuest
+--- !u!114 &114420693817656990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,65 +79,113 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 96e167f6-34e6-495f-894d-6e47b9bdcd4f
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Who's Yuri?
-  children:
-  - 9194c3a2-5f61-4c85-bbdc-21d26a9d6c81
-  rect:
-    serializedVersion: 2
-    x: 847
-    y: 181
-    width: 200
-    height: 100
-  onEnterActions: []
-  onExitActions: []
---- !u!114 &114755211785168008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 10b51d5e-3046-4757-b50f-4da1dbfb9f22
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: Oh, yeah. Yuri is a good friend.
-  children:
-  - 9194c3a2-5f61-4c85-bbdc-21d26a9d6c81
-  rect:
-    serializedVersion: 2
-    x: 869
-    y: 22
-    width: 200
-    height: 100
-  onEnterActions: []
-  onExitActions: []
---- !u!114 &114875216700422092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
-  m_Name: 31ba5c10-a4ae-496c-a204-93016d5320ce
+  m_Name: ca7a1d06-3157-4c6f-ac52-9319abf6997c
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: Oh really? Then, you must know Yuri.
+  text: Hey! That orc and his gang of goblins have been terrorizing the village! Can
+    you slay him?
   children:
-  - 10b51d5e-3046-4757-b50f-4da1dbfb9f22
-  - 96e167f6-34e6-495f-894d-6e47b9bdcd4f
+  - d6c9119a-afa7-4bf4-b4c3-80e88cb9cc36
+  - ffa7860f-4629-440d-9366-8ce02e6e6a8d
+  - 06781ad6-89bb-4a72-ada4-59b4d0df06eb
   rect:
     serializedVersion: 2
-    x: 559
-    y: 68
+    x: 10
+    y: 10
+    width: 200
+    height: 100
+  onEnterActions: []
+  onExitActions: []
+--- !u!114 &114472610502361876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: e0503999-0370-4ce2-8a8a-b807490beca4
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Oops, bad memory.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 511
+    y: 222
+    width: 200
+    height: 100
+  onEnterActions: []
+  onExitActions: []
+--- !u!114 &114567545625201204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: 827a8c18-8f94-44a6-8b9b-6b875dd77092
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: '*cries uncontrollably*'
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 511
+    y: 118
+    width: 200
+    height: 100
+  onEnterActions: []
+  onExitActions: []
+--- !u!114 &114803921760208986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: ffa7860f-4629-440d-9366-8ce02e6e6a8d
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: No thanks.
+  children:
+  - 827a8c18-8f94-44a6-8b9b-6b875dd77092
+  rect:
+    serializedVersion: 2
+    x: 261
+    y: 118
+    width: 200
+    height: 100
+  onEnterActions: []
+  onExitActions: []
+--- !u!114 &114920899888484850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc874e46f091f429015c71988ffa64, type: 3}
+  m_Name: 06781ad6-89bb-4a72-ada4-59b4d0df06eb
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I'm working on it.
+  children:
+  - e0503999-0370-4ce2-8a8a-b807490beca4
+  rect:
+    serializedVersion: 2
+    x: 261
+    y: 222
     width: 200
     height: 100
   onEnterActions: []

@@ -56,4 +56,9 @@ public abstract class InventoryItem : ScriptableObject
         pickup.transform.position = position;
         return pickup;
     }
+
+    public string GetDisplayName()
+    {
+        return _displayName;
+    }
 }

@@ -7,31 +7,18 @@ namespace RPG.Questing
 {
     public class QuestCompletion : MonoBehaviour
     {
-        [SerializeField] protected string questIdToComplete;
+        [SerializeField] protected string objective;
 
-        Quest questToComplete;
-
-        Journal journal;
-
+        [SerializeField] Quest questToComplete;
         // Start is called before the first frame update
         void Start()
         {
-            journal = FindObjectOfType<Journal>();
-            questToComplete = journal.GetQuestById(questIdToComplete);
         }
 
-        protected bool IsActive()
+        public void CompleteObjective()
         {
-            return journal.IsActiveQuest(questToComplete);
-        }
-
-        protected void CompleteQuest()
-        {
-            if(IsActive())
-            {
-                journal.CompleteQuest(questToComplete);
-                EarnReward();
-            }
+            QuestList questList = GameObject.FindGameObjectWithTag("Player").GetComponent<QuestList>();
+            questList.CompleteObjective(questToComplete, objective);
         }
 
         private void EarnReward()

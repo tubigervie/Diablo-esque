@@ -3973,8 +3973,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e721f66611c58d4ab7e8a6112333c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: {fileID: 11400000, guid: 380b9c8c7cfb87f46861e60cb2933401, type: 2}
+  dialogue: {fileID: 11400000, guid: d9ad088116f972343b9646385d762c9a, type: 2}
   conversantName: Ervster
+--- !u!114 &1278782927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278782925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6227bc3b2f6014d981842866ccc5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: GiveQuest
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1278782929}
+        m_MethodName: GiveQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1278782928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278782925}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 096de55028cb8ac4ea4912f1786c6cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objective: a
+  questToComplete: {fileID: 11400000, guid: 060e32514ba8d414fa6b6841af98e85d, type: 2}
+--- !u!114 &1278782929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278782925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d41ef91c5d9974ca62ecc0ed393379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest: {fileID: 11400000, guid: d997383bf8a9c204b878466ede0a4b83, type: 2}
 --- !u!1001 &1282290225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4417,7 +4473,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356385033}
-  m_LocalRotation: {x: 0.2174111, y: -0.5579284, z: 0.15434678, w: 0.7858915}
+  m_LocalRotation: {x: 0.2174111, y: -0.5579283, z: 0.15434676, w: 0.78589153}
   m_LocalPosition: {x: -4.891342, y: 5.5371246, z: -14.571481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9538,7 +9594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d41ef91c5d9974ca62ecc0ed393379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quest: {fileID: 11400000, guid: 87b37bada27f3a44c8282fc35ca2f2eb, type: 2}
+  quest: {fileID: 11400000, guid: 060e32514ba8d414fa6b6841af98e85d, type: 2}
 --- !u!114 &2054488964
 MonoBehaviour:
   m_ObjectHideFlags: 0

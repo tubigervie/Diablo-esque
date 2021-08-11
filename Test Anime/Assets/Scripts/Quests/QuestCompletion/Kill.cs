@@ -13,13 +13,11 @@ namespace RPG.Questing
         private void OnEnable()
         {
             var health = GetComponent<Health>();
-            health.onDie += CompleteQuest;
         }
 
         private void OnDisable()
         {
             var health = GetComponent<Health>();
-            health.onDie -= CompleteQuest;
         }
 
     }

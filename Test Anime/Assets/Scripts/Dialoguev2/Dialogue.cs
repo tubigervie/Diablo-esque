@@ -116,21 +116,21 @@ namespace RPG.Dialogue2
 
         public void OnBeforeSerialize()
         {
-            //if (nodes.Count == 0)
-            //{
-            //    DialogueNode newChild = MakeNode(null);
-            //    AddNode(newChild);
-            //}
+            if (nodes.Count == 0)
+            {
+                DialogueNode newChild = MakeNode(null);
+                AddNode(newChild);
+            }
 
-            //string assetPath = AssetDatabase.GetAssetPath(this);
-            //if (!String.IsNullOrEmpty(assetPath))
-            //{
-            //    foreach(DialogueNode node in GetAllNodes())
-            //    {
-            //        if(AssetDatabase.GetAssetPath(node) == "")
-            //            AssetDatabase.AddObjectToAsset(node, this);
-            //    }
-            //}
+            string assetPath = AssetDatabase.GetAssetPath(this);
+            if (!String.IsNullOrEmpty(assetPath))
+            {
+                foreach (DialogueNode node in GetAllNodes())
+                {
+                    if (AssetDatabase.GetAssetPath(node) == "")
+                        AssetDatabase.AddObjectToAsset(node, this);
+                }
+            }
 #endif 
         }
 
